@@ -25,12 +25,12 @@ it("production service starts, rejects duplicate directory/port, reports missing
     });
   const origin = "http://127.0.0.1:17426";
   try {
-    expect((await cli("start")).stdout).toContain("已启动");
+    expect((await cli("start")).stdout).toContain("Started");
     const info = JSON.parse(
       readFileSync(join(home, "runtime/instance.json"), "utf8"),
     );
-    expect((await cli("start")).stdout).toContain("已在运行");
-    expect((await cli("status")).stdout).toContain("运行中");
+    expect((await cli("start")).stdout).toContain("already running");
+    expect((await cli("status")).stdout).toContain("Running");
     await expect(
       exec(process.execPath, ["dist/server/main.js"], { env, timeout: 5000 }),
     ).rejects.toMatchObject({ code: 1 });

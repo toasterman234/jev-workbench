@@ -8,16 +8,16 @@ Move settings to the same workspace destination pattern as Connections. Inside t
 
 ## Current behavior
 
-- Left rail and topbar open `Drawer` titled 设置.
+- Left rail and topbar open a `Drawer` titled Settings.
 - One scrollable stack; execution limits hidden in `<details>`.
 
 ## Scope
 
 - Settings is a workspace view (`view: settings`), not a drawer.
-- Left rail 设置 and the topbar provider/status control open this view and mark the rail item active. Selecting a function returns to the editor (same as Connections).
+- The rail's Settings entry and the topbar provider/status control open this view and mark the rail item active. Selecting a function returns to the editor (same as Connections).
 - Inner split:
-  - Left: TypeSafe, 本机服务, 备份与导出.
-  - Right: section title, one-line description, `config-sheet` rows (label/copy left, control right).
+  - Left: TypeSafe, Local service, Backup and export.
+  - Right: section title, one-line description, `sheet` rows (label/copy left, control right).
 - Same APIs: `PUT /provider`, `POST /provider/test`, `PATCH /settings`, `GET /export`, `POST /backup`. No new settings.
 - Desktop: split fills the right pane; nav is fixed, body scrolls if needed. ≤700px: nav becomes a horizontal row, content stacks below.
 - Default UI language English; new copy must keep unique English strings.
@@ -30,7 +30,7 @@ Move settings to the same workspace destination pattern as Connections. Inside t
 
 ## Acceptance
 
-- Opening 设置 shows the split page, defaulting to TypeSafe.
+- Opening Settings shows the split page, defaulting to TypeSafe.
 - Switching the left item changes only the right pane; values already typed stay in component state.
 - Key save, list models, limits save, export, and backup still work.
 - Drawer is no longer used for settings.

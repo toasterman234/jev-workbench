@@ -1,69 +1,73 @@
-# 验收记录 · 2026-09-18
+# Acceptance record · 2026-09-18
 
-本轮完成等级：**功能可用（含真实 TypeSafe）**。2026-09-18 已用正式服务 Key 跑通配置→试跑→发布→HTTP 调用，以及官方 `/v1/systemone`。Agent 运行端提供可选的官方 TypeSafe skill 安装/卸载（确认前不写配置）；测试使用假 `npx`，不改本机 Claude/Codex。
+Completion level this round: **functional, with real TypeSafe**. On 2026-09-18 a production service key was used to run configure → preview → publish → HTTP call, plus the official `/v1/systemone`. Agent runtimes offer optional install/uninstall of the official TypeSafe skill, and write nothing before confirmation; tests use a fake `npx` and never touch the local Claude or Codex setup.
 
-## 环境与结果
+## Environment and results
 
-macOS ARM64，Node v24.14.0，pnpm 11.9.0，better-sqlite3 12.11.1，MCP SDK 1.30.0；Chromium 153（Playwright 1.63）。
+macOS ARM64, Node v24.14.0, pnpm 11.9.0, better-sqlite3 12.11.1, MCP SDK 1.30.0; Chromium 153 (Playwright 1.63).
 
-- `pnpm typecheck`：通过。
-- `pnpm build`：通过，同源SPA、服务、MCP桥、完整Pi扩展包均生成；编辑器拆成独立chunk。
-- `pnpm test`：31 项通过（含官方公开示例合同、官方入口授权隔离、归档/删除、MCP/Pi 同合同）。
-- `pnpm test:e2e`：1条完整双语浏览器故事通过：创建Choice→试跑→保存样例→发布→未保存编辑→切换创建Noul/Score→英文编辑试跑→返回原函数保留草稿→固定授权HTTP调用→清除Token→归档/恢复→移入回收站/恢复/永久删除→搜索→手机→语言刷新持久化；无页面JS错误。
-- 1440/1024截图核验；390px可读、无文档水平溢出。独立视觉review发现窄屏试跑分组和手机授权行两处问题，均已修复并复核resolved。截图在`.impeccable/review`。
+- `pnpm typecheck`: pass.
+- `pnpm build`: pass — same-origin SPA, service, MCP bridge, and the complete Pi extension package are all produced; the editor is split into its own chunk.
+- `pnpm test`: 33 pass, covering the official public-example contract, official-entry grant isolation, archive/delete, and the shared HTTP/MCP/Pi contract.
+- `pnpm test:e2e`: one complete bilingual browser story passes — create Choice → preview → save a case → publish → leave an unsaved edit → create Noul and Score → edit and preview in English → return to the first function with its draft intact → pinned-grant HTTP call → token cleared → archive/restore → trash/restore/permanent delete → search → phone width → language survives reload. No page JS errors.
+- Layout verified at 1440 and 1024 with no vertical page scroll, and at 390 with no horizontal document overflow. An independent visual review found two problems — the narrow-width preview grouping and the phone grant row — both fixed and re-reviewed as resolved. Screenshots are in `.impeccable/review`.
 
-## 按规格验收矩阵
+## Acceptance matrix against the spec
 
-| 规格范围 | 状态 | 证据及边界 |
+| Scope | Status | Evidence and boundary |
 |---|---|---|
-| string/number/boolean/string[]输入、未知字段拒绝、无隐式转换 | 通过 | engine测试；表单及有限JSON Schema子集 |
-| Noul、Choice、Score / any、all / 区间端点 / null复核输出 | 通过 | engine生产路径测试，明确概率不是正确率 |
-| 缺失路径、危险路径、枚举映射不完整、模型不匹配、损坏答案 | 通过 | 发布/执行合同拒绝错误，不转默认分类 |
-| 配置→试跑→发布→调用 | 通过（模拟） | 浏览器E2E + 演示服务实际HTTP调用 |
-| revision冲突、旧版本不可变、v2不影响固定v1、回退 | 通过 | integration测试含DB最终状态和后续调用 |
-| Token缺失、越权、撤销、列表隔离、admin隔离 | 通过 | integration测试；授权默认固定版，可显式跟随默认 |
-| Host、Origin、会话、CSRF、一次性bootstrap | 通过 | integration测试；启动URL使用fragment，浏览器移除；重启会话失效 |
-| 密钥加密、权限、runs不存正文、客户端Token仅哈希 | 通过 | 文件/DB实际检查，AES-GCM roundtrip；明确保存的样例除外 |
-| 429/529有限重试、401/422与网络错误分类、并发排队与取消 | 通过（合同） | Provider和Gate测试；deadline贯穿网络等待；尚非云端压测 |
-| 保存样例、运行断言、删除后状态 | 通过 | 持久化和断言测试；故意错误样例运行时预计失败 |
-| HTTP/MCP/Pi共享同一版本与结果合同 | 通过（fixture） | SDK真实stdio子进程 + HTTP + Pi registerTool执行，撤销及离线后行为 |
-| MCP离线仍注册工具、调用报不可用 | 通过 | 实际停止测试后台后SDK工具调用 |
-| OpenCode JSONC保留注释、其他MCP、预览冲突、撤销保留后续修改 | 通过 | 临时目录含空格，真实文件读写及最终内容检查 |
-| Pi安装/移除与工具转发 | 通过（文件与合同） | 生成加载文件、完整dist扩展包；未运行Pi CLI |
-| Claude项目安装/撤销 | 通过（实际CLI） | Claude Code 2.1.206，隔离临时项目，保留已有与后增MCP；未发模型消息 |
-| Codex用户配置安装、Claude用户范围 | 未运行 | 已核验本机CLI版本/命令参数；未改用户真实Agent配置 |
-| OpenCode/Pi实际运行端自动加载 | 未运行 | 本机未安装两个CLI |
-| 启停、重复启动、端口冲突、实例验证、重启恢复 | 通过 | 生命周期测试启动真实构建进程；不向未经验证PID发送kill |
-| 缺Key正式启动与试跑 | 通过 | UI可编辑，Provider返回503 PROVIDER_NOT_CONFIGURED，不fallback |
-| 离线演示与正式发布隔离 | 通过 | 独立端口/目录、常驻横幅；生产重新打开含fixture记录的库仍拒绝以其发布 |
-| 官方 `/v1/systemone` 与 `/v1/models` 授权隔离 | 通过（fixture） | 无授权403、演示409、缺Key 503；问答正文不入库 |
-| 公开 TypeSafe 文档中的 Noul/Choice/Score 答案形状 | 通过（无 Key） | `tests/official-contract.test.ts` 使用 2026-09-17 文档完整示例；Score 校验 Σ i·P(i) |
-| GET `/v1/models` HTTP 形状 | 通过（mock transport） | 固定 `https://api.typesafe.ai/v1/models`，GET 不带 Content-Type |
-| 真实TypeSafe与四个实际Agent的推理 | 部分通过（2026-09-18 真 Key） | 正式 17420：`GET /v1/models` 返回 `jev-latest`/`jev-preview` 别名；请求 `jev-1.13.0` 时响应 `model` 原样为 `jev-1.13.0`。函数试跑扣款工单 `ok/billing`，模糊工单 `needs_review/unclassified`；发布 v1 后客户端 invoke 同样 `ok/billing`，`simulated=false`。官方 `POST /v1/systemone` Noul 返回 `0.98` 且带 usage。四个 Agent 运行端仍未做真实工具推理。 |
-| 业务准确率校准、macOS x64/Windows/Linux发布 | 未运行 | 不属于本机模拟通过能证明的结果 |
+| string / number / boolean / string[] input, unknown fields rejected, no implicit coercion | pass | engine tests; forms plus a limited JSON Schema subset |
+| Noul, Choice, Score / any, all / interval endpoints / null review output | pass | engine production-path tests; probability is explicitly not accuracy |
+| Missing path, dangerous path, incomplete enum map, model mismatch, corrupt answer | pass | publish and execution contracts reject the error instead of falling back to a default category |
+| configure → preview → publish → call | pass (simulated) | browser e2e plus a real HTTP call against the demo service |
+| Revision conflict, old version immutable, v2 does not affect a pinned v1, rollback | pass | integration tests assert final DB state and the following call |
+| Missing token, over-scope, revocation, list isolation, admin isolation | pass | integration tests; a grant pins a version by default and can explicitly follow the default |
+| Host, Origin, session, CSRF, one-time bootstrap | pass | integration tests; the launch URL uses a fragment that the browser strips, and a restart invalidates sessions |
+| Key encryption, file permissions, runs store no bodies, client tokens hashed only | pass | real file and DB inspection, AES-GCM round-trip; explicitly saved cases are the documented exception |
+| 429/529 bounded retry, 401/422 and network error classification, concurrency queue and cancel | pass (contract) | provider and gate tests; the deadline spans the network wait. Not yet a cloud load test |
+| Saved cases, assertion runs, state after delete | pass | persistence and assertion tests; a deliberately wrong case is expected to fail at run time |
+| HTTP / MCP / Pi share one version and result contract | pass (fixture) | real stdio subprocess through the SDK, plus HTTP and Pi `registerTool`; behaviour after revoke and offline |
+| MCP still registers tools while offline and reports unavailable on call | pass | tools called through the SDK after actually stopping the backend |
+| OpenCode JSONC keeps comments, other MCP servers, preview conflicts, revoke keeps later edits | pass | temporary directories containing spaces, real file I/O, final content checked |
+| Pi install/remove and tool forwarding | pass (files and contract) | loader file and the complete dist extension package generated; the Pi CLI was not run |
+| Claude project install/revoke | pass (real CLI) | Claude Code 2.1.206 in an isolated temporary project; existing and later-added MCP entries preserved; no model message sent |
+| Codex user-scope install, Claude user scope | not run | CLI version and command arguments verified; the user's real agent config was not modified |
+| OpenCode / Pi actually loading in their runtimes | not run | neither CLI is installed on this machine |
+| Start/stop, double start, port conflict, instance validation, restart recovery | pass | lifecycle tests launch the real built process; no kill is sent to an unverified PID |
+| Production start and preview without a key | pass | the UI stays editable, the provider returns 503 `PROVIDER_NOT_CONFIGURED`, and nothing falls back |
+| Offline demo isolated from production publishing | pass | separate port and directory, permanent banner; reopening a fixture-tainted database in production still refuses to publish from it |
+| Official `/v1/systemone` and `/v1/models` grant isolation | pass (fixture) | 403 without the grant, 409 in demo, 503 without a key; question bodies are never stored |
+| Noul / Choice / Score answer shapes from the public TypeSafe docs | pass (no key) | `tests/official-contract.test.ts` uses the complete 2026-09-17 documentation examples; Score is checked as Σ i·P(i) |
+| `GET /v1/models` HTTP shape | pass (mock transport) | fixed to `https://api.typesafe.ai/v1/models`, GET sent without Content-Type |
+| Real TypeSafe inference and real agent runtimes | partial (2026-09-18, real key) | Production 17420: `GET /v1/models` returned the `jev-latest` / `jev-preview` aliases; requesting `jev-1.13.0` echoed `model` back unchanged. A duplicate-charge ticket previewed `ok/billing` and an ambiguous one `needs_review/unclassified`; after publishing v1 a client invoke returned the same `ok/billing` with `simulated=false`. Official `POST /v1/systemone` returned Noul `0.98` with usage. No agent runtime has yet made a real tool call |
+| Business accuracy calibration, macOS x64 / Windows / Linux distribution | not run | not something a local simulated pass can demonstrate |
 
-## 本次左右工作台追加验证
+## Added for the left/right workbench
 
-正式React界面已替换旧导航/列表页，左列表右内容，高级与接入原位展开。截图在`.playwright`。新增数据库v2迁移保留旧函数与样例；回收站可恢复并阻断业务调用，从Agent列表隐藏。永久删除仅允许回收站内函数，API事务清理该函数的versions/test cases/grants/runs，运行中拒绝且CSRF仍生效；其他函数和客户端保留。归档/恢复通过真实调用前后行为验证。三种原语的结果展示来自实际执行引擎返回，模拟状态明确。
+The production React interface replaced the old navigation and list pages: directory on the left, content on the right, advanced config and connections expanding in place. Screenshots are in `.playwright`. A v2 database migration preserves existing functions and cases. Trash can be restored, blocks business calls, and hides the function from agent lists. Permanent delete is allowed only from Trash; the API clears that function's versions, test cases, grants, and runs in one transaction, refuses while a call is running, and still enforces CSRF. Other functions and clients are untouched. Archive and restore were verified by real call behaviour before and after. All three primitive result views come from real execution-engine output, with simulated status stated plainly.
 
-中文/English覆盖主要表单、状态、新增/删除/接入与错误摘要。用户创作的配置、样例、历史文本不自动翻译，底层字段诊断保留原始信息。英文文档见 README.md；中文见 [README.zh.md](README.zh.md)。
+中文 and English cover the main forms, statuses, create/delete/connect flows, and error summaries. Configuration, cases, and history text the user wrote are never auto-translated, and field-level diagnostics keep their original wording. English docs are in README.md; Chinese in [README.zh.md](README.zh.md).
 
-## 当前可复现演示
+## Added for the DropAgent visual rebuild
 
-`pnpm demo`启动17430。预置工单分流v1与四个样例。
+The front end was rebuilt against the contract in [specs/dropagent-visual/spec.md](specs/dropagent-visual/spec.md): shared palette, reorganised shell, dark default with a light toggle, and per-column scrolling in the editor. Verified by the unchanged e2e story — including its 1440 / 1024 no-page-scroll and 390 no-horizontal-overflow assertions — plus a manual check that expanding advanced config scrolls only its own column, and that both themes render the whole app including the JSON editor. Tailwind was removed; the built CSS is byte-identical without it, which confirms no utility class was in use.
+
+## Reproducible demo
+
+`pnpm demo` starts on 17430 with a seeded ticket-routing v1 and four saved cases.
 
 ```sh
 pnpm demo:call
-pnpm demo:call '情况不清楚，需要复核'
-pnpm demo:call '模拟错误'
-pnpm demo:call '模拟超时'
+pnpm demo:call 'unclear, needs review'
+pnpm demo:call 'simulate error'
+pnpm demo:call 'simulate timeout'
 ```
 
-前两条已得到 `ok/billing`、`needs_review/null`；后两条已得到502/504错误合同，脚本按预期退出1。模拟返回标记`meta.simulated=true`，不声称实际使用了模型。请求耗时是本机真实经历的模拟时间，不是模型性能。
+The first two return `ok/billing` and `needs_review/null`; the last two return the 502 and 504 error contracts and the script exits 1 as expected. Simulated responses are marked `meta.simulated=true` and never claim a model was used. The reported duration is real local time spent simulating, not model performance.
 
-## 当前限制
+## Current limits
 
-- Codex CLI用户范围可自动配置；项目范围没有对应CLI参数，只准备手动接入说明，不写错范围。
-- 未知Claude/Codex版本只给命令与凭证准备，不自动修改配置。
-- 服务升级需保留整个源项目及依赖，尚未做跨平台安装包/签名分发。
-- 只有连接初始化测试时，不把状态显示为目标Agent已加载或模型调用成功。
+- The Codex CLI can be configured automatically at user scope. It has no equivalent project-scope argument, so the product only prepares manual instructions rather than writing to the wrong scope.
+- For unrecognised Claude or Codex versions the product prepares the command and credential only, and does not modify the config.
+- Upgrading requires keeping the whole source project and its dependencies; there is no cross-platform installer or signed distribution yet.
+- When only the connection initialisation has been tested, status never claims the target agent has loaded or that a model call succeeded.

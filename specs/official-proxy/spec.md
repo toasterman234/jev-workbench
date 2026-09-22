@@ -1,60 +1,67 @@
-# 官方 Jev 调用入口
+# Official Jev call entry
 
-## 背景与目标
-现有 `POST /v1/functions/:key/invoke` 只接受已发布函数的业务 `input`。用户需要另一条入口：本机服务保管 TypeSafe Key，调用方用客户端 Token，按官方合同传 `{model,state,questions}`，由 Workbench 转发到 TypeSafe。
+## Background and goal
 
-完成等级：功能可用。无 Key 时正式服务返回 `PROVIDER_NOT_CONFIGURED`；本轮不要求真实云端往返。
+`POST /v1/functions/:key/invoke` only accepts the business `input` of a published function. The user needs a second entry: the local service keeps the TypeSafe key, the caller authenticates with a client token, sends `{model, state, questions}` per the official contract, and the workbench forwards it to TypeSafe.
 
-## 范围
-- 正式服务新增 `POST /v1/systemone`、`GET /v1/models`。
-- 客户端增加显式能力 `official_invoke`，默认关闭。仅勾选后的 Token 可走这两条路由。
-- 上游地址固定 `https://api.typesafe.ai`，调用方不能改。
-- 判断函数、发布、函数授权、MCP/Pi 工具合同不变。
-- 演示模式（`JEV_MODE=demo`）拒绝这两条路由，避免把模拟写成官方成功。
+Completion level: functional. Without a key the production service returns `PROVIDER_NOT_CONFIGURED`; a real cloud round trip is not required this round.
 
-## 非目标
-- 不开放自定义上游、不接收调用方自己的 TypeSafe Key。
-- 不把官方透传混进 `/v1/functions/:key/invoke`。
-- 不为 MCP/Pi 增加 raw 工具。
-- 不把原始 state/questions/answers 写入 runs、日志或 Git。
+## Scope
 
-## 调用合同
-`POST /v1/systemone`，Bearer 客户端 Token。
+- Production gains `POST /v1/systemone` and `GET /v1/models`.
+- Clients gain an explicit `official_invoke` capability, off by default. Only a token with it set may use these two routes.
+- The upstream address is fixed to `https://api.typesafe.ai`; callers cannot change it.
+- Judgment functions, publishing, function grants, and the MCP/Pi tool contract are unchanged.
+- Demo mode (`JEV_MODE=demo`) refuses both routes, so a simulation is never recorded as an official success.
+
+## Non-goals
+
+- No custom upstream, and no accepting the caller's own TypeSafe key.
+- No mixing official pass-through into `/v1/functions/:key/invoke`.
+- No raw tool for MCP or Pi.
+- Never write raw state, questions, or answers to runs, logs, or Git.
+
+## Call contract
+
+`POST /v1/systemone`, bearer client token.
 
 ```json
 {
   "model": "jev-1.13.0",
-  "state": "我的订单被重复扣款，请协助退款。",
+  "state": "Please refund the duplicate charge.",
   "questions": {
     "is_billing": {
       "type": "noul",
-      "instructions": "这是账单或退款问题吗？"
+      "instructions": "Is this a billing or refund question?"
     }
   }
 }
 ```
 
-成功时原样返回官方 `{model,answers,usage}`。响应头带 `x-request-id`。错误仍为本产品 `{error:{code,message},meta}`，供应商 401 不得变成 `INVALID_CLIENT_TOKEN`。
+On success the official `{model, answers, usage}` is returned verbatim, with an `x-request-id` response header. Errors keep this product's `{error:{code,message}, meta}` shape; an upstream 401 must never be reported as `INVALID_CLIENT_TOKEN`.
 
-`GET /v1/models` 同样要求 `official_invoke`，转发官方模型列表。
+`GET /v1/models` requires the same `official_invoke` capability and forwards the official model list.
 
-## 授权与隔离
-- 创建/编辑客户端时可开关 `official_invoke`；与函数授权独立，允许只开官方入口、不开任何函数。
-- 未授权：403 `OFFICIAL_INVOKE_FORBIDDEN`。
-- 撤销 Token 后两条路由 401。
-- 客户端 Token 仍不能访问 `/api/admin`。
-- 旧数据库迁移补列，默认 0，不重置已有客户端。
+## Grants and isolation
 
-## 记录
-runs 可记 request_id、client_id、模型、usage、耗时、错误码、`diagnostic_meta.official=true`。function_id/version 为空。不存问答正文。
+- `official_invoke` can be toggled when creating or editing a client. It is independent of function grants, so a token may have the official entry and no functions at all.
+- Not granted: 403 `OFFICIAL_INVOKE_FORBIDDEN`.
+- After the token is revoked both routes return 401.
+- A client token still cannot reach `/api/admin`.
+- The migration adds the column to existing databases with a default of 0 and does not reset existing clients.
 
-并发/超时沿用 Invoker 的 Gate 与 30s 预算。
+## Records
 
-## 验收
-- 无标志 Token 调 `/v1/systemone` 和 `/v1/models` 为 403；有标志 + fixture 返回官方 answers 形状，且不写入问答正文。
-- 函数 invoke 不受影响；空函数授权但 `official_invoke=true` 仍可调官方入口。
-- 演示模式 409 `DEMO_MODE`；缺 Key 的正式 Provider 为 503 `PROVIDER_NOT_CONFIGURED`。
-- 迁移保留已有客户端，`official_invoke=0`。
-- 管理页创建凭证可勾选该能力；英文文案存在。
+Runs may record request_id, client_id, model, usage, duration, error code, and `diagnostic_meta.official=true`. function_id and version are empty. Question and answer bodies are never stored.
 
-验证：`pnpm typecheck`；`pnpm test`；`pnpm test:e2e`（现有故事不因默认关闭而失败）。
+Concurrency and timeouts reuse the Invoker's gate and its 30s budget.
+
+## Acceptance
+
+- A token without the flag gets 403 from `/v1/systemone` and `/v1/models`; with the flag and a fixture it returns the official answers shape and stores no bodies.
+- Function invoke is unaffected; a client with no function grants but `official_invoke=true` can still use the official entry.
+- Demo mode returns 409 `DEMO_MODE`; a production provider with no key returns 503 `PROVIDER_NOT_CONFIGURED`.
+- The migration preserves existing clients with `official_invoke=0`.
+- The admin page can set the capability when creating a credential, and the English copy exists.
+
+Verify: `pnpm typecheck`; `pnpm test`; `pnpm test:e2e` (the existing story must not break because the flag defaults off).

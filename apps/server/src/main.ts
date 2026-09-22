@@ -28,7 +28,7 @@ try {
   mkdirSync(lock, { mode: 0o700 });
 } catch {
   console.error(
-    "此数据目录已有服务锁。运行 pnpm jev service status 检查；异常退出后使用 pnpm jev service recover。",
+    "This data directory is already locked by a service. Run pnpm jev service status to check; after a crash, run pnpm jev service recover.",
   );
   process.exit(1);
 }
@@ -68,13 +68,15 @@ try {
     join(home, "runtime/instance.json"),
     JSON.stringify({ instance, pid: process.pid, port, controlToken }),
   );
-  console.log(`Jev Workbench: http://127.0.0.1:${port} · 本地管理 / 云端推理`);
+  console.log(
+    `Jev Workbench: http://127.0.0.1:${port} · local control / cloud inference`,
+  );
   if (!process.env.JEV_NO_OPEN) {
     const url = state.origin + "/#bootstrap=" + state.sessions.bootstrap();
     spawn(process.platform === "darwin" ? "open" : "xdg-open", [url], {
       stdio: "ignore",
     }).on("error", () =>
-      console.error("无法打开浏览器。请运行 pnpm jev service open。"),
+      console.error("Could not open a browser. Run pnpm jev service open."),
     );
   }
   process.on("SIGINT", shutdown);
@@ -86,8 +88,8 @@ try {
   rmSync(lock, { recursive: true, force: true });
   console.error(
     e.code === "EADDRINUSE"
-      ? `端口 ${port} 已被占用。请停止占用服务或设置 JEV_PORT 后重启，并更新客户端连接。`
-      : "启动失败：" + e.message,
+      ? `Port ${port} is already in use. Stop the other service or set JEV_PORT and restart, then update your client connections.`
+      : "Startup failed: " + e.message,
   );
   process.exit(1);
 }

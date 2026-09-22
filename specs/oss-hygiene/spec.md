@@ -1,16 +1,19 @@
-# 开源标准整理与无 Key 合同核验
+# Open-source hygiene and a no-key contract check
 
-## 目标
-按常见开源仓库标准整理本仓库，并用 TypeSafe 公开文档核验调用逻辑。没有 Jev API Key，不把模拟或文档对照写成云端已通。
+## Goal
 
-## 范围
-- 增加 LICENSE、SECURITY.md、CONTRIBUTING.md、CHANGELOG.md；README 去掉本机口述、补仓库/许可证/两条 API。
-- 删除未使用导入、状态、依赖；GET `/v1/models` 不带无意义的 Content-Type。
-- 按官方文档收紧 Score：`score` 须等于 `Σ i·P(i)`（容差 0.05）。
-- 增加 `tests/official-contract.test.ts`：用公开示例核验官方 body、三种原语答案、Noul 无 confidence、函数路径的 model 回显规则。
-- 更新 VALIDATION.md 测试计数与无 Key 边界。
+Bring the repository up to common open-source standards, and verify the call logic against the public TypeSafe documentation. There is no Jev API key, so neither a simulation nor a documentation comparison may be reported as a passing cloud call.
 
-## 非目标
-- 不接真实 TypeSafe，不改函数/官方两条调用产品边界。
-- 不删除仍可能被 CSS 选择器依赖的旧样式块。
-- 不新增 CI 工作流。
+## Scope
+
+- Add LICENSE, SECURITY.md, CONTRIBUTING.md, CHANGELOG.md. Drop the machine-specific narration from the README and add the repository, licence, and the two API entries.
+- Remove unused imports, state, and dependencies. `GET /v1/models` no longer sends a meaningless Content-Type.
+- Tighten Score against the official docs: `score` must equal `Σ i·P(i)` within a 0.05 tolerance.
+- Add `tests/official-contract.test.ts`: verify the official body, all three primitive answer shapes, Noul having no confidence, and the model echo rule on the function path, using the published examples.
+- Update the test count and the no-key boundary in VALIDATION.md.
+
+## Non-goals
+
+- Do not connect to real TypeSafe, and do not change the product boundary of the function or official call paths.
+- Do not delete old style blocks that CSS selectors may still depend on.
+- Do not add a CI workflow.

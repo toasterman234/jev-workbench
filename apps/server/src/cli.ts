@@ -34,15 +34,15 @@ async function open(i: any) {
     headers: { Authorization: "Bearer " + i.controlToken },
   });
   const b = await r.json();
-  if (!r.ok) throw new Error("无法生成引导页");
+  if (!r.ok) throw new Error("Could not create a bootstrap page");
   spawn(process.platform === "darwin" ? "open" : "xdg-open", [b.url], {
     stdio: "ignore",
-  }).on("error", () => console.error("浏览器启动失败"));
+  }).on("error", () => console.error("Could not start a browser"));
 }
 try {
   if (action === "start") {
     if (await current()) {
-      console.log("Jev Workbench 已在运行");
+      console.log("Jev Workbench is already running");
       process.exit(0);
     }
     mkdirSync(join(home, "logs"), { recursive: true, mode: 0o700 });
@@ -67,24 +67,28 @@ try {
       i = await current();
       if (i) break;
     }
-    if (!i) throw new Error("后台启动失败；查看 " + log);
-    console.log(`已启动 http://127.0.0.1:${i.port}`);
+    if (!i) throw new Error("Background start failed; see " + log);
+    console.log(`Started http://127.0.0.1:${i.port}`);
     if (!process.env.JEV_NO_OPEN) await open(i);
   } else if (action === "status") {
     const i = await current();
     console.log(
       i
-        ? `运行中 · PID ${i.pid} · http://127.0.0.1:${i.port}`
-        : "未运行或实例验证失败",
+        ? `Running · PID ${i.pid} · http://127.0.0.1:${i.port}`
+        : "Not running, or the instance could not be verified",
     );
   } else if (action === "open") {
     const i = await current();
-    if (!i) throw new Error("后台未运行，请先执行 pnpm jev service start");
+    if (!i)
+      throw new Error(
+        "The background service is not running. Run pnpm jev service start first.",
+      );
     await open(i);
-    console.log("已打开管理页");
+    console.log("Opened the admin page");
   } else if (action === "stop") {
     const i = await current();
-    if (!i) throw new Error("无可验证实例；未向任何 PID 发送信号");
+    if (!i)
+      throw new Error("No verifiable instance; no signal was sent to any PID");
     await fetch(`http://127.0.0.1:${i.port}/internal/stop`, {
       method: "POST",
       headers: { Authorization: "Bearer " + i.controlToken },
@@ -93,24 +97,32 @@ try {
       await delay(100);
       if (!(await current())) break;
     }
-    if (await current()) throw new Error("服务尚未停止，请检查状态");
-    console.log("后台已停止");
+    if (await current())
+      throw new Error("The service has not stopped. Check its status.");
+    console.log("Background service stopped");
   } else if (action === "recover") {
-    if (await current()) throw new Error("服务仍在运行，不能清理锁");
+    if (await current())
+      throw new Error(
+        "The service is still running; the lock cannot be cleared",
+      );
     if (existsSync(file)) {
       const i = JSON.parse(readFileSync(file, "utf8"));
       try {
         process.kill(i.pid, 0);
-        throw new Error("原 PID 仍存在，请人工检查进程后恢复");
+        throw new Error(
+          "The recorded PID still exists. Check the process yourself before recovering.",
+        );
       } catch (e: any) {
         if (e.code !== "ESRCH") throw e;
       }
     } else
-      throw new Error("无实例文件，不能判断锁持有者；请检查启动日志和进程");
+      throw new Error(
+        "No instance file, so the lock holder is unknown. Check the startup log and the process list.",
+      );
     rmSync(join(home, "runtime/lock"), { recursive: true, force: true });
     rmSync(file, { force: true });
     console.log(
-      "已清除异常退出实例锁，下一次启动将把遗留调用标记为 interrupted",
+      "Cleared the crashed instance lock. The next start will mark leftover calls interrupted.",
     );
   } else console.log("pnpm jev service start | status | open | stop | recover");
 } catch (e: any) {

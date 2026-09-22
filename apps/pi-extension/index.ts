@@ -29,8 +29,8 @@ export function register(pi: any, path: string) {
       label: name,
       description:
         name === "jev_invoke"
-          ? "调用 Jev 判断函数（TypeSafe 云端推理，可能计费）；needs_review 需要人工复核。"
-          : "发现已授权 Jev 判断函数及输入输出合同。",
+          ? "Call a Jev judgment function. Inference runs in the TypeSafe cloud and may be billed; needs_review requires a human look."
+          : "Discover granted Jev judgment functions and their input/output contracts.",
       parameters: Type.Object(properties),
       async execute(_id: string, args: any, signal?: AbortSignal) {
         const r = await callBackend(c, name, args, signal);

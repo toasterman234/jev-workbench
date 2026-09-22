@@ -25,10 +25,10 @@ for (const [name, inputSchema] of Object.entries(schemas)) {
     {
       description:
         name === "jev_invoke"
-          ? "调用已授权的判断函数。推理在 TypeSafe 云端，可能计费。needs_review 表示完成且需复核，不可当作自动执行权限。"
+          ? "Call a granted judgment function. Inference runs in the TypeSafe cloud and may be billed. needs_review means the judgment completed and needs a human look; it is never permission to act automatically."
           : name === "jev_list_functions"
-            ? "列出当前凭证授权的判断函数和版本。"
-            : "读取判断函数的输入、输出和使用说明。",
+            ? "List the judgment functions and versions this credential may call."
+            : "Read a judgment function's input, output, and usage notes.",
       inputSchema,
     },
     async (args: any, extra: any) => {

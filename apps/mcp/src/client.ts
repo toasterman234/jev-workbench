@@ -60,7 +60,8 @@ export async function callBackend(
       data: {
         error: {
           code: signal?.aborted ? "CANCELLED" : "BACKEND_UNAVAILABLE",
-          message: "请启动 Jev Workbench：pnpm jev service start；然后重试。",
+          message:
+            "Start Jev Workbench with pnpm jev service start, then retry.",
         },
       },
       error: true,

@@ -1,45 +1,57 @@
-# 单页左右工作台 · 正式开发合同
+# Single-page left/right workbench · development contract
 
-## 背景与目标
-用户认为原先页面复杂，三种原语不易发现。已要求并授权：Coss UI风格、左侧函数列表、右侧当前内容、列表状态标签及新增/归档/删除，改完设计后开发。此前独立设计稿在design/single-page；本合同现以正式React实现为交付目标。
+## Background and goal
 
-## 完成等级与边界
-功能可用（离线模拟）；配置、持久化、版本、权限、HTTP/MCP/Pi合同是真实实现，TypeSafe真实推理因用户无Key未联调。保留原有DSL及复杂配置，降低默认展示复杂度。依赖既有Fastify/SQLite/React，无新增运行依赖。
+The user found the original pages complicated and the three primitives hard to discover. They asked for, and authorised: a Coss-UI-style neutral look, a function list on the left, the current item on the right, status tags in the list, and add / archive / delete — design first, then build. An earlier standalone design draft lives in `design/single-page`; this contract makes a production React implementation the deliverable.
 
-## 模块与验证
-main.tsx承载列表/筛选/状态操作与选中内容；FunctionEditor与SimpleDefinition承载草稿缓存、默认表单、原语结果；Connections仍使用既有真实API；Functions.delete事务清理关联数据；服务端本地化保留稳定错误code。
-验证命令：pnpm typecheck、pnpm build、pnpm test、pnpm test:e2e；独立设计稿的node scripts/check-design.mjs仅证明原型，不替代生产测试。
+## Completion level and boundary
 
-## 用户确认后的开发范围（2026-09-18）
-用户要求左侧函数列表、右侧选中内容，列表具备状态标签、新增、归档、删除，并明确“改，改完开发”。本节替代此前等待设计反馈的边界，授权正式开发。
+Functional, offline-simulated. Configuration, persistence, versioning, permissions, and the HTTP/MCP/Pi contracts are real implementations; real TypeSafe inference was not exercised here because the user had no key at the time. The existing DSL and advanced configuration are preserved while the default view gets simpler. Built on the existing Fastify/SQLite/React stack, with no new runtime dependency.
 
-- 左列约280px，搜索与状态筛选，条目展示名称、原语集合、草稿/发布/停用/归档；行菜单执行停用、归档、恢复、删除。新增提供Noul/Choice/Score三种入口。
-- 右列显示选中函数，默认直接编辑名称、问题说明与类型专属标准；输入Schema、输出映射等在高级折叠区，试跑与真实结果同屏。接入与设置均为左侧独立入口、右侧整页；设置页内部再左右分栏（分类 / 配置行）。版本/历史仍用局部抽屉。
-- 切换函数保留当前会话的未保存配置、原始JSON编辑与试跑输入，刷新/关闭提醒；不把业务正文自动存localStorage。
-- 归档继续保留所有版本、样例、授权，但禁止业务调用；恢复保留原启停状态。
-- 删除是新增真实接口，UI明确确认不可恢复，将删除该函数的版本、样例、授权和运行记录。正在执行时拒绝删除，事务清理外键关系，其他函数/客户端/安装记录不受影响；保留不含正文的审计事件。此需求明确替代v1“删除仅归档”约定。
-- 正式Provider、不可变发布、CSRF、固定授权合同保持；不自动改用户Agent配置。英文UI、英文README与示例继续完成。
-- 验收：真实HTTP归档阻断/恢复、删除持久化/权限/运行中拒绝；双语浏览器创建三原语→配置→试跑→保存发布→授权调用；切换草稿保留、列表筛选/新增/归档恢复删除；1440/1024/390布局；构建与既有回归。完成后Git提交并创建/推送私有molis-ai/jev-workbench。
+## Modules and verification
 
+`main.tsx` carries the list, filters, status actions, and the selected item. `FunctionEditor` and `SimpleDefinition` carry the draft cache, the default form, and the primitive result views. `Connections` keeps using the existing real APIs. `Functions.delete` cleans up related data transactionally. Server-side localisation keeps stable error codes.
 
-## 验收结果
-- 通过：类型检查与同源正式构建。
-- 通过：23项Vitest测试，包括归档阻断/恢复、删除持久化、CSRF拒绝、真实执行交错时拒绝删除、其他函数与客户端不受影响。
-- 通过：1条完整双语浏览器故事，Choice→保存样例→发布→Noul/Score试跑→切换保留草稿→英文新建→固定授权HTTP调用→归档/恢复/删除→搜索→语言刷新持久化。
-- 通过：1440/1024/390无文档水平溢出，截图覆盖三原语、英文、接入、窄屏和手机。
-- 未运行：真实TypeSafe推理及四个实际Agent的模型调用（用户无Key，明确延后）。
+Verify with `pnpm typecheck`, `pnpm build`, `pnpm test`, `pnpm test:e2e`. The standalone design draft's `node scripts/check-design.mjs` only proves the prototype and does not replace these.
 
-## 用户图片补充（目录样式与回收站）
-以用户提供的目录截图为最新视觉依据：顶部新建/筛选，紧凑行式目录，当前/归档/回收站分组计数；选中整行浅灰，三原语各有明确标签，不再用多行卡片。函数无父子关系，不虚构树结构或无功能视图切换按钮。
-本节替代上一节“列表直接永久删除”：普通删除移入回收站，保留全部关联记录并禁止业务调用，可恢复原归档/启停状态；永久删除仅在回收站里提供，沿用确认与运行中拒绝、事务清理。新增可迁移的deleted_at列，不重置已有数据库。回收站内容只读，恢复后可编辑；未保存草稿在会话内保留。
-增加验收：旧数据迁移保留、回收站调用阻断/列表隐藏/恢复、非回收站拒绝永久删除、分组数量与类型标签、浏览器移入/恢复/永久删除。
+## Development scope confirmed by the user (2026-09-18)
 
-## 配置区质感与接入入口（2026-09-18）
-函数配置对标 Molis Work 项目设置：页头（标题、一句说明、右上操作）+ 分组行（标题、说明、右侧控件），行间细线、圆角容器。调用与接入从编辑区底部移出，作为左侧独立入口，右侧整页展示。编辑默认态仍一屏、无页面滚动。
+The user asked for a function list on the left and the selected item on the right, with status tags, add, archive, and delete, and said explicitly: "change it, then build". This section replaces the earlier boundary that was waiting on design feedback, and authorises production development.
 
-## 右侧一屏（2026-09-18）
-用户要求右边内容区不要出现滚动，把默认内容压缩到一屏。
-- 桌面与 1024 宽：默认态（高级配置、返回诊断、调用接入均折叠）窗口与右侧内容区不出现纵向滚动；定义判断与试跑保持左右两列。
-- 展开高级配置、诊断 JSON 或接入时，只在对应面板或内容区内滚动，不把整页撑开。
-- 手机（≤700）仍允许整页滚动。
-验收：1440 与 1024 视口 `documentElement.scrollHeight <= innerHeight`；Choice 发布后带结果、Noul/Score 默认编辑截图无页面滚动条。
+- The left column is about 280px with search and status filters. Each entry shows the name, its primitive set, and draft / published / disabled / archived. A row menu disables, archives, restores, or deletes. Creation offers Noul, Choice, and Score.
+- The right column shows the selected function and edits the name, question instructions, and primitive-specific criteria directly. Input schema, output mapping, and similar move into a collapsed advanced area; preview and its real result share the same screen. Connections and settings are separate entries in the left rail that open a full page on the right, and settings splits again internally (categories / config rows). Versions and history stay in local drawers.
+- Switching functions preserves unsaved config, raw JSON edits, and preview input for the session. Refresh or close warns. Business text is never written to localStorage automatically.
+- Archiving keeps every version, case, and grant but blocks business calls; restoring returns the previous enabled state.
+- Delete is a new real API. The UI states clearly that it cannot be undone and that it removes the function's versions, cases, grants, and run records. It is refused while a call is executing, cleans foreign-key relations transactionally, and leaves other functions, clients, and installations untouched. An audit event without bodies is kept. This requirement explicitly replaces the v1 "delete only archives" agreement.
+- The real provider, immutable publishing, CSRF, and the pinned-grant contract all stand; the user's agent config is never changed automatically. The English UI, English README, and English examples continue.
+- Acceptance: real HTTP archive blocking and restore; delete persistence, permissions, and refusal while running; a bilingual browser story creating all three primitives → configure → preview → save and publish → granted call; draft retention on switch, list filters, add, archive, restore, delete; layout at 1440 / 1024 / 390; build plus the existing regression suite. Commit to Git afterwards and create/push the private molis-ai/jev-workbench.
+
+## Acceptance result
+
+- Pass: typecheck and a same-origin production build.
+- Pass: 23 Vitest tests, including archive blocking and restore, delete persistence, CSRF rejection, refusing delete while a real execution is interleaved, and other functions and clients staying intact.
+- Pass: one complete bilingual browser story — Choice → save case → publish → Noul/Score preview → draft preserved across switching → create in English → pinned-grant HTTP call → archive/restore/delete → search → language persists across reload.
+- Pass: no horizontal document overflow at 1440 / 1024 / 390, with screenshots covering all three primitives, English, connections, narrow, and phone.
+- Not run: real TypeSafe inference and model calls from the four actual agents (the user had no key; explicitly deferred).
+
+## User screenshot addendum (directory style and trash)
+
+The directory screenshot supplied by the user is the current visual reference: new and filter at the top, compact row-based directory, and current / archive / trash groups with counts. Selection fills the whole row in light grey, and each of the three primitives has a clear tag — no more multi-line cards. Functions have no parent-child relationship, so no tree structure and no non-functional view switcher may be invented.
+
+This section replaces the previous "delete permanently straight from the list": an ordinary delete moves the function to Trash, keeping every related record and blocking business calls, and can restore the previous archived and enabled state. Permanent delete exists only inside Trash and keeps the confirmation and the refusal while running, with the same transactional cleanup. A migratable `deleted_at` column is added without resetting existing databases. Trash content is read-only; it becomes editable after restore. Unsaved drafts survive within the session.
+
+Added acceptance: old data survives migration; trash blocks calls, hides from lists, and restores; permanent delete is refused outside Trash; group counts and type tags are correct; the browser story covers move to trash, restore, and permanent delete.
+
+## Config surface and connection entry (2026-09-18)
+
+Function configuration follows the Molis Work project settings pattern: a page header (title, one-line description, top-right actions) plus grouped rows (title, description, control on the right), with hairlines between rows inside a rounded container. Connections moved out of the bottom of the editor and became a separate left-rail entry that opens a full page on the right. The default editing state still fits one screen with no page scrolling.
+
+## One screen on the right (2026-09-18)
+
+The user asked that the right-hand content area not scroll, and that the default content be compressed to one screen.
+
+- On desktop and at 1024 wide, the default state — advanced config, response diagnostics, and connections all collapsed — produces no vertical scrolling of the window or the right-hand content area, and definition and preview stay side by side.
+- Expanding advanced config, diagnostic JSON, or connections scrolls only within that panel or content area, never stretching the page.
+- Phones (≤700) may still scroll the whole page.
+
+Acceptance: `documentElement.scrollHeight <= innerHeight` at 1440 and 1024; screenshots of Choice with a result after publishing and of the default Noul/Score editors show no page scrollbar.

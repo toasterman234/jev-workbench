@@ -1,12 +1,15 @@
-# Jev · 单页设计稿 / Single-page design preview
+# Jev · single-page design preview
 
-按用户最新反馈重做的信息架构。Coss UI视觉风格参考：[官方样式文档](https://coss.com/ui/docs/styling)。这是独立HTML交互稿，尚未替换React正式工作台，也没有接入真实Provider。
+> Historical. This standalone draft has been superseded twice: first by the
+> production React workbench (`specs/single-page/spec.md`), then by the current
+> visual system (`specs/dropagent-visual/spec.md`). It is kept as a record of
+> the information architecture the user approved, not as a design reference.
 
-A bilingual, interactive design preview. It explores a simpler single-page interface inspired by Coss UI. It does not replace the production React workbench or call a provider.
+A bilingual, interactive design preview built after the user's feedback that the pages were too complicated. It explores a simpler single-page interface inspired by Coss UI ([styling docs](https://coss.com/ui/docs/styling)). It never replaced the production React workbench and never called a provider.
 
-## 打开 / Open
+## Open
 
-从项目根目录运行 / From the project root:
+From the project root:
 
 ```sh
 python3 -m http.server 17431 --bind 127.0.0.1 --directory design/single-page
@@ -14,7 +17,7 @@ python3 -m http.server 17431 --bind 127.0.0.1 --directory design/single-page
 
 Open http://127.0.0.1:17431. No dependencies are required. You can also open index.html directly; clipboard and browser storage availability depend on the browser.
 
-## 可体验范围 / Interactions
+## Interactions
 
 - Noul / Choice / Score always visible; no page navigation.
 - Primitive-specific configuration and results.
@@ -24,9 +27,9 @@ Open http://127.0.0.1:17431. No dependencies are required. You can also open ind
 - Inline advanced settings, response JSON, release preview, HTTP / MCP / Pi examples.
 - Responsive desktop and mobile layout; visible keyboard focus.
 
-All results are illustrative. Changing a proposition does not run inference; publish and connect controls only preview the proposed interaction. There are no real releases, credentials or external writes.
+All results are illustrative. Changing a proposition does not run inference; publish and connect controls only preview the proposed interaction. There are no real releases, credentials, or external writes.
 
-## 验证 / Verification
+## Verification
 
 With the local preview server running and project dependencies installed:
 
@@ -36,4 +39,4 @@ node scripts/check-design.mjs
 
 Checks three primitives, language preservation, saved drafts, review/error/empty states, inline release/MCP examples, and overflow at 1440/768/390 px. Screenshots are saved to `.impeccable/review/single-page` (ignored by Git).
 
-The production implementation remains in `apps/`. The design contract and integration boundary are in `specs/single-page/spec.md`.
+The production implementation is in `apps/`. The design contract and integration boundary are in `specs/single-page/spec.md`.

@@ -1,12 +1,13 @@
-# Jev Workbench 项目事实
+# Jev Workbench project facts
 
-- Node 24 / pnpm 11.9.0 / TypeScript；React+Vite SPA，由Fastify同源托管；better-sqlite3。
-- 基础需求书：specs/v1/spec.md；单页左右布局/删除/双语的已确认修订：specs/single-page/spec.md。末尾补充用户授权的离线演示模式与当前运行端范围。
-- 命令：pnpm typecheck；pnpm build；pnpm test；pnpm test:e2e。
-- 生产默认127.0.0.1:17420、~/.jev-workbench；演示17430、~/.jev-workbench-demo。测试使用临时目录及17423/17425/17426/17428/17429端口。
-- 所有入口共用Invok​er；MCP/Pi只读专属凭证，不读DB/供应商Key。
-- 禁止真实Provider失败后自动fallback；fixture仅显式测试/演示模式。发布必须检查当前checksum对应的成功preview及固定模型版本。
-- 已发布release不可更新；草稿乐观锁；客户端Token不得获得admin能力。
-- 不在日志、runs或Git保存原始输入/答案/密钥；saved test case是用户明确保存的例外。
-- 运行端配置必须先plan后apply，仅操作本产品条目，冲突停止。不要为了验证把用户现有Agent配置静默改掉。
-- 从项目根目录运行。构建产物在dist（git忽略），截图在.impeccable/review（git忽略），需pnpm build后测试已构建MCP和生命周期。
+- Node 24 / pnpm 11.9.0 / TypeScript. React + Vite SPA served same-origin by Fastify; better-sqlite3.
+- Base contract: specs/v1/spec.md. Confirmed revisions: specs/single-page/spec.md (left list / right content, delete, bilingual), specs/settings-split/spec.md, specs/cc-switch-agents/spec.md (nine runtimes), specs/dropagent-visual/spec.md (current UI). The tail of specs/single-page/spec.md records the user-authorised offline demo mode and the current runtime scope.
+- Commands: pnpm typecheck; pnpm build; pnpm test; pnpm test:e2e.
+- Production defaults to 127.0.0.1:17420 and ~/.jev-workbench; demo to 17430 and ~/.jev-workbench-demo. Tests use temporary directories and ports 17423/17425/17426/17428/17429.
+- Every entry point shares one Invoker. MCP and Pi read only their own credential file — never the database or the vendor key.
+- Never fall back after a real provider failure. Fixtures are for explicit test or demo mode only. Publishing requires a successful preview of the current checksum and a pinned model version.
+- A published release is immutable. Drafts use optimistic locking. A client token must never gain admin capability.
+- Never write raw input, answers, or secrets to logs, runs, or Git. A saved test case is the one exception the user opts into.
+- Runtime config changes are plan-then-apply, touch only this product's entry, and stop on conflict. Never silently rewrite the user's existing agent config just to verify something.
+- Run from the project root. Build output is in dist (git-ignored) and screenshots in .impeccable/review (git-ignored); run pnpm build before the MCP and lifecycle tests, which exercise the built artefacts.
+- Docs are English. README.zh.md is the one deliberate exception; keep it in sync with README.md. Chinese literals in apps/web/src are i18n keys — en.json maps them to English — so do not "translate" them in place.
