@@ -123,32 +123,215 @@ The following concepts must remain separate.
 | Playbook | Process for producing/advancing work | technical-research, RCA, UI-verification |
 | Action | Immediate next operation | investigate, classify, draft, execute, verify |
 | Evidence | Proof the process/result satisfies requirements | test, screenshot, source, diff |
+| Relationship type | How governed objects relate | depends_on, blocks, supersedes, produces |
+| Guard type | Condition that must hold before a state change | evidence_required, approved_review |
+| Gate type | External/human checkpoint before an action proceeds | human_approval, promotion_approval |
 | Eval | Whether the chosen/process behavior was correct | expected vs actual |
 
-## 5. First intent vocabulary
+## 5. Seed vocabulary: reuse before inventing
 
-Seed the system with a small set of stable keys:
+The initial registry should be seeded from **Master Repo vocabulary first**, then supplemented with selected **Cruxible operational primitives** where they fill a real gap. Jev Workbench should not create a parallel taxonomy when an existing authoritative concept already fits.
 
+### Authority order
+
+1. **Master Repo** — canonical authority for work/lifecycle/process vocabulary, artifact semantics, templates/playbooks, evidence requirements, lifecycle states, and promotion/supersession semantics.
+2. **Cruxible agent-operation / project-domain** — reusable operational primitives for actors, work, reviews, risks, questions, state notes, project-domain objects, governed relationships, and guards/gates.
+3. **Local Workbench registry** — editable catalog and proposal surface; may hold proposed terms that do not yet have an authoritative source.
+4. **Ad hoc model output** — never authoritative. A model may suggest a proposed term, but it must enter through the registry lifecycle.
+
+### Seed intent vocabulary
+
+Use the process vocabulary already present in Master Repo:
+
+- `intake`
+- `clarify`
 - `explore`
 - `research`
 - `decide`
 - `plan`
 - `execute`
 - `verify`
+- `review`
+- `close`
+- `promote`
 
-These are **defaults, not a permanently closed vocabulary**. New vocabulary can be proposed and added through the registry described below. Stable keys should remain stable once used by a published function or durable record.
+These are **seeded defaults, not a permanently closed vocabulary**. New vocabulary can be proposed and added through the registry. Stable keys remain stable once referenced by a published function or durable record.
 
-Do not initially encode every special-case workflow as an intent. Specialization usually belongs in artifact/template/playbook selection.
+Do not encode every special-case workflow as a new intent. Specialization usually belongs in artifact/template/playbook selection.
 
 Example:
 
 ```text
 intent = verify
 playbook = browser-ui-verification
-artifact = VerificationEvidence
+artifact = Verification
 ```
 
 rather than creating a new intent named `browser_verify_ui`.
+
+### Seed object / data-type vocabulary
+
+Prefer these existing concepts:
+
+**Master Repo-derived**
+
+- `Request`
+- `IntakeRecord`
+- `Project`
+- `Explore`
+- `WorkItem`
+- `Decision`
+- `Proposal`
+- `Plan`
+- `Evidence`
+- `Result`
+- `RunRecord`
+- `Verification`
+- `PromotionCandidate`
+- `Artifact`
+- `Template`
+- `Playbook`
+- `Source`
+- `Finding`
+
+**Cruxible-derived operational primitives**
+
+- `Actor`
+- `ReviewRequest`
+- `Risk`
+- `OpenQuestion`
+- `StateNote`
+- `Capability`
+- `ProductArea`
+- `RoadmapItem`
+- `Milestone`
+- `ReleaseLine`
+- `SubjectRef`
+
+The Workbench may also classify source-container types such as `Note`, `GitHubIssue`, `Session`, `MarkdownFile`, or `Repository` when that distinction is useful for routing.
+
+### Seed action vocabulary
+
+Start with:
+
+- `classify`
+- `route`
+- `clarify`
+- `investigate`
+- `compare`
+- `propose`
+- `create`
+- `update`
+- `decompose`
+- `execute`
+- `test`
+- `verify`
+- `review`
+- `approve`
+- `reject`
+- `defer`
+- `close`
+- `promote`
+- `supersede`
+
+### Seed relationship vocabulary
+
+Reuse relationship meanings already present across Master Repo / Cruxible:
+
+- `owned_by`
+- `depends_on`
+- `part_of`
+- `spawned_from`
+- `supersedes`
+- `blocks`
+- `mitigates`
+- `answers`
+- `constrains`
+- `targets`
+- `produces`
+- `derived_from`
+- `evidence_for`
+- `uses`
+- `governed_by`
+- `runs_on`
+- `resolves`
+- `affects`
+
+Where Cruxible has a more precise typed relationship such as `work_item_depends_on_work_item`, the registry can retain that source-specific key while exposing the simpler semantic label `depends_on` for human browsing.
+
+### Seed evidence vocabulary
+
+Start with:
+
+- `Source`
+- `Finding`
+- `Observation`
+- `TestResult`
+- `BrowserVerification`
+- `Screenshot`
+- `Diff`
+- `Commit`
+- `RunRecord`
+- `Review`
+- `Approval`
+- `Outcome`
+
+### Seed guard / gate vocabulary
+
+**Guards** protect a state transition:
+
+- `evidence_required`
+- `approved_review`
+- `no_unresolved_blocker`
+- `decision_required`
+- `definition_of_done_satisfied`
+- `independent_verification_required`
+- `browser_verification_required`
+
+**Gates** hold an external or consequential action:
+
+- `human_approval`
+- `approve_experiment`
+- `promote_result`
+- `promotion_approval`
+- `merge_approval`
+
+### Lifecycle states are namespaced
+
+Do **not** create one global state enum. State meaning belongs to a lifecycle.
+
+Seed from Master Repo:
+
+```text
+project:
+  proposed → active → paused → completed → archived
+
+explore:
+  proposed → exploring → synthesized → decision-pending
+  → promoted | parked | rejected
+
+work_item:
+  proposed → ready → in-progress → verification
+  → accepted | changes-required | blocked → closed
+
+decision:
+  proposed → accepted | rejected → superseded
+
+promotion:
+  candidate → evaluated → approved → incorporated → propagated
+```
+
+Cruxible's broader operational lifecycle (`planned | active | blocked | watching | deferred | closed`) can be retained for Cruxible-native operational entities such as Risk, Capability, RoadmapItem, ReleaseLine, and Milestone. It should not replace the more specific Master Repo lifecycles.
+
+Registry keys should therefore be namespaced where state ambiguity exists, for example:
+
+```text
+state.project.active
+state.explore.exploring
+state.work_item.verification
+state.decision.accepted
+state.promotion.approved
+```
 
 ## 6. Extensible vocabularies and registries
 
@@ -160,14 +343,17 @@ Jev Workbench should eventually expose a human-editable **Registry** surface whe
 
 Initial categories:
 
-- Data Types
+- Data Types / Object Types
 - Intents
-- States
+- Lifecycle Types
+- Lifecycle States
 - Artifact Types
 - Templates
 - Playbooks
 - Actions
 - Evidence Types
+- Relationship Types
+- Guard Types
 - Gate Types
 
 Additional categories may be introduced later without changing the meaning of existing entries.
@@ -182,8 +368,10 @@ key: technical-project-exploration
 title: Technical Project Exploration
 description: Explore an unfamiliar technical project before deciding whether to adopt it.
 status: active
-aliases: []
+authority: master-repo
 source_ref: master-repo:playbooks/technical-project-exploration
+source_version: 1
+aliases: []
 supersedes: null
 created_at: ...
 updated_at: ...
@@ -196,8 +384,10 @@ Required concepts:
 - **description/definition** — what the term means and when it applies
 - **category** — data type, intent, template, playbook, etc.
 - **status** — proposed, draft, active, retired, superseded
+- **authority** — where the meaning is governed: master-repo, cruxible, local, or another explicit authority
+- **source_ref** — optional pointer to the authoritative definition/file/entity
+- **source_version** — optional pinned source version/revision
 - **aliases** — alternate language/names that help classification
-- **source_ref** — optional pointer to the authoritative definition/file
 - **supersedes / superseded_by** — lineage when vocabulary changes
 
 ### Creating a missing template or playbook
@@ -299,6 +489,50 @@ Playbooks
 ```
 
 Creating an entry should be lightweight. At minimum the user can enter a **title** and category. The UI can derive a suggested key, but the user must be able to review it before the entry becomes active.
+
+### Registry provenance and authority
+
+Every seeded term should record where it came from.
+
+Examples:
+
+```yaml
+category: object_type
+key: work_item
+title: Work Item
+authority: master-repo
+source_ref: master-repo:object/WorkItem
+status: active
+```
+
+```yaml
+category: object_type
+key: review_request
+title: Review Request
+authority: cruxible-agent-operation
+source_ref: cruxible:agent-operation/ReviewRequest
+status: active
+```
+
+```yaml
+category: playbook
+key: investigate-agent-behavior-regression
+title: Investigate Agent Behavior Regression
+authority: local
+status: proposed
+source_ref: null
+```
+
+Authority is descriptive and enforceable metadata, not decoration. If an authoritative source marks an entry retired or superseded, the Workbench should surface that state before a new judgment version adopts it.
+
+### Playbook versus executable procedure
+
+Keep these concepts separate:
+
+- **Playbook** — human/agent-readable process definition: what sequence, checks, decisions, evidence, and escalation rules should be followed.
+- **Procedure** — bounded executable action compiled or adapted for a runtime.
+
+A playbook may reference one or more procedures. Creating a playbook title does not imply executable automation exists.
 
 ### Registry versus authoritative artifacts
 
@@ -567,16 +801,55 @@ Do not fabricate an "accuracy" metric until a labeled evaluation set and metric 
 
 ### Master Repo
 
-Treat Master Repo as authority for:
+Treat Master Repo as the primary authority for:
 
-- intent definitions
-- lifecycle definitions
-- artifact types
+- intent/process definitions
+- lifecycle definitions and namespaced lifecycle states
+- core work/artifact object types
 - template registry
 - playbook registry
 - evidence requirements
-- gates
-- supersession/retirement
+- guards/gates
+- promotion and supersession/retirement semantics
+- required artifact trail
+
+Seed the Workbench from the existing Master Repo trail:
+
+```text
+Request
+→ Intake Record
+→ Explore
+  → Sources / Findings / Evidence
+→ Decision / Proposal
+→ Approved Plan
+→ Work Item(s)
+→ Verification
+→ Result
+→ Knowledge / Decision / New Work / Promotion Candidate
+```
+
+### Cruxible
+
+Use selected Cruxible primitives as a secondary vocabulary source where Master Repo does not already provide a better canonical term.
+
+Seed especially:
+
+- Actor
+- ReviewRequest
+- Risk
+- OpenQuestion
+- StateNote
+- SubjectRef
+- Capability
+- ProductArea
+- RoadmapItem
+- Milestone
+- ReleaseLine
+- typed ownership/dependency/blocking/answering/supersession relationships
+- governed proposal semantics
+- mutation guards and external gates
+
+Do not wholesale replace Master Repo lifecycles with Cruxible's generic operational lifecycle. Preserve source-specific meanings and record source/authority on imported registry entries.
 
 Jev functions should consume a constrained set of currently valid choices derived from or synchronized with those definitions.
 
@@ -625,9 +898,13 @@ Jev Workbench supplies:
 Deliverables:
 
 - this plan reviewed/accepted
+- Master Repo + Cruxible vocabulary reuse map
 - seeded initial intent vocabulary
-- seeded initial data-type vocabulary
+- seeded initial object/data-type vocabulary
 - seeded artifact/template/playbook key lists
+- seeded relationship, guard, and gate vocabulary
+- namespaced lifecycle state model
+- registry authority/source contract
 - registry entry contract and status lifecycle
 - rules for proposing/activating/retiring/superseding vocabulary
 - definition of a decision moment
@@ -871,13 +1148,15 @@ Mitigation: keep fork-specific additions modular and document every schema/UI ex
 
 ## 18. Immediate next actions after plan approval
 
-1. Define the seeded Choice keys for `classify_data_type`, `next_intent`, `select_artifact`, and `select_playbook`, including `other_needs_new` / review fallbacks where appropriate.
-2. Define the minimal RegistryEntry contract and proposed → active → retired/superseded lifecycle.
-3. Create the first judgment functions in an unmodified Jev Workbench instance.
-4. Build 20–30 saved cases, including historical Pi decision moments and cases where none of the current vocabulary fits.
-5. Run and review the cases.
-6. Record which limitations are genuinely UI/data-model problems versus judgment-definition problems.
-7. Implement the Registry/Vocabulary UI plus Judgment Sets.
-8. Add behavioral case metadata after the registry behavior is verified.
+1. Build the seed registry from Master Repo first and selected Cruxible primitives second, recording `authority`, `source_ref`, and source version where available.
+2. Define the seeded Choice keys for `classify_data_type`, `next_intent`, `select_artifact`, and `select_playbook`, including `other_needs_new` / review fallbacks where appropriate.
+3. Define the minimal RegistryEntry contract and proposed → active → retired/superseded lifecycle.
+4. Define namespaced lifecycle states and ensure judgments receive the relevant lifecycle context instead of a global status enum.
+5. Create the first judgment functions in an unmodified Jev Workbench instance.
+6. Build 20–30 saved cases, including historical Pi decision moments and cases where none of the current vocabulary fits.
+7. Run and review the cases.
+8. Record which limitations are genuinely UI/data-model problems versus judgment-definition problems.
+9. Implement the Registry/Vocabulary UI plus Judgment Sets.
+10. Add behavioral case metadata after the registry behavior is verified.
 
 This sequence intentionally proves the behavioral model before modifying the product architecture.
