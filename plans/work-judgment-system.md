@@ -127,7 +127,7 @@ The following concepts must remain separate.
 
 ## 5. First intent vocabulary
 
-Start small and keep the choices stable:
+Seed the system with a small set of stable keys:
 
 - `explore`
 - `research`
@@ -136,7 +136,9 @@ Start small and keep the choices stable:
 - `execute`
 - `verify`
 
-Do not initially encode every special-case workflow as an intent. Specialization belongs in artifact/template/playbook selection.
+These are **defaults, not a permanently closed vocabulary**. New vocabulary can be proposed and added through the registry described below. Stable keys should remain stable once used by a published function or durable record.
+
+Do not initially encode every special-case workflow as an intent. Specialization usually belongs in artifact/template/playbook selection.
 
 Example:
 
@@ -148,7 +150,170 @@ artifact = VerificationEvidence
 
 rather than creating a new intent named `browser_verify_ui`.
 
-## 6. Judgment architecture
+## 6. Extensible vocabularies and registries
+
+The system must not assume that the initial data types, intents, artifact types, templates, playbooks, states, actions, or evidence types are complete.
+
+Jev Workbench should eventually expose a human-editable **Registry** surface where the user can add, propose, revise, retire, and supersede vocabulary.
+
+### Registry categories
+
+Initial categories:
+
+- Data Types
+- Intents
+- States
+- Artifact Types
+- Templates
+- Playbooks
+- Actions
+- Evidence Types
+- Gate Types
+
+Additional categories may be introduced later without changing the meaning of existing entries.
+
+### Registry entry shape
+
+A registry entry should support approximately:
+
+```yaml
+category: playbook
+key: technical-project-exploration
+title: Technical Project Exploration
+description: Explore an unfamiliar technical project before deciding whether to adopt it.
+status: active
+aliases: []
+source_ref: master-repo:playbooks/technical-project-exploration
+supersedes: null
+created_at: ...
+updated_at: ...
+```
+
+Required concepts:
+
+- **key** — machine-stable identifier; immutable after it is used in a published function or durable record
+- **title** — human-readable name; editable
+- **description/definition** — what the term means and when it applies
+- **category** — data type, intent, template, playbook, etc.
+- **status** — proposed, draft, active, retired, superseded
+- **aliases** — alternate language/names that help classification
+- **source_ref** — optional pointer to the authoritative definition/file
+- **supersedes / superseded_by** — lineage when vocabulary changes
+
+### Creating a missing template or playbook
+
+The UI must support this path:
+
+```text
+select template/playbook
+        ↓
+nothing fits
+        ↓
+Create / propose new
+        ↓
+enter title
+        ↓
+optional key + description
+        ↓
+save as proposed/draft registry entry
+        ↓
+author the actual template/playbook later
+        ↓
+activate when definition/source exists
+```
+
+This lets the user capture an important concept immediately without falsely claiming the underlying template or playbook already exists.
+
+Example:
+
+```yaml
+category: playbook
+key: investigate-agent-behavior-regression
+title: Investigate Agent Behavior Regression
+status: proposed
+source_ref: null
+```
+
+A proposed entry can represent **"we need a playbook with this title"**. It should not be treated as executable until the required definition/source and activation criteria are satisfied.
+
+### "None fit" as an explicit judgment outcome
+
+Judgments should not invent arbitrary new labels in production.
+
+Where a vocabulary may be incomplete, Choice functions should include a stable fallback such as:
+
+- `other_needs_new`
+- `unclear_needs_review`
+
+When selected, the Workbench can present the user with:
+
+- choose a different existing entry
+- create a proposed registry entry
+- mark the case for taxonomy review
+
+This produces useful evidence that the vocabulary is missing something.
+
+### Published-version safety
+
+Registry edits must **not silently mutate published Jev functions**.
+
+Current Jev Choice criteria are part of an immutable release. Therefore:
+
+1. a published function keeps the exact vocabulary snapshot it was published with
+2. adding a registry entry does not change old releases
+3. a draft may refresh from the current active registry
+4. publishing the refreshed draft creates a new function version
+5. provenance records which registry snapshot/entry keys were used
+
+This preserves reproducibility.
+
+### Registry UI
+
+Add a **Vocabulary** or **Registry** destination to the workbench navigation.
+
+Example:
+
+```text
+Vocabulary
+
+Data Types
+  Work Request
+  Note
+  GitHub Issue
+  Session
+  Evidence
+  + Add
+
+Templates
+  Explore
+  Decision
+  Plan
+  Verification Evidence
+  + Add
+
+Playbooks
+  Technical Project Exploration
+  Root Cause Analysis
+  Browser UI Verification
+  + Add
+```
+
+Creating an entry should be lightweight. At minimum the user can enter a **title** and category. The UI can derive a suggested key, but the user must be able to review it before the entry becomes active.
+
+### Registry versus authoritative artifacts
+
+The registry describes and references a concept; it does not automatically create the full artifact behind it.
+
+For example:
+
+- a Template registry entry may point to a Markdown/YAML template in Master Repo
+- a Playbook registry entry may point to its process definition
+- a proposed entry may temporarily have no source
+- activation should make missing definitions visible rather than hide them
+
+This keeps vocabulary authoring fast while preserving the distinction between **naming a needed thing** and **actually defining that thing**.
+
+## 7. Judgment architecture
 
 Do not create one giant `what_should_the_agent_do` function.
 
@@ -181,7 +346,7 @@ Use small versioned judgments with constrained choices.
 
 A higher-level caller can assemble the individual outputs into a composite record. Jev Workbench itself does not need to make the individual questions dependent on each other.
 
-## 7. Composite WorkJudgment envelope
+## 8. Composite WorkJudgment envelope
 
 The orchestration layer should be able to persist a record shaped approximately like:
 
@@ -215,7 +380,7 @@ provenance:
 
 This composite record should be produced outside the core Jev function engine from versioned function outputs plus authoritative runtime context.
 
-## 8. Templates vs playbooks
+## 9. Templates vs playbooks
 
 This distinction is required.
 
@@ -255,7 +420,7 @@ Example technical exploration playbook:
 
 One artifact template may be served by multiple playbooks.
 
-## 9. Historical Pi/Muse sessions as behavior data
+## 10. Historical Pi/Muse sessions as behavior data
 
 The goal is not to train on entire raw sessions.
 
@@ -296,7 +461,7 @@ evaluation:
 
 The primary unit of training/evaluation is therefore a **labeled decision moment**, not a session transcript.
 
-## 10. Privacy and storage boundary
+## 11. Privacy and storage boundary
 
 The current Jev Workbench intentionally stores run metadata but not normal invocation inputs or answers. That behavior must remain intact.
 
@@ -324,7 +489,7 @@ Useful explicit metadata:
 - tags
 - lineage to superseded cases
 
-## 11. UI direction
+## 12. UI direction
 
 Preserve the existing quiet function workbench.
 
@@ -398,7 +563,7 @@ Previous version comparison
 
 Do not fabricate an "accuracy" metric until a labeled evaluation set and metric definition exist.
 
-## 12. Integration model
+## 13. Integration model
 
 ### Master Repo
 
@@ -414,6 +579,8 @@ Treat Master Repo as authority for:
 - supersession/retirement
 
 Jev functions should consume a constrained set of currently valid choices derived from or synchronized with those definitions.
+
+The Workbench registry is the editable catalog/view of those choices. Master Repo may remain the authoritative source for fully defined templates, playbooks, lifecycles, and other governed objects. Registry entries can be proposed locally before a source definition exists, but activation and synchronization must preserve authority and lineage.
 
 Initial implementation may use manually maintained stable keys. Do not block the first proof on live synchronization.
 
@@ -451,16 +618,18 @@ Jev Workbench supplies:
 - expected-vs-actual comparison
 - calibration evidence
 
-## 13. Implementation phases
+## 14. Implementation phases
 
 ### Phase 0 — lock contracts
 
 Deliverables:
 
 - this plan reviewed/accepted
-- stable initial intent vocabulary
-- initial data-type vocabulary
-- initial artifact/template/playbook key lists
+- seeded initial intent vocabulary
+- seeded initial data-type vocabulary
+- seeded artifact/template/playbook key lists
+- registry entry contract and status lifecycle
+- rules for proposing/activating/retiring/superseding vocabulary
 - definition of a decision moment
 - privacy/storage rules
 - explicit non-goals
@@ -494,20 +663,30 @@ Exit condition:
 
 - the functions are useful enough to demonstrate that decomposed judgments outperform a single open-ended "what next?" prompt
 
-### Phase 2 — Judgment Sets
+### Phase 2 — Registries + Judgment Sets
 
-Add organizational grouping without changing invocation semantics.
+Add editable vocabulary and organizational grouping without changing existing published invocation semantics.
 
 Likely changes:
 
-- migration for set metadata
+- registry-entry migration and status/lineage fields
+- API CRUD for registry entries
+- Vocabulary/Registry UI with category tabs and search
+- lightweight "Add" flow that accepts at least category + title
+- explicit proposed/draft/active/retired/superseded states
+- "none fit → create proposed entry" flow
+- validation that proposed entries are not treated as executable definitions
+- migration for judgment-set metadata
 - API CRUD for sets/membership
-- left-rail grouping
-- import/export support
-- tests for archive/delete/membership behavior
+- left-rail judgment grouping
+- import/export support for both registry and set metadata
+- tests for version immutability, retirement/supersession, archive/delete/membership behavior
 
 Exit condition:
 
+- the user can add a new data type, artifact, template title, or playbook title without code changes
+- missing vocabulary can be captured as proposed rather than silently invented
+- published Jev versions remain unchanged when the registry changes
 - Work Intake, Execution Governance, and Behavior Evaluation can be understood as coherent libraries in the UI
 
 ### Phase 3 — Behavioral case metadata
@@ -610,7 +789,7 @@ Only after the previous phases are verified:
 - behavior-change proposals
 - richer evaluation suites
 
-## 14. First proof scenario
+## 15. First proof scenario
 
 Use one narrow end-to-end example:
 
@@ -637,7 +816,7 @@ Then compare with:
 
 This gives strong boundary cases with little infrastructure.
 
-## 15. Verification requirements
+## 16. Verification requirements
 
 No phase is complete because a write or tool call succeeded.
 
@@ -656,7 +835,7 @@ For code-bearing phases, verify at minimum:
 
 For judgment-quality phases, verification must include a labeled case suite and versioned results. Model confidence alone is not evidence of business accuracy.
 
-## 16. Risks
+## 17. Risks
 
 ### Turning Workbench into the whole operating system
 
@@ -668,7 +847,7 @@ Mitigation: small constrained decisions with versioned outputs.
 
 ### Taxonomy explosion
 
-Mitigation: six initial intents; specialize with artifacts/playbooks.
+Mitigation: six seeded intents; use registry proposals, review, retirement, aliases, and supersession instead of unconstrained label creation.
 
 ### Circular self-evaluation
 
@@ -690,13 +869,15 @@ Mitigation: ambiguous cases can route to review; probabilities are not treated a
 
 Mitigation: keep fork-specific additions modular and document every schema/UI extension so upstream changes can still be merged.
 
-## 17. Immediate next actions after plan approval
+## 18. Immediate next actions after plan approval
 
-1. Define the exact initial Choice keys for `classify_data_type`, `next_intent`, `select_artifact`, and `select_playbook`.
-2. Create those functions in an unmodified Jev Workbench instance first.
-3. Build 20–30 saved cases, including historical Pi decision moments.
-4. Run and review the cases.
-5. Record which limitations are genuinely UI/data-model problems versus judgment-definition problems.
-6. Only then implement Judgment Sets and behavioral case metadata.
+1. Define the seeded Choice keys for `classify_data_type`, `next_intent`, `select_artifact`, and `select_playbook`, including `other_needs_new` / review fallbacks where appropriate.
+2. Define the minimal RegistryEntry contract and proposed → active → retired/superseded lifecycle.
+3. Create the first judgment functions in an unmodified Jev Workbench instance.
+4. Build 20–30 saved cases, including historical Pi decision moments and cases where none of the current vocabulary fits.
+5. Run and review the cases.
+6. Record which limitations are genuinely UI/data-model problems versus judgment-definition problems.
+7. Implement the Registry/Vocabulary UI plus Judgment Sets.
+8. Add behavioral case metadata after the registry behavior is verified.
 
 This sequence intentionally proves the behavioral model before modifying the product architecture.
