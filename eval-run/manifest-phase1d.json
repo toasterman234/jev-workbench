@@ -1,0 +1,157 @@
+{
+  "date": "2026-09-28",
+  "phase": "1d",
+  "suite": "phase1c-v2",
+  "model": "jev-1.13.0",
+  "config_branch": "origin/work/work-judgment-instructions-v1d",
+  "config_branch_sha": "3ab0e96c752659fe0a99f261bbb7fb98fae770fc",
+  "canonical_sha256": {
+    "classify_data_type": "729a17f62604f5964a6d4becf48bd45d2f6a466bea657165892dd0cc4cbfb7ff",
+    "next_intent": "481558d1e4e009dbbe59f6498084dac45c1191319dfcc66fae5607c234d1d397",
+    "select_artifact": "c2a90a8f8dc6d08680958d1255aed8313a7281c3c4a9f8c7446a50588b480ede",
+    "select_playbook": "1d65929bbc0407ce858303cad117cbb7c8e13221c8137932fb32c980f07d8593",
+    "requires_human_gate": "dddafb003c6039f6c9a0824f94844f6113eea4c9411ab487eb6e3cfe9650c773",
+    "evidence_satisfies_exit": "8b6b22af52b449de5e135401d591de79ad14cbb7d9d3ae1911e011861790066d"
+  },
+  "posted_sha256": {
+    "classify_data_type": "53d96dd7e2451cc530bfdbaa5e40bd101960e24c71fdf4a19648b0303cae6c36",
+    "next_intent": "83f9a2b082126a74fabfce9d9426a2a04b7d701906aac91ea120833db4907c9b",
+    "select_artifact": "d6cbb7bcf41cf30f451f4fe7afb4334121238f07eacac083b3b4f5881834707d",
+    "select_playbook": "dfeb3e35516a275633e33192472f9ed9aed671443b9b55faef53598eaa24cdbb",
+    "requires_human_gate": "c5f02d54765b53a459717fcfc40fa1f4210881a43169347b6d8585e2b05108e0",
+    "evidence_satisfies_exit": "9774370c73aeef01102f9db69c9a00cd0e400f43cf29147373c15c947ccf0bf6"
+  },
+  "scores": {
+    "A/classify_data_type": {
+      "n": 30,
+      "correct": 16,
+      "accuracy": 0.5333333333333333,
+      "review_triggers": {
+        "low_confidence": 19
+      }
+    },
+    "A/evidence_satisfies_exit": {
+      "n": 19,
+      "correct": 19,
+      "accuracy": 1.0,
+      "review_triggers": {
+        "ambiguous_exit": 4
+      },
+      "brier": 0.03528947368421052,
+      "acc_at_0.50": 1.0,
+      "acc_at_provisional": 0.7894736842105263,
+      "provisional_threshold": 0.8
+    },
+    "A/next_intent": {
+      "n": 30,
+      "correct": 25,
+      "accuracy": 0.8333333333333334,
+      "review_triggers": {
+        "low_confidence": 11,
+        "unclear": 1
+      }
+    },
+    "A/requires_human_gate": {
+      "n": 29,
+      "correct": 29,
+      "accuracy": 1.0,
+      "review_triggers": {},
+      "brier": 0.03582068965517241,
+      "acc_at_0.50": 1.0,
+      "acc_at_provisional": 1.0,
+      "provisional_threshold": 0.7
+    },
+    "A/select_artifact": {
+      "n": 28,
+      "correct": 25,
+      "accuracy": 0.8928571428571429,
+      "review_triggers": {
+        "low_confidence": 5,
+        "unclear": 2
+      }
+    },
+    "A/select_playbook": {
+      "n": 27,
+      "correct": 22,
+      "accuracy": 0.8148148148148148,
+      "review_triggers": {
+        "low_confidence": 7,
+        "new_playbook_needed": 1
+      }
+    },
+    "B/classify_data_type": {
+      "n": 30,
+      "correct": 16,
+      "accuracy": 0.5333333333333333,
+      "review_triggers": {
+        "low_confidence": 19
+      }
+    },
+    "B/evidence_satisfies_exit": {
+      "n": 19,
+      "correct": 18,
+      "accuracy": 0.9473684210526315,
+      "review_triggers": {
+        "ambiguous_exit": 2
+      },
+      "brier": 0.03867368421052632,
+      "acc_at_0.50": 0.9473684210526315,
+      "acc_at_provisional": 0.8421052631578947,
+      "provisional_threshold": 0.8
+    },
+    "B/next_intent": {
+      "n": 30,
+      "correct": 23,
+      "accuracy": 0.7666666666666667,
+      "review_triggers": {
+        "low_confidence": 10
+      }
+    },
+    "B/requires_human_gate": {
+      "n": 29,
+      "correct": 29,
+      "accuracy": 1.0,
+      "review_triggers": {
+        "ambiguous_gate": 1
+      },
+      "brier": 0.04312068965517241,
+      "acc_at_0.50": 1.0,
+      "acc_at_provisional": 1.0,
+      "provisional_threshold": 0.7
+    },
+    "B/select_artifact": {
+      "n": 27,
+      "correct": 20,
+      "accuracy": 0.7407407407407407,
+      "review_triggers": {
+        "low_confidence": 6,
+        "unclear": 2
+      }
+    },
+    "B/select_playbook": {
+      "n": 26,
+      "correct": 17,
+      "accuracy": 0.6538461538461539,
+      "review_triggers": {
+        "unclear": 2,
+        "low_confidence": 6,
+        "new_playbook_needed": 1
+      }
+    }
+  },
+  "counts": {
+    "attempted": 342,
+    "errored": 1,
+    "scored": 324,
+    "skipped_upstream_error": 1
+  },
+  "errors": [
+    {
+      "mode": "B",
+      "case": "wj-004",
+      "judgment": "select_artifact",
+      "error": "HTTP 502: {\"error\":{\"code\":\"UPSTREAM_INVALID_RESPONSE\",\"message\":\"\u4f9b\u5e94\u5546\u54cd\u5e94\u4e0d\u7b26\u5408\u95ee\u9898\u5408\u540c\"},\"meta\":{\"request_id\":\"2c75bbfe-c490-4055-8304-5215c0fede54\"}}"
+    }
+  ],
+  "notes": "six functions from canonical v1d JSONs verbatim (provenance changelog stripped at POST, 422 on workbench schema); review rules byte-identical and live; TYPESAFE_API_KEY from environment only, fresh API client token held in memory only; wj-008/wj-013/wj-015 golds not re-golded per Ben; PR #2 not merged, no comment posted"
+}
