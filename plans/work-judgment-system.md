@@ -4,6 +4,11 @@
 **Repository baseline:** forked from `molis-ai/jev-workbench` at `75aeda4d92588b80ddfdcac527011ec14f197c3e`.  
 **Purpose:** extend Jev Workbench into the human-facing judgment authoring and evaluation surface for deciding what work means and what should happen next, while preserving its existing role as a local, versioned Jev function workbench.
 
+### Planning artifacts
+
+- [Seed registry](./seed-registry.yaml) — concrete initial vocabulary, authority/source metadata, fallbacks, and namespaced lifecycle states.
+- [Judgment contracts](./judgment-contracts.yaml) — the first six constrained Choice/Noul contracts to prove before product implementation.
+
 ## 1. Problem statement
 
 The target system needs to answer a recurring sequence of questions about work arriving from notes, Markdown, GitHub, projects, issues, Pi/Muse sessions, and other sources:
