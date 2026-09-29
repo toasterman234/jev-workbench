@@ -1,0 +1,133 @@
+{
+  "format_version": 1,
+  "key": "select_playbook",
+  "name": "Select playbook",
+  "description": "Select the most fitting known governed process for carrying out the current intent.",
+  "when_to_use": "Use after intent/artifact selection when a repeatable governed process may apply.",
+  "provider": "typesafe",
+  "model": "jev-1.13.0",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "content": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12000,
+        "description": "Current work context"
+      },
+      "next_intent": {
+        "type": "string",
+        "description": "Selected next intent"
+      },
+      "artifact_type": {
+        "type": "string",
+        "description": "Selected artifact type"
+      },
+      "object_type": {
+        "type": "string",
+        "description": "Known object type"
+      },
+      "current_state": {
+        "type": "string",
+        "description": "Current authoritative state"
+      },
+      "available_playbooks": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Currently active playbook keys"
+      },
+      "browser_or_ui_in_scope": {
+        "type": "boolean",
+        "description": "Whether browser/UI behavior is in scope"
+      },
+      "recurring_or_foundational_issue": {
+        "type": "boolean",
+        "description": "Whether the issue is recurring/systemic/foundational"
+      }
+    },
+    "required": [
+      "content",
+      "next_intent"
+    ],
+    "additionalProperties": false
+  },
+  "state_mapping": {
+    "content": "/content",
+    "next_intent": "/next_intent",
+    "artifact_type": "/artifact_type",
+    "object_type": "/object_type",
+    "current_state": "/current_state",
+    "available_playbooks": "/available_playbooks",
+    "browser_or_ui_in_scope": "/browser_or_ui_in_scope",
+    "recurring_or_foundational_issue": "/recurring_or_foundational_issue"
+  },
+  "questions": {
+    "playbook_key": {
+      "type": "choice",
+      "instructions": "Choose a playbook only when it fits the purpose and state. Browser/UI verification should use browser_ui_verification. Recurring, foundational, or repeatedly patched defects should use root_cause_analysis rather than another symptom patch. Do not treat a proposed/draft title as executable authority. Choose none_required when no playbook is needed. Choose other_needs_new when a governed process is needed but no active playbook fits. Choose unclear_needs_review when the playbook cannot be chosen reliably.",
+      "criteria": {
+        "technical_project_exploration": "Explore an unfamiliar technical project/tool and compare viable options.",
+        "research_and_synthesis": "Gather targeted sources/evidence and synthesize findings.",
+        "decision_assessment": "Evaluate requirements, options, tradeoffs, consequences, and prepare a decision.",
+        "implementation": "Carry out authorized implementation with required checks and evidence.",
+        "root_cause_analysis": "Diagnose underlying/foundational causes, recurrence, attempts, and systemic prevention.",
+        "browser_ui_verification": "Verify UI/UX and functionality through the actual browser/UI, including interaction and relevant console/runtime behavior.",
+        "none_required": "No specific playbook is required for this step.",
+        "other_needs_new": "A playbook is required but none of the active playbooks fits.",
+        "unclear_needs_review": "Current context cannot reliably determine the playbook."
+      }
+    }
+  },
+  "review": {
+    "match": "any",
+    "rules": [
+      {
+        "id": "low_confidence",
+        "source": "/answers/playbook_key/confidence",
+        "operator": "lt",
+        "value": 0.65
+      },
+      {
+        "id": "new_playbook_needed",
+        "source": "/answers/playbook_key/choice",
+        "operator": "eq",
+        "value": "other_needs_new"
+      },
+      {
+        "id": "unclear",
+        "source": "/answers/playbook_key/choice",
+        "operator": "eq",
+        "value": "unclear_needs_review"
+      }
+    ]
+  },
+  "output_mapping": {
+    "playbook_key": {
+      "source": "/answers/playbook_key/choice"
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "playbook_key": {
+        "enum": [
+          "technical_project_exploration",
+          "research_and_synthesis",
+          "decision_assessment",
+          "implementation",
+          "root_cause_analysis",
+          "browser_ui_verification",
+          "none_required",
+          "other_needs_new",
+          "unclear_needs_review"
+        ]
+      }
+    },
+    "required": [
+      "playbook_key"
+    ],
+    "additionalProperties": false
+  }
+}
