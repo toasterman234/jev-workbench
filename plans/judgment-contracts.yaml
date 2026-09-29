@@ -1,0 +1,314 @@
+version: "0.1"
+status: planning
+description: >
+  First six judgment contracts for proving the Work Judgment System using the
+  existing Jev Workbench primitives. These are contracts, not published functions.
+  Choice outputs use stable keys. "other_needs_new" and "unclear_needs_review"
+  prevent the model from silently inventing vocabulary.
+
+shared_context:
+  required_fields:
+    - content
+  optional_fields:
+    - source_type
+    - source_ref
+    - current_object_type
+    - current_lifecycle
+    - current_state
+    - parent_context
+    - known_artifacts
+    - known_decisions
+    - known_constraints
+    - available_playbooks
+    - available_templates
+    - available_evidence
+    - browser_or_ui_in_scope
+    - implementation_complete
+  rules:
+    - Prefer authoritative current state over wording alone.
+    - Respect retired, superseded, rejected, and blocked state when supplied.
+    - Do not infer that implementation is authorized merely because the user discusses an implementation.
+    - Do not invent vocabulary when an active option does not fit.
+    - Use unclear_needs_review when context is insufficient to make the judgment safely.
+
+functions:
+  classify_data_type:
+    primitive: choice
+    title: Classify Data Type
+    purpose: >
+      Identify what the incoming item primarily is so later judgments can apply
+      the right lifecycle and artifact rules.
+    when_to_use: >
+      Run on newly ingested notes, files, GitHub items, repository objects,
+      artifacts, and agent-session extracts before routing them.
+    inputs:
+      content: {type: string, required: true, description: Raw or normalized item content.}
+      source_type: {type: string, required: false, description: Known container/source type if available.}
+      source_ref: {type: string, required: false, description: Stable source reference if available.}
+      existing_context: {type: string, required: false, description: Known links, object identity, or authoritative metadata.}
+    instructions: >
+      Choose the single primary type that best describes the item itself, not what
+      action should be taken with it. Prefer a durable domain object when the item
+      clearly represents one; otherwise use a source/container type. Do not classify
+      by topic. If more than one type is plausible and the distinction changes routing,
+      choose unclear_needs_review. If the item is valid but no active type fits,
+      choose other_needs_new.
+    choices:
+      request: A request for work or attention that has not yet become a more specific governed object.
+      intake_record: A durable record of intake/classification.
+      project: A governed project/objective container.
+      explore: An Explore artifact or exploration work object.
+      work_item: A discrete governed unit of execution work.
+      decision: A durable choice/decision record.
+      proposal: A proposed change/choice awaiting evaluation or approval.
+      plan: A durable plan defining intended work and completion conditions.
+      evidence: Evidence supporting a claim, result, transition, or verification.
+      result: A durable result/outcome of work.
+      run_record: A durable record of an execution/run.
+      verification: A verification record or verification evidence package.
+      promotion_candidate: A candidate for promotion into a reusable/master standard.
+      review_request: A review checkpoint/request.
+      risk: A risk that may block or materially affect work.
+      open_question: An unresolved question needing answer/decision.
+      state_note: A durable note about operational state.
+      note: A general note not already represented by a stronger domain object.
+      github_issue: A GitHub issue whose domain role cannot yet be classified more specifically.
+      session: An agent/human interaction or execution session.
+      markdown_file: A Markdown file whose domain role is not yet known.
+      repository: A repository as a source/container.
+      document: A general document whose domain role is not yet known.
+      other_needs_new: The item is meaningful but no existing active type fits.
+      unclear_needs_review: Context is insufficient or materially ambiguous.
+    output:
+      key: primary_data_type
+      type: string
+    review_policy:
+      always_review:
+        - other_needs_new
+        - unclear_needs_review
+
+  next_intent:
+    primitive: choice
+    title: Next Intent
+    purpose: >
+      Decide which lifecycle intent should happen next given the item's current
+      authoritative state, existing artifacts, and unresolved requirements.
+    when_to_use: >
+      Run after basic classification and whenever a governed item reaches a point
+      where the next kind of work must be selected.
+    inputs:
+      content: {type: string, required: true}
+      object_type: {type: string, required: false}
+      current_lifecycle: {type: string, required: false}
+      current_state: {type: string, required: false}
+      known_artifacts: {type: array, items: string, required: false}
+      known_decisions: {type: array, items: string, required: false}
+      blockers_or_unknowns: {type: array, items: string, required: false}
+      implementation_complete: {type: boolean, required: false}
+      browser_or_ui_in_scope: {type: boolean, required: false}
+    instructions: >
+      Choose the next intent, not the whole workflow and not the final answer.
+      Respect lifecycle state and existing artifacts. Prefer clarify when a missing
+      requirement prevents choosing a governed path. Explore when the space/options
+      are not sufficiently understood. Research when a specific factual/evidence
+      question must be answered. Decide when sufficient information exists but a
+      consequential choice remains unresolved. Plan when a decision/direction exists
+      and execution needs an explicit plan. Execute only when execution is authorized
+      and required prerequisites exist. Verify when implementation/result exists and
+      must be validated. Review when another actor/checkpoint must assess existing
+      work. Close only when required evidence and follow-up routing are satisfied.
+      Promote only when a proven result/pattern is being evaluated for broader reuse.
+    choices:
+      intake: Normalize and establish the governed object/context before other work.
+      clarify: Obtain missing requirements, scope, authority, or context needed to route correctly.
+      explore: Understand an uncertain solution/problem space and viable options.
+      research: Gather or validate targeted evidence/facts needed by the current work.
+      decide: Make or prepare a consequential choice among sufficiently understood options.
+      plan: Define the execution approach, dependencies, gates, evidence, and definition of done.
+      execute: Perform authorized implementation/action against an approved direction or plan.
+      verify: Validate that implemented/resulting behavior satisfies requirements with evidence.
+      review: Perform a review checkpoint or independent assessment of existing work.
+      close: Finalize a governed item after exit conditions are satisfied and follow-ups are routed.
+      promote: Evaluate/incorporate a proven result or pattern into broader/master standards.
+      other_needs_new: A distinct intent is genuinely needed and should be proposed to the registry.
+      unclear_needs_review: Current context does not support a reliable next-intent choice.
+    output:
+      key: next_intent
+      type: string
+    review_policy:
+      always_review:
+        - other_needs_new
+        - unclear_needs_review
+
+  select_artifact:
+    primitive: choice
+    title: Select Required Artifact
+    purpose: >
+      Select the durable artifact that should be created or updated for the
+      current intent and lifecycle transition.
+    when_to_use: >
+      Run after next_intent when the work requires a durable representation.
+    inputs:
+      content: {type: string, required: true}
+      next_intent: {type: string, required: true}
+      object_type: {type: string, required: false}
+      current_state: {type: string, required: false}
+      existing_artifacts: {type: array, items: string, required: false}
+    instructions: >
+      Select the artifact that represents the durable result of the current
+      governed intent. Prefer updating an existing applicable artifact over
+      creating a duplicate. Execute may update a Work Item and produce Evidence
+      rather than require a new standalone document. If no separate artifact is
+      required, choose none_required. If a needed artifact type is missing from
+      the vocabulary, choose other_needs_new.
+    choices:
+      intake_record: Durable record of intake/classification and routing.
+      explore: Durable Explore artifact.
+      research: Durable research/evidence synthesis artifact.
+      decision: Durable Decision record.
+      proposal: Durable Proposal awaiting evaluation/approval.
+      plan: Durable Plan.
+      work_item_change: Durable change/state update to a Work Item plus linked evidence.
+      verification_evidence: Durable verification record/evidence package.
+      result: Durable accepted/rejected outcome/result.
+      run_record: Durable execution/run record.
+      promotion_candidate: Durable candidate for broader/master promotion.
+      evidence: Evidence object when evidence itself is the durable output.
+      none_required: The governed action can update existing durable state/evidence without a separate new artifact.
+      other_needs_new: A required artifact type is missing from the registry.
+      unclear_needs_review: Context is insufficient to identify the correct artifact.
+    output:
+      key: artifact_type
+      type: string
+    review_policy:
+      always_review:
+        - other_needs_new
+        - unclear_needs_review
+
+  select_playbook:
+    primitive: choice
+    title: Select Playbook
+    purpose: >
+      Select the most fitting known process for carrying out the current intent.
+    when_to_use: >
+      Run after intent/artifact selection when a governed process is required.
+    inputs:
+      content: {type: string, required: true}
+      next_intent: {type: string, required: true}
+      artifact_type: {type: string, required: false}
+      object_type: {type: string, required: false}
+      current_state: {type: string, required: false}
+      available_playbooks: {type: array, items: string, required: false}
+      browser_or_ui_in_scope: {type: boolean, required: false}
+      recurring_or_foundational_issue: {type: boolean, required: false}
+    instructions: >
+      Choose a playbook only when it fits the actual purpose and current state.
+      Browser/UI work requiring verification should prefer browser_ui_verification.
+      Recurring, foundational, or repeatedly patched defects should prefer
+      root_cause_analysis rather than another narrow patch workflow. Do not claim a
+      proposed playbook is executable merely because its title exists in the registry.
+      Choose none_required when no playbook is needed. Choose other_needs_new when
+      a process is needed but none of the available playbooks fits.
+    choices:
+      technical_project_exploration: Explore an unfamiliar technical project/tool and compare viable options.
+      research_and_synthesis: Gather targeted sources/evidence and synthesize findings.
+      decision_assessment: Evaluate requirements, options, tradeoffs, consequences, and prepare a decision.
+      implementation: Carry out authorized implementation with required checks and evidence.
+      root_cause_analysis: Diagnose underlying/foundational causes, track attempts, recurrence, and systemic fixes.
+      browser_ui_verification: Verify UI/UX and functionality through the actual browser/UI, including interaction and relevant console/runtime behavior.
+      none_required: No specific playbook is required for this step.
+      other_needs_new: A playbook is needed but none of the current known playbooks fits.
+      unclear_needs_review: The correct playbook cannot be chosen reliably from current context.
+    output:
+      key: playbook_key
+      type: string
+    review_policy:
+      always_review:
+        - other_needs_new
+        - unclear_needs_review
+      proposed_playbook_warning: >
+        A registry title in proposed/draft state is not executable authority; activation/source
+        definition is required before runtime enforcement.
+
+  requires_human_gate:
+    primitive: noul
+    title: Requires Human Gate
+    purpose: >
+      Determine whether the next transition/action must stop for explicit human
+      review, approval, or decision before proceeding.
+    when_to_use: >
+      Run before consequential execution, acceptance, promotion, or any transition
+      whose governing policy may require human authority.
+    inputs:
+      content: {type: string, required: true}
+      next_intent: {type: string, required: false}
+      current_state: {type: string, required: false}
+      proposed_action: {type: string, required: false}
+      risk_or_consequence: {type: string, required: false}
+      authority_context: {type: string, required: false}
+      existing_approval: {type: boolean, required: false}
+    instructions: >
+      Return the probability that an explicit human gate is required before the
+      proposed transition/action may proceed. A gate is warranted for consequential
+      choices reserved to humans, missing required approval, promotion/merge authority,
+      or policy-defined human checkpoints. Do not require a human merely because the
+      work is complex. If the supplied authority/policy context already clearly grants
+      the action without a human gate, lean false.
+    criteria:
+      true: >
+        A policy/authority boundary, consequential decision, promotion/merge action,
+        or required checkpoint means execution must stop until a human explicitly
+        reviews/approves/decides.
+      false: >
+        The action is within granted authority and no governing rule requires an
+        explicit human checkpoint before proceeding.
+    output:
+      key: requires_human_gate
+      type: probability
+    decision_policy:
+      suggested_threshold: 0.70
+      review_band: [0.40, 0.70]
+      note: Thresholds are provisional and must be calibrated with labeled cases.
+
+  evidence_satisfies_exit:
+    primitive: noul
+    title: Evidence Satisfies Exit
+    purpose: >
+      Judge whether the available evidence is sufficient to satisfy the defined
+      exit/transition conditions for the current governed item.
+    when_to_use: >
+      Run before accepting, closing, promoting, or otherwise claiming a lifecycle
+      transition is complete.
+    inputs:
+      content: {type: string, required: true, description: Exit condition / definition of done / requirement summary.}
+      current_state: {type: string, required: false}
+      required_evidence: {type: array, items: string, required: false}
+      available_evidence: {type: array, items: string, required: false}
+      verification_summary: {type: string, required: false}
+      browser_or_ui_in_scope: {type: boolean, required: false}
+      browser_verification_present: {type: boolean, required: false}
+      independent_verification_required: {type: boolean, required: false}
+      independent_verification_present: {type: boolean, required: false}
+    instructions: >
+      Return the probability that the available evidence actually satisfies the
+      supplied exit/transition requirements. Check required evidence classes, not
+      just whether some evidence exists. For browser/UI work, browser verification
+      must be present when required. Independent verification must be present when
+      required. Unit tests alone do not satisfy browser/UI verification. A claimed
+      result without observable/read-back evidence should lean false.
+    criteria:
+      true: >
+        Required evidence exists, is relevant to the exit conditions, verification
+        requirements were actually exercised, and there is no stated missing blocker
+        preventing the transition.
+      false: >
+        Required evidence is missing, irrelevant, only asserted rather than observed,
+        required browser/independent verification is absent, or exit conditions remain
+        unresolved.
+    output:
+      key: evidence_satisfies_exit
+      type: probability
+    decision_policy:
+      suggested_threshold: 0.80
+      review_band: [0.50, 0.80]
+      note: Thresholds are provisional and must be calibrated with labeled cases.
