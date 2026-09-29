@@ -1,0 +1,33 @@
+name: Work Judgment Phase1 Verify
+
+on:
+  pull_request:
+    paths:
+      - "examples/work-judgment/**"
+      - "tests/work-judgment-configs.test.ts"
+      - ".github/workflows/work-judgment-phase1-verify.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: [self-hosted, macOS, ARM64]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify runner
+        run: |
+          node --version
+          git rev-parse HEAD
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Tests
+        run: pnpm test
+      - name: Build
+        run: pnpm build
