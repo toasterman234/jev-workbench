@@ -37,7 +37,7 @@
   "questions": {
     "primary_data_type": {
       "type": "choice",
-      "instructions": "Choose what the item itself primarily IS \u2014 its role \u2014 not the workflow step it implies or the action it asks for. An ask for work, attention, approval, or evaluation is a request, even when phrased as a question and even when vague. A checkpoint asking for assessment is a review_request; an approval interaction that is itself an ask is a request. Prefer a durable domain object when the context clearly establishes one; otherwise use a source/container type. Do not classify by topic. A container that holds evidence is still a note unless its role is to support a claim; a sign-off or validation record is verification, not a state note. Choose unclear_needs_review only when you cannot determine which type fits and the ambiguity would change routing \u2014 vagueness alone is not unclear. Choose other_needs_new when the item is meaningful but no active type fits. When two types are close, decide by the item's primary role, not secondary aspects.",
+      "instructions": "Choose what the item itself primarily IS \u2014 its role \u2014 not the workflow step it implies or the action it asks for. An ask for work, attention, approval, or evaluation is a request, even when phrased as a question and even when vague: a vague-but-actionable item stays request, not note. A checkpoint asking for assessment is a review_request; an approval interaction that is itself an ask is a request. Prefer a durable domain object when the context clearly establishes one; otherwise use a source/container type. Do not classify by topic. A container that holds evidence is still a note unless its role is to support a claim; an approval or sign-off record is still a decision, not verification. A completed outcome is a result, not verification_evidence or plan. Do not reach for state_note when a stronger domain object fits. Choose unclear_needs_review when ambiguity would change routing. Choose other_needs_new when the item is meaningful but no active type fits. When two types are close, decide by the item's primary role, not secondary aspects.",
       "criteria": {
         "request": "A request for work or attention not already represented by a more specific governed object.",
         "intake_record": "A durable intake/classification record.",
@@ -152,6 +152,11 @@
       "date": "2026-09-28",
       "change": "instruction rewrite (questions.primary_data_type.instructions)",
       "reason": "Ben-approved Phase 1D 2026-09-28: instruction rewrite targeting boundary confusion (request vs review_request/open_question/risk/unclear, note vs evidence, verification vs state_note) and low-confidence calls"
+    },
+    {
+      "date": "2026-09-28",
+      "change": "instruction revision (questions.primary_data_type.instructions): reverted 1D vagueness line; added negative guards",
+      "reason": "Ben ruling 2026-09-28: wj-025 gold unclear_needs_review stands; instruction line reverted. Phase 1E: negative guards for 1D overshoot (approval/sign-off record stays decision not verification; completed outcome stays result not verification_evidence/plan; vague-but-actionable item stays request not note; state_note only when no stronger domain object fits)"
     }
   ]
 }
