@@ -1,0 +1,443 @@
+[
+ {
+  "id": "A-wj-004-select_playbook",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "new in 1E: explore intent with technical_project_exploration available, yet model chose none_required; playbook instructions byte-identical to 1D, so this is run-to-run variance, not the v1e edit",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-005-select_artifact",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "1D regression: none_required -> unclear_needs_review; model lost confidence [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-006-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "approval interaction still lands on note after the 1D ask-discriminator moved it off review_request; request/note boundary needs a sharper line [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-006-next_intent",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "clarify/decide boundary still thin (gold_review candidate from 1B) [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "A-wj-006-select_artifact",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "1D regression: none_required -> unclear_needs_review for clarify intent [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-007-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "1D regression: 'plan with open decisions needing tap' now reads as quality_failure; the rewrite destabilized this case [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-007-next_intent",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "plan with open decisions; moved decide->clarify in 1D, gold review still unresolved [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-007-select_artifact",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "new in 1E: gold plan vs pred decision; artifact instructions byte-identical to 1D (variance); the merge plan's open decisions pull the model toward decision",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-008-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "gold result vs model quality_failure; false completion claims read as defective deliverable (Ben gold-review candidate) [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "A-wj-008-select_playbook",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "missing-verification case; model browser_ui_verification vs gold none_required (Ben gold-review candidate) [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "A-wj-010-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "1B: observation is about a multi-phase plan; gold work_item does not match the semantic object [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "A-wj-010-select_artifact",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "1D regression (was result): 'update the approved plan' overshoot [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-012-select_playbook",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "internally inconsistent gold set (gold intent=research vs gold playbook=root_cause_analysis) [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "A-wj-013-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "diagnostic-mechanism case; gold incident vs model note/evidence (Ben gold-review candidate) [1E update: pred moved note -> evidence; gold incident still missed]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "A-wj-013-select_playbook",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "same internal inconsistency as wj-012 [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "A-wj-015-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "diagnostic-mechanism case; gold incident vs model evidence (Ben gold-review candidate) [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "A-wj-018-select_playbook",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "browser_or_ui_in_scope flag still pulls model to browser_ui_verification over root_cause_analysis; 1D flag line did not fire [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-019-next_intent",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "issue with a proposal; decide vs clarify boundary still unresolved [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-020-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "new in 1E: gold github_issue vs pred state_note; the v1e negative guard (\"do not reach for state_note when a stronger domain object fits\") did not fire - the completion-status framing of the summary dominated the issue-ness",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-021-next_intent",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "new in 1E: gold explore vs pred research; explore/research boundary thin; intent instructions byte-identical to 1D (variance)",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-022-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "pending choice between options; decision vs open_question boundary still unresolved [1E update: pred moved open_question -> request; gold decision still missed]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-023-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "work_item vs verification boundary; 1D 'sign-off is verification' line may have pulled this [1E update: pred moved verification -> result; gold work_item still missed]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-023-next_intent",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "all checks pass yet model says review instead of close; close-loop line did not fire [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-024-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "gap-in-coverage observation; request vs risk boundary still unresolved [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-024-next_intent",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "no playbook covers the need; plan vs clarify boundary (gold_review candidate from 1B) [1E update: pred moved clarify -> research; gold plan still missed]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "A-wj-027-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "research note containing evidence; 1D 'container holding evidence is still a note' line may have pushed the wrong way [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-028-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "1D regression persists with a different wrong answer: v1e's \"completed outcome is a result, not verification_evidence or plan\" guard fired on the approved plan, moving pred state_note -> result; gold plan still missed. The guard overshoots on approved-but-not-executed plans.",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-028-evidence_satisfies_exit",
+  "kind": "mismatch",
+  "attribution": "insufficient context",
+  "rationale": "new in 1E: p=0.48 vs gold True (1D was 0.55); borderline threshold wobble on an approved plan; evidence instructions byte-identical to 1D",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-029-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "QA sign-off; verification vs state_note boundary still unresolved [1E update: pred moved state_note -> result; gold verification still missed]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-005-select_artifact",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "1D regression: none_required -> unclear_needs_review; model lost confidence [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-005-select_playbook",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-006-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "approval interaction still lands on note after the 1D ask-discriminator moved it off review_request; request/note boundary needs a sharper line [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-006-next_intent",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-006-select_artifact",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-006-select_playbook",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-007-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "1D regression: 'plan with open decisions needing tap' now reads as quality_failure; the rewrite destabilized this case [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-007-next_intent",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-007-select_artifact",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-008-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "gold result vs model quality_failure; false completion claims read as defective deliverable (Ben gold-review candidate) [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "B-wj-008-select_playbook",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-010-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "1B: observation is about a multi-phase plan; gold work_item does not match the semantic object [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "B-wj-010-select_artifact",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-012-select_playbook",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "internally inconsistent gold set (gold intent=research vs gold playbook=root_cause_analysis) [persists unchanged in 1E]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "B-wj-013-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "bad expected label",
+  "rationale": "diagnostic-mechanism case; gold incident vs model note/evidence (Ben gold-review candidate) [1E update: pred moved note -> evidence; gold incident still missed]",
+  "gold_review_needed": true
+ },
+ {
+  "id": "B-wj-013-select_playbook",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-019-next_intent",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "issue with a proposal; decide vs clarify boundary still unresolved [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-019-select_artifact",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-019-select_playbook",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-021-next_intent",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "new in 1E: gold explore vs pred research; same boundary as A mode; intent instructions unchanged (variance)",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-021-select_artifact",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "new in 1E: fed next_intent=research differs from gold explore; cascade from the intent mispredict, not this judgment's instruction",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-022-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "pending choice between options; decision vs open_question boundary still unresolved [1E update: pred moved open_question -> request; gold decision still missed]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-023-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "work_item vs verification boundary; 1D 'sign-off is verification' line may have pulled this [1E update: pred moved verification -> result; gold work_item still missed]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-024-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "gap-in-coverage observation; request vs risk boundary still unresolved [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-024-next_intent",
+  "kind": "mismatch",
+  "attribution": "upstream error",
+  "rationale": "fed upstream value differs from gold; cascade, not this judgment's instruction [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-027-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "research note containing evidence; 1D 'container holding evidence is still a note' line may have pushed the wrong way [persists unchanged in 1E]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-028-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "1D regression persists with a different wrong answer: v1e's \"completed outcome is a result, not verification_evidence or plan\" guard fired on the approved plan, moving pred state_note -> result; gold plan still missed. The guard overshoots on approved-but-not-executed plans.",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-028-evidence_satisfies_exit",
+  "kind": "mismatch",
+  "attribution": "insufficient context",
+  "rationale": "boundary case p=0.47 vs gold True (was 0.49 in 1C); stochastic wobble, not systematic [1E update: pred moved 0.47 -> 0.46; gold True still missed]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-029-classify_data_type",
+  "kind": "mismatch",
+  "attribution": "judgment instructions",
+  "rationale": "QA sign-off; verification vs state_note boundary still unresolved [1E update: pred moved state_note -> result; gold verification still missed]",
+  "gold_review_needed": false
+ },
+ {
+  "id": "A-wj-030-classify_data_type",
+  "kind": "error",
+  "attribution": "provider",
+  "rationale": "HTTP 502 UPSTREAM_INVALID_RESPONSE after retries; excluded from scoring (1E had 5, vs 1 in 1D)",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-004-select_artifact",
+  "kind": "error",
+  "attribution": "provider",
+  "rationale": "HTTP 502 UPSTREAM_INVALID_RESPONSE after retries; excluded from scoring (1E had 5, vs 1 in 1D)",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-015-classify_data_type",
+  "kind": "error",
+  "attribution": "provider",
+  "rationale": "HTTP 502 UPSTREAM_INVALID_RESPONSE after retries; excluded from scoring (1E had 5, vs 1 in 1D)",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-018-next_intent",
+  "kind": "error",
+  "attribution": "provider",
+  "rationale": "HTTP 502 UPSTREAM_INVALID_RESPONSE after retries; excluded from scoring (1E had 5, vs 1 in 1D)",
+  "gold_review_needed": false
+ },
+ {
+  "id": "B-wj-030-classify_data_type",
+  "kind": "error",
+  "attribution": "provider",
+  "rationale": "HTTP 502 UPSTREAM_INVALID_RESPONSE after retries; excluded from scoring (1E had 5, vs 1 in 1D)",
+  "gold_review_needed": false
+ }
+]
