@@ -1,0 +1,1441 @@
+[
+  {
+    "id": "A-wj-001-classify_data_type",
+    "mode": "A",
+    "case": "wj-001",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "predicted": "review_request",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-002-select_artifact",
+    "mode": "A",
+    "case": "wj-002",
+    "judgment": "select_artifact",
+    "gold": "verification_evidence",
+    "predicted": "result",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "verify",
+      "object_type": "quality_failure"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-002-requires_human_gate",
+    "mode": "A",
+    "case": "wj-002",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "predicted": 0.57,
+    "p": 0.57,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "ambiguous_gate"
+    ],
+    "upstream": {
+      "next_intent": "verify"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-003-next_intent",
+    "mode": "A",
+    "case": "wj-003",
+    "judgment": "next_intent",
+    "gold": "verify",
+    "predicted": "research",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "object_type": "quality_failure"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-004-classify_data_type",
+    "mode": "A",
+    "case": "wj-004",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "predicted": "open_question",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-004-select_playbook",
+    "mode": "A",
+    "case": "wj-004",
+    "judgment": "select_playbook",
+    "gold": "technical_project_exploration",
+    "predicted": "none_required",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "explore",
+      "artifact_type": "explore",
+      "object_type": "request"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-005-classify_data_type",
+    "mode": "A",
+    "case": "wj-005",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "predicted": "unclear_needs_review",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence",
+      "unclear"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-006-next_intent",
+    "mode": "A",
+    "case": "wj-006",
+    "judgment": "next_intent",
+    "gold": "clarify",
+    "predicted": "decide",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "object_type": "request"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-007-next_intent",
+    "mode": "A",
+    "case": "wj-007",
+    "judgment": "next_intent",
+    "gold": "review",
+    "predicted": "decide",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "object_type": "plan"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-008-classify_data_type",
+    "mode": "A",
+    "case": "wj-008",
+    "judgment": "classify_data_type",
+    "gold": "result",
+    "predicted": "quality_failure",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-008-select_artifact",
+    "mode": "A",
+    "case": "wj-008",
+    "judgment": "select_artifact",
+    "gold": "verification_evidence",
+    "predicted": "result",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "verify",
+      "object_type": "result"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-008-select_playbook",
+    "mode": "A",
+    "case": "wj-008",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "predicted": "browser_ui_verification",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "verify",
+      "artifact_type": "verification_evidence",
+      "object_type": "result"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-009-select_artifact",
+    "mode": "A",
+    "case": "wj-009",
+    "judgment": "select_artifact",
+    "gold": "verification_evidence",
+    "predicted": "result",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "verify",
+      "object_type": "quality_failure"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-009-requires_human_gate",
+    "mode": "A",
+    "case": "wj-009",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "predicted": 0.53,
+    "p": 0.53,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "ambiguous_gate"
+    ],
+    "upstream": {
+      "next_intent": "verify"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-010-classify_data_type",
+    "mode": "A",
+    "case": "wj-010",
+    "judgment": "classify_data_type",
+    "gold": "work_item",
+    "predicted": "plan",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-011-classify_data_type",
+    "mode": "A",
+    "case": "wj-011",
+    "judgment": "classify_data_type",
+    "gold": "incident",
+    "predicted": "quality_failure",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-012-select_playbook",
+    "mode": "A",
+    "case": "wj-012",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "predicted": "research_and_synthesis",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "research",
+      "artifact_type": "research",
+      "object_type": "incident"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-013-classify_data_type",
+    "mode": "A",
+    "case": "wj-013",
+    "judgment": "classify_data_type",
+    "gold": "incident",
+    "predicted": "evidence",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-013-select_playbook",
+    "mode": "A",
+    "case": "wj-013",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "predicted": "research_and_synthesis",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "research",
+      "artifact_type": "research",
+      "object_type": "incident"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-015-classify_data_type",
+    "mode": "A",
+    "case": "wj-015",
+    "judgment": "classify_data_type",
+    "gold": "incident",
+    "predicted": "evidence",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-018-select_playbook",
+    "mode": "A",
+    "case": "wj-018",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "predicted": "browser_ui_verification",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "research",
+      "artifact_type": "research",
+      "object_type": "github_issue"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-019-next_intent",
+    "mode": "A",
+    "case": "wj-019",
+    "judgment": "next_intent",
+    "gold": "decide",
+    "predicted": "clarify",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "object_type": "github_issue"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-019-select_artifact",
+    "mode": "A",
+    "case": "wj-019",
+    "judgment": "select_artifact",
+    "gold": "decision",
+    "predicted": "result",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "decide",
+      "object_type": "github_issue"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-019-select_playbook",
+    "mode": "A",
+    "case": "wj-019",
+    "judgment": "select_playbook",
+    "gold": "decision_assessment",
+    "predicted": "root_cause_analysis",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "decide",
+      "artifact_type": "decision",
+      "object_type": "github_issue"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-022-classify_data_type",
+    "mode": "A",
+    "case": "wj-022",
+    "judgment": "classify_data_type",
+    "gold": "decision",
+    "predicted": "open_question",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-023-classify_data_type",
+    "mode": "A",
+    "case": "wj-023",
+    "judgment": "classify_data_type",
+    "gold": "work_item",
+    "predicted": "verification",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-023-next_intent",
+    "mode": "A",
+    "case": "wj-023",
+    "judgment": "next_intent",
+    "gold": "close",
+    "predicted": "review",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "object_type": "work_item"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-024-classify_data_type",
+    "mode": "A",
+    "case": "wj-024",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "predicted": "risk",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-024-next_intent",
+    "mode": "A",
+    "case": "wj-024",
+    "judgment": "next_intent",
+    "gold": "plan",
+    "predicted": "clarify",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "object_type": "request"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-027-classify_data_type",
+    "mode": "A",
+    "case": "wj-027",
+    "judgment": "classify_data_type",
+    "gold": "evidence",
+    "predicted": "note",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-028-select_artifact",
+    "mode": "A",
+    "case": "wj-028",
+    "judgment": "select_artifact",
+    "gold": "plan",
+    "predicted": "result",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "execute",
+      "object_type": "plan"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-028-evidence_satisfies_exit",
+    "mode": "A",
+    "case": "wj-028",
+    "judgment": "evidence_satisfies_exit",
+    "gold": true,
+    "predicted": 0.49,
+    "p": 0.49,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-029-classify_data_type",
+    "mode": "A",
+    "case": "wj-029",
+    "judgment": "classify_data_type",
+    "gold": "verification",
+    "predicted": "state_note",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "A-wj-029-next_intent",
+    "mode": "A",
+    "case": "wj-029",
+    "judgment": "next_intent",
+    "gold": "close",
+    "predicted": "execute",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "object_type": "verification"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-001-classify_data_type",
+    "mode": "B",
+    "case": "wj-001",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "predicted": "review_request",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-003-next_intent",
+    "mode": "B",
+    "case": "wj-003",
+    "judgment": "next_intent",
+    "gold": "verify",
+    "predicted": "research",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "classify_data_type": "quality_failure"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-003-select_artifact",
+    "mode": "B",
+    "case": "wj-003",
+    "judgment": "select_artifact",
+    "gold": "verification_evidence",
+    "predicted": "research",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "research",
+      "classify_data_type": "quality_failure"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "next_intent": {
+        "fed": "research",
+        "gold": "verify"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-004-select_playbook",
+    "mode": "B",
+    "case": "wj-004",
+    "judgment": "select_playbook",
+    "gold": "technical_project_exploration",
+    "predicted": "none_required",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "explore",
+      "select_artifact": "explore",
+      "classify_data_type": "request"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-005-classify_data_type",
+    "mode": "B",
+    "case": "wj-005",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "predicted": "unclear_needs_review",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence",
+      "unclear"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-005-select_artifact",
+    "mode": "B",
+    "case": "wj-005",
+    "judgment": "select_artifact",
+    "gold": "none_required",
+    "predicted": "unclear_needs_review",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "unclear"
+    ],
+    "upstream": {
+      "next_intent": "clarify",
+      "classify_data_type": "unclear_needs_review"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "classify_data_type": {
+        "fed": "unclear_needs_review",
+        "gold": "request"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-005-select_playbook",
+    "mode": "B",
+    "case": "wj-005",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "predicted": "unclear_needs_review",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "unclear"
+    ],
+    "upstream": {
+      "next_intent": "clarify",
+      "select_artifact": "unclear_needs_review",
+      "classify_data_type": "unclear_needs_review"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "select_artifact": {
+        "fed": "unclear_needs_review",
+        "gold": "none_required"
+      },
+      "classify_data_type": {
+        "fed": "unclear_needs_review",
+        "gold": "request"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-006-next_intent",
+    "mode": "B",
+    "case": "wj-006",
+    "judgment": "next_intent",
+    "gold": "clarify",
+    "predicted": "decide",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "classify_data_type": "request"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-006-select_artifact",
+    "mode": "B",
+    "case": "wj-006",
+    "judgment": "select_artifact",
+    "gold": "none_required",
+    "predicted": "decision",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "decide",
+      "classify_data_type": "request"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "next_intent": {
+        "fed": "decide",
+        "gold": "clarify"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-006-select_playbook",
+    "mode": "B",
+    "case": "wj-006",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "predicted": "decision_assessment",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "decide",
+      "select_artifact": "decision",
+      "classify_data_type": "request"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "next_intent": {
+        "fed": "decide",
+        "gold": "clarify"
+      },
+      "select_artifact": {
+        "fed": "decision",
+        "gold": "none_required"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-007-next_intent",
+    "mode": "B",
+    "case": "wj-007",
+    "judgment": "next_intent",
+    "gold": "review",
+    "predicted": "decide",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "classify_data_type": "plan"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-007-select_artifact",
+    "mode": "B",
+    "case": "wj-007",
+    "judgment": "select_artifact",
+    "gold": "plan",
+    "predicted": "decision",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "decide",
+      "classify_data_type": "plan"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "next_intent": {
+        "fed": "decide",
+        "gold": "review"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-008-classify_data_type",
+    "mode": "B",
+    "case": "wj-008",
+    "judgment": "classify_data_type",
+    "gold": "result",
+    "predicted": "quality_failure",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-008-select_playbook",
+    "mode": "B",
+    "case": "wj-008",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "predicted": "root_cause_analysis",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "verify",
+      "select_artifact": "verification_evidence",
+      "classify_data_type": "quality_failure"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "classify_data_type": {
+        "fed": "quality_failure",
+        "gold": "result"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-009-select_artifact",
+    "mode": "B",
+    "case": "wj-009",
+    "judgment": "select_artifact",
+    "gold": "verification_evidence",
+    "predicted": "result",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "verify",
+      "classify_data_type": "quality_failure"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-009-requires_human_gate",
+    "mode": "B",
+    "case": "wj-009",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "predicted": 0.56,
+    "p": 0.56,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "ambiguous_gate"
+    ],
+    "upstream": {
+      "next_intent": "verify"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-010-classify_data_type",
+    "mode": "B",
+    "case": "wj-010",
+    "judgment": "classify_data_type",
+    "gold": "work_item",
+    "predicted": "plan",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-010-select_artifact",
+    "mode": "B",
+    "case": "wj-010",
+    "judgment": "select_artifact",
+    "gold": "result",
+    "predicted": "plan",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "execute",
+      "classify_data_type": "plan"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "classify_data_type": {
+        "fed": "plan",
+        "gold": "work_item"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-011-classify_data_type",
+    "mode": "B",
+    "case": "wj-011",
+    "judgment": "classify_data_type",
+    "gold": "incident",
+    "predicted": "quality_failure",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-012-select_playbook",
+    "mode": "B",
+    "case": "wj-012",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "predicted": "research_and_synthesis",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "research",
+      "select_artifact": "research",
+      "classify_data_type": "incident"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-013-classify_data_type",
+    "mode": "B",
+    "case": "wj-013",
+    "judgment": "classify_data_type",
+    "gold": "incident",
+    "predicted": "evidence",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-013-select_playbook",
+    "mode": "B",
+    "case": "wj-013",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "predicted": "research_and_synthesis",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "research",
+      "select_artifact": "research",
+      "classify_data_type": "evidence"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "classify_data_type": {
+        "fed": "evidence",
+        "gold": "incident"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-015-classify_data_type",
+    "mode": "B",
+    "case": "wj-015",
+    "judgment": "classify_data_type",
+    "gold": "incident",
+    "predicted": "evidence",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-018-select_playbook",
+    "mode": "B",
+    "case": "wj-018",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "predicted": "browser_ui_verification",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "research",
+      "select_artifact": "research",
+      "classify_data_type": "github_issue"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-019-next_intent",
+    "mode": "B",
+    "case": "wj-019",
+    "judgment": "next_intent",
+    "gold": "decide",
+    "predicted": "clarify",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "classify_data_type": "github_issue"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-019-select_artifact",
+    "mode": "B",
+    "case": "wj-019",
+    "judgment": "select_artifact",
+    "gold": "decision",
+    "predicted": "none_required",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "clarify",
+      "classify_data_type": "github_issue"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "next_intent": {
+        "fed": "clarify",
+        "gold": "decide"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-019-select_playbook",
+    "mode": "B",
+    "case": "wj-019",
+    "judgment": "select_playbook",
+    "gold": "decision_assessment",
+    "predicted": "root_cause_analysis",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "clarify",
+      "select_artifact": "none_required",
+      "classify_data_type": "github_issue"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "next_intent": {
+        "fed": "clarify",
+        "gold": "decide"
+      },
+      "select_artifact": {
+        "fed": "none_required",
+        "gold": "decision"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-021-classify_data_type",
+    "mode": "B",
+    "case": "wj-021",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "predicted": "open_question",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-022-classify_data_type",
+    "mode": "B",
+    "case": "wj-022",
+    "judgment": "classify_data_type",
+    "gold": "decision",
+    "predicted": "open_question",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-023-classify_data_type",
+    "mode": "B",
+    "case": "wj-023",
+    "judgment": "classify_data_type",
+    "gold": "work_item",
+    "predicted": "verification",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-023-next_intent",
+    "mode": "B",
+    "case": "wj-023",
+    "judgment": "next_intent",
+    "gold": "close",
+    "predicted": "review",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "classify_data_type": "verification"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "classify_data_type": {
+        "fed": "verification",
+        "gold": "work_item"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-023-select_playbook",
+    "mode": "B",
+    "case": "wj-023",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "predicted": "browser_ui_verification",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "next_intent": "review",
+      "select_artifact": "result",
+      "classify_data_type": "verification"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "next_intent": {
+        "fed": "review",
+        "gold": "close"
+      },
+      "classify_data_type": {
+        "fed": "verification",
+        "gold": "work_item"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-023-requires_human_gate",
+    "mode": "B",
+    "case": "wj-023",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "predicted": 0.55,
+    "p": 0.55,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "ambiguous_gate"
+    ],
+    "upstream": {
+      "next_intent": "review"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "next_intent": {
+        "fed": "review",
+        "gold": "close"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-024-classify_data_type",
+    "mode": "B",
+    "case": "wj-024",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "predicted": "risk",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-024-next_intent",
+    "mode": "B",
+    "case": "wj-024",
+    "judgment": "next_intent",
+    "gold": "plan",
+    "predicted": "clarify",
+    "p": null,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {
+      "classify_data_type": "risk"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "classify_data_type": {
+        "fed": "risk",
+        "gold": "request"
+      }
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-027-classify_data_type",
+    "mode": "B",
+    "case": "wj-027",
+    "judgment": "classify_data_type",
+    "gold": "evidence",
+    "predicted": "note",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-028-select_artifact",
+    "mode": "B",
+    "case": "wj-028",
+    "judgment": "select_artifact",
+    "gold": "plan",
+    "predicted": "result",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "next_intent": "execute",
+      "classify_data_type": "plan"
+    },
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-028-evidence_satisfies_exit",
+    "mode": "B",
+    "case": "wj-028",
+    "judgment": "evidence_satisfies_exit",
+    "gold": true,
+    "predicted": 0.49,
+    "p": 0.49,
+    "review_status": "ok",
+    "review_reasons": [],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-029-classify_data_type",
+    "mode": "B",
+    "case": "wj-029",
+    "judgment": "classify_data_type",
+    "gold": "verification",
+    "predicted": "state_note",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {},
+    "upstream_error": false,
+    "upstream_detail": {},
+    "model": "jev-1.13.0"
+  },
+  {
+    "id": "B-wj-029-next_intent",
+    "mode": "B",
+    "case": "wj-029",
+    "judgment": "next_intent",
+    "gold": "close",
+    "predicted": "execute",
+    "p": null,
+    "review_status": "needs_review",
+    "review_reasons": [
+      "low_confidence"
+    ],
+    "upstream": {
+      "classify_data_type": "state_note"
+    },
+    "upstream_error": true,
+    "upstream_detail": {
+      "classify_data_type": {
+        "fed": "state_note",
+        "gold": "verification"
+      }
+    },
+    "model": "jev-1.13.0"
+  }
+]
