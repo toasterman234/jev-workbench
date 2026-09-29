@@ -8,6 +8,7 @@
 
 - [Seed registry](./seed-registry.yaml) — concrete initial vocabulary, authority/source metadata, fallbacks, and namespaced lifecycle states.
 - [Judgment contracts](./judgment-contracts.yaml) — the first six constrained Choice/Noul contracts to prove before product implementation.
+- [Evaluation cases](./evaluation-cases.yaml) — the first 25-case projection suite referencing existing Master Repo evals plus explicit synthetic boundary/positive cases.
 
 ## 1. Problem statement
 
@@ -700,6 +701,68 @@ evaluation:
 
 The primary unit of training/evaluation is therefore a **labeled decision moment**, not a session transcript.
 
+
+### Existing evaluation assets: reuse, do not rebuild
+
+The system already has enough evaluation material to prove the first judgment contracts.
+
+**Master Repo is the evaluation system of record.** Its top-level `evals/` surface already separates append-only datasets, candidates awaiting human verdict, run evidence, and specs. The Workbench must reference/project those cases rather than create a competing historical corpus.
+
+Existing material includes:
+
+- `agent-behavior-v1`: 26 approved behavioral cases, many with input/context/expected/actual/rule/failure-mode fields.
+- `issue-triage-route-v1`: 161 labeled GitHub issues.
+- `incident-agent-v1`: 14 adjudicated incident/RCA/recurrence cases.
+- Pi frustration candidates: useful future edge-case material, but pending review and therefore not gold labels.
+- Pi timeline outcomes: useful outcome evidence, not standalone repeatable cases.
+
+**JEv Supervisor already owns Pi decision-point mining.** Its historical importer normalizes/redacts Pi JSONL, extracts bounded decision points, separates decision-time context from evidence, grades candidates as `verified | strong | inferred`, and can export a local review artifact. Do not build a second Pi session miner inside Jev Workbench.
+
+Current Supervisor facts used by this plan:
+
+- 211 historical candidates currently exist.
+- 19 are currently eligible `verified/strong` review candidates.
+- review decisions are not yet persisted server-side.
+- replay remains unimplemented.
+- `inferred` candidates are exploration-only and must not be treated as gold labels.
+
+Therefore the first Workbench suite uses **projections**, not copied histories:
+
+```text
+authoritative source case
+        ↓
+Work Judgment projection
+        ↓
+expected outputs for applicable judgment(s)
+        ↓
+run selected Jev function/version
+        ↓
+compare / review
+```
+
+A projection keeps the original source ID and adds only labels such as:
+
+```yaml
+source_case: agent-behavior-004
+expected:
+  next_intent: verify
+  select_artifact: verification_evidence
+  select_playbook: browser_ui_verification
+  requires_human_gate: false
+  evidence_satisfies_exit: false
+```
+
+Not every source case should be forced through all six judgments. Targets are **sparse by design**: only judgments that are meaningful at that decision point are evaluated.
+
+The initial `work-judgment-v1` suite is defined in `plans/evaluation-cases.yaml`:
+
+- 10 approved agent-behavior cases;
+- 5 approved incident/RCA cases;
+- 5 labeled GitHub issues;
+- 5 synthetic positive/boundary cases.
+
+The incident cases also expose one vocabulary gap: `Incident` is useful enough to capture as a **proposed** local object type, but it remains unavailable to active Choice functions until reviewed/activated.
+
 ## 11. Privacy and storage boundary
 
 The current Jev Workbench intentionally stores run metadata but not normal invocation inputs or answers. That behavior must remain intact.
@@ -931,18 +994,27 @@ Create functions using the current product before modifying architecture:
 - `requires_human_gate`
 - `evidence_satisfies_exit`
 
-Create a small labeled case set.
+Use the existing `work-judgment-v1` projection suite in `plans/evaluation-cases.yaml`.
 
-Target:
+Initial suite:
 
-- 20–30 representative cases
-- include obvious cases and ambiguous boundary cases
-- include at least several known historical Pi mistakes
+- 25 representative cases
+- 10 approved agent-behavior cases
+- 5 approved incident/RCA cases
+- 5 labeled GitHub issues
+- 5 synthetic positive/boundary cases
+- sparse expected targets: evaluate only judgments meaningful at each decision point
+- include `other_needs_new` and `unclear_needs_review` boundaries
+
+Do not import unreviewed JEv Supervisor candidates into the gold suite yet. After Supervisor review persistence exists, reviewed `verified/strong` candidates can be projected in the same way.
 
 No new UI architecture is required for this phase.
 
 Exit condition:
 
+- all six contracts have meaningful coverage in the suite
+- obvious and boundary cases behave coherently
+- missing vocabulary is surfaced rather than invented
 - the functions are useful enough to demonstrate that decomposed judgments outperform a single open-ended "what next?" prompt
 
 ### Phase 2 — Registries + Judgment Sets
@@ -1157,11 +1229,12 @@ Mitigation: keep fork-specific additions modular and document every schema/UI ex
 2. Define the seeded Choice keys for `classify_data_type`, `next_intent`, `select_artifact`, and `select_playbook`, including `other_needs_new` / review fallbacks where appropriate.
 3. Define the minimal RegistryEntry contract and proposed → active → retired/superseded lifecycle.
 4. Define namespaced lifecycle states and ensure judgments receive the relevant lifecycle context instead of a global status enum.
-5. Create the first judgment functions in an unmodified Jev Workbench instance.
-6. Build 20–30 saved cases, including historical Pi decision moments and cases where none of the current vocabulary fits.
-7. Run and review the cases.
-8. Record which limitations are genuinely UI/data-model problems versus judgment-definition problems.
-9. Implement the Registry/Vocabulary UI plus Judgment Sets.
-10. Add behavioral case metadata after the registry behavior is verified.
+5. Use `plans/evaluation-cases.yaml` as the initial 25-case gold/projection suite; do not create a duplicate corpus.
+6. Create the first judgment functions in an unmodified Jev Workbench instance.
+7. Run the six functions against their applicable projected cases and record per-case/version results.
+8. Review mismatches and distinguish taxonomy/contract/context failures from actual Workbench product limitations.
+9. Only after that proof, implement the Registry/Vocabulary UI plus Judgment Sets.
+10. Add behavioral case metadata/import support after registry behavior is verified.
+11. Integrate reviewed JEv Supervisor `verified/strong` candidates later by source reference, not by duplicating the Pi mining pipeline.
 
 This sequence intentionally proves the behavioral model before modifying the product architecture.
