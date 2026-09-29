@@ -1,0 +1,151 @@
+{
+  "format_version": 1,
+  "key": "next_intent",
+  "name": "Next intent",
+  "description": "Select the next lifecycle intent from current authoritative state and known work context.",
+  "when_to_use": "Use after basic classification and at lifecycle decision points before choosing an artifact, playbook, or action.",
+  "provider": "typesafe",
+  "model": "jev-1.13.0",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "content": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12000,
+        "description": "Current request/situation"
+      },
+      "object_type": {
+        "type": "string",
+        "description": "Known object type"
+      },
+      "current_lifecycle": {
+        "type": "string",
+        "description": "Current lifecycle namespace"
+      },
+      "current_state": {
+        "type": "string",
+        "description": "Current authoritative state"
+      },
+      "known_artifacts": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Existing durable artifacts"
+      },
+      "known_decisions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Relevant existing decisions"
+      },
+      "blockers_or_unknowns": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Known blockers or unresolved unknowns"
+      },
+      "implementation_complete": {
+        "type": "boolean",
+        "description": "Whether implementation/result exists"
+      },
+      "browser_or_ui_in_scope": {
+        "type": "boolean",
+        "description": "Whether browser/UI behavior is part of the work"
+      }
+    },
+    "required": [
+      "content"
+    ],
+    "additionalProperties": false
+  },
+  "state_mapping": {
+    "content": "/content",
+    "object_type": "/object_type",
+    "current_lifecycle": "/current_lifecycle",
+    "current_state": "/current_state",
+    "known_artifacts": "/known_artifacts",
+    "known_decisions": "/known_decisions",
+    "blockers_or_unknowns": "/blockers_or_unknowns",
+    "implementation_complete": "/implementation_complete",
+    "browser_or_ui_in_scope": "/browser_or_ui_in_scope"
+  },
+  "questions": {
+    "next_intent": {
+      "type": "choice",
+      "instructions": "Choose only the next lifecycle intent. Respect current state, existing artifacts, approvals, and blockers. Clarify when missing requirements prevent a governed path. Explore when the solution/problem space is not sufficiently understood. Research when targeted evidence or diagnosis is needed. Decide when sufficient evidence exists but a consequential choice remains. Plan when direction exists and execution needs an explicit plan. Execute only when authorized prerequisites exist. Verify when a result exists and must be validated. Review when another actor/checkpoint must assess work. Close only after exit evidence and follow-up routing are satisfied. Promote only for proven reusable patterns. Do not invent a new intent.",
+      "criteria": {
+        "intake": "Normalize/classify and establish governed context.",
+        "clarify": "Obtain missing scope, target, authority, requirement, or context.",
+        "explore": "Understand an uncertain solution/problem space and viable options.",
+        "research": "Gather or validate targeted evidence/facts or diagnose an unknown mechanism.",
+        "decide": "Make or prepare a consequential choice among sufficiently understood options.",
+        "plan": "Define execution approach, dependencies, gates, evidence, and definition of done.",
+        "execute": "Perform authorized implementation/action against an approved direction or plan.",
+        "verify": "Validate implemented/resulting behavior with evidence.",
+        "review": "Perform a review checkpoint or independent assessment.",
+        "close": "Finalize after exit conditions are satisfied and follow-ups are routed.",
+        "promote": "Evaluate/incorporate a proven result or pattern into broader standards.",
+        "other_needs_new": "A genuinely distinct intent is needed and should be proposed.",
+        "unclear_needs_review": "Context does not support a reliable next-intent choice."
+      }
+    }
+  },
+  "review": {
+    "match": "any",
+    "rules": [
+      {
+        "id": "low_confidence",
+        "source": "/answers/next_intent/confidence",
+        "operator": "lt",
+        "value": 0.65
+      },
+      {
+        "id": "new_vocab_needed",
+        "source": "/answers/next_intent/choice",
+        "operator": "eq",
+        "value": "other_needs_new"
+      },
+      {
+        "id": "unclear",
+        "source": "/answers/next_intent/choice",
+        "operator": "eq",
+        "value": "unclear_needs_review"
+      }
+    ]
+  },
+  "output_mapping": {
+    "next_intent": {
+      "source": "/answers/next_intent/choice"
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "next_intent": {
+        "enum": [
+          "intake",
+          "clarify",
+          "explore",
+          "research",
+          "decide",
+          "plan",
+          "execute",
+          "verify",
+          "review",
+          "close",
+          "promote",
+          "other_needs_new",
+          "unclear_needs_review"
+        ]
+      }
+    },
+    "required": [
+      "next_intent"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "format_version": 1,
+  "key": "classify_data_type",
+  "name": "Classify data type",
+  "description": "Classify an incoming item by its primary work/domain type without deciding what action to take.",
+  "when_to_use": "Use at intake before lifecycle routing. Prefer a durable domain object when clear; otherwise use the source/container type. Never invent a type.",
+  "provider": "typesafe",
+  "model": "jev-1.13.0",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "content": {
+        "type": "string",
+        "description": "Raw or normalized item content",
+        "minLength": 1,
+        "maxLength": 12000
+      },
+      "source_type": {
+        "type": "string",
+        "description": "Known source/container type"
+      },
+      "existing_context": {
+        "type": "string",
+        "description": "Known authoritative object identity or links"
+      }
+    },
+    "required": [
+      "content"
+    ],
+    "additionalProperties": false
+  },
+  "state_mapping": {
+    "content": "/content",
+    "source_type": "/source_type",
+    "existing_context": "/existing_context"
+  },
+  "questions": {
+    "primary_data_type": {
+      "type": "choice",
+      "instructions": "Choose what the item itself primarily is, not what action should happen next. Prefer a durable domain object when the context clearly establishes one; otherwise use a source/container type. Do not classify by topic. Choose unclear_needs_review when ambiguity would change routing. Choose other_needs_new when the item is meaningful but no active type fits.",
+      "criteria": {
+        "request": "A request for work or attention not already represented by a more specific governed object.",
+        "intake_record": "A durable intake/classification record.",
+        "project": "A governed project/objective container.",
+        "explore": "An Explore artifact or exploration work object.",
+        "work_item": "A discrete governed unit of execution work.",
+        "decision": "A durable decision record.",
+        "proposal": "A proposed change or choice awaiting evaluation/approval.",
+        "plan": "A durable plan.",
+        "evidence": "Evidence supporting a claim, result, transition, or verification.",
+        "result": "A durable result/outcome.",
+        "run_record": "A durable execution/run record.",
+        "verification": "A verification record or evidence package.",
+        "promotion_candidate": "A candidate for promotion into a reusable/master standard.",
+        "review_request": "A review checkpoint/request.",
+        "risk": "A risk that may block or materially affect work.",
+        "open_question": "An unresolved question needing answer/decision.",
+        "state_note": "A durable operational-state note.",
+        "note": "A general note not represented by a stronger domain object.",
+        "github_issue": "A GitHub issue whose domain role is not yet more specifically known.",
+        "session": "An agent/human interaction or execution session.",
+        "markdown_file": "A Markdown file whose domain role is not yet known.",
+        "repository": "A repository as source/container.",
+        "document": "A general document whose domain role is not yet known.",
+        "other_needs_new": "Meaningful item, but no active type fits.",
+        "unclear_needs_review": "Insufficient or materially ambiguous context."
+      }
+    }
+  },
+  "review": {
+    "match": "any",
+    "rules": [
+      {
+        "id": "low_confidence",
+        "source": "/answers/primary_data_type/confidence",
+        "operator": "lt",
+        "value": 0.65
+      },
+      {
+        "id": "new_vocab_needed",
+        "source": "/answers/primary_data_type/choice",
+        "operator": "eq",
+        "value": "other_needs_new"
+      },
+      {
+        "id": "unclear",
+        "source": "/answers/primary_data_type/choice",
+        "operator": "eq",
+        "value": "unclear_needs_review"
+      }
+    ]
+  },
+  "output_mapping": {
+    "primary_data_type": {
+      "source": "/answers/primary_data_type/choice"
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "primary_data_type": {
+        "enum": [
+          "request",
+          "intake_record",
+          "project",
+          "explore",
+          "work_item",
+          "decision",
+          "proposal",
+          "plan",
+          "evidence",
+          "result",
+          "run_record",
+          "verification",
+          "promotion_candidate",
+          "review_request",
+          "risk",
+          "open_question",
+          "state_note",
+          "note",
+          "github_issue",
+          "session",
+          "markdown_file",
+          "repository",
+          "document",
+          "other_needs_new",
+          "unclear_needs_review"
+        ]
+      }
+    },
+    "required": [
+      "primary_data_type"
+    ],
+    "additionalProperties": false
+  }
+}

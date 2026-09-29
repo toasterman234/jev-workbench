@@ -1,0 +1,130 @@
+{
+  "format_version": 1,
+  "key": "select_artifact",
+  "name": "Select required artifact",
+  "description": "Select the durable artifact that should be created or updated for the current governed intent.",
+  "when_to_use": "Use after next_intent when determining how the result/state transition should be represented durably.",
+  "provider": "typesafe",
+  "model": "jev-1.13.0",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "content": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12000,
+        "description": "Current work context"
+      },
+      "next_intent": {
+        "type": "string",
+        "description": "Selected next intent"
+      },
+      "object_type": {
+        "type": "string",
+        "description": "Known object type"
+      },
+      "current_state": {
+        "type": "string",
+        "description": "Current authoritative state"
+      },
+      "existing_artifacts": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Existing applicable artifacts"
+      }
+    },
+    "required": [
+      "content",
+      "next_intent"
+    ],
+    "additionalProperties": false
+  },
+  "state_mapping": {
+    "content": "/content",
+    "next_intent": "/next_intent",
+    "object_type": "/object_type",
+    "current_state": "/current_state",
+    "existing_artifacts": "/existing_artifacts"
+  },
+  "questions": {
+    "artifact_type": {
+      "type": "choice",
+      "instructions": "Choose the durable artifact appropriate to this governed intent. Prefer updating an existing applicable artifact over creating a duplicate. Execute may update a Work Item plus linked evidence instead of creating a standalone document. Choose none_required when durable state/evidence can be updated without a separate artifact. Choose other_needs_new when a necessary artifact type is absent. Choose unclear_needs_review when current context cannot determine the artifact.",
+      "criteria": {
+        "intake_record": "Durable intake/classification and routing record.",
+        "explore": "Durable Explore artifact.",
+        "research": "Durable research/evidence synthesis.",
+        "decision": "Durable Decision record.",
+        "proposal": "Durable Proposal awaiting evaluation/approval.",
+        "plan": "Durable Plan.",
+        "work_item_change": "Durable Work Item change/state update plus linked evidence.",
+        "verification_evidence": "Durable verification record/evidence package.",
+        "result": "Durable accepted/rejected outcome/result.",
+        "run_record": "Durable execution/run record.",
+        "promotion_candidate": "Durable candidate for broader/master promotion.",
+        "evidence": "Evidence object when evidence itself is the durable output.",
+        "none_required": "No separate artifact is required; update existing durable state/evidence.",
+        "other_needs_new": "A required artifact type is missing from the registry.",
+        "unclear_needs_review": "Insufficient context to identify the correct artifact."
+      }
+    }
+  },
+  "review": {
+    "match": "any",
+    "rules": [
+      {
+        "id": "low_confidence",
+        "source": "/answers/artifact_type/confidence",
+        "operator": "lt",
+        "value": 0.65
+      },
+      {
+        "id": "new_vocab_needed",
+        "source": "/answers/artifact_type/choice",
+        "operator": "eq",
+        "value": "other_needs_new"
+      },
+      {
+        "id": "unclear",
+        "source": "/answers/artifact_type/choice",
+        "operator": "eq",
+        "value": "unclear_needs_review"
+      }
+    ]
+  },
+  "output_mapping": {
+    "artifact_type": {
+      "source": "/answers/artifact_type/choice"
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "artifact_type": {
+        "enum": [
+          "intake_record",
+          "explore",
+          "research",
+          "decision",
+          "proposal",
+          "plan",
+          "work_item_change",
+          "verification_evidence",
+          "result",
+          "run_record",
+          "promotion_candidate",
+          "evidence",
+          "none_required",
+          "other_needs_new",
+          "unclear_needs_review"
+        ]
+      }
+    },
+    "required": [
+      "artifact_type"
+    ],
+    "additionalProperties": false
+  }
+}
