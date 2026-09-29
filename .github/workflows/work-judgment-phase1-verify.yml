@@ -1,6 +1,13 @@
 name: Work Judgment Phase1 Verify
 
 on:
+  push:
+    branches:
+      - "work/work-judgment-phase1"
+    paths:
+      - "examples/work-judgment/**"
+      - "tests/work-judgment-configs.test.ts"
+      - ".github/workflows/work-judgment-phase1-verify.yml"
   pull_request:
     paths:
       - "examples/work-judgment/**"
