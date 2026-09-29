@@ -1,0 +1,100 @@
+{
+  "format_version": 1,
+  "key": "requires_human_gate",
+  "name": "Requires human gate",
+  "description": "Estimate whether the proposed next transition/action must stop for explicit human review, approval, or decision.",
+  "when_to_use": "Use before consequential execution, acceptance, promotion, or transitions whose governing authority may reserve the decision to a human.",
+  "provider": "typesafe",
+  "model": "jev-1.13.0",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "content": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12000,
+        "description": "Current work context"
+      },
+      "next_intent": {
+        "type": "string",
+        "description": "Selected next intent"
+      },
+      "current_state": {
+        "type": "string",
+        "description": "Current authoritative state"
+      },
+      "proposed_action": {
+        "type": "string",
+        "description": "Proposed action/transition"
+      },
+      "risk_or_consequence": {
+        "type": "string",
+        "description": "Material consequences or risk"
+      },
+      "authority_context": {
+        "type": "string",
+        "description": "Known authority/policy context"
+      },
+      "existing_approval": {
+        "type": "boolean",
+        "description": "Whether required approval is already present"
+      }
+    },
+    "required": [
+      "content"
+    ],
+    "additionalProperties": false
+  },
+  "state_mapping": {
+    "content": "/content",
+    "next_intent": "/next_intent",
+    "current_state": "/current_state",
+    "proposed_action": "/proposed_action",
+    "risk_or_consequence": "/risk_or_consequence",
+    "authority_context": "/authority_context",
+    "existing_approval": "/existing_approval"
+  },
+  "questions": {
+    "requires_human_gate": {
+      "type": "noul",
+      "instructions": "Estimate whether an explicit human gate is required before the proposed transition/action may proceed. A gate is warranted for consequential choices reserved to humans, missing required approval, promotion/merge authority, or policy-defined checkpoints. Do not require a human merely because work is complex. If authority clearly grants the action and no rule requires a checkpoint, lean false.",
+      "criteria": {
+        "true": "A policy/authority boundary, consequential decision, promotion/merge action, or required checkpoint means execution must stop until a human explicitly reviews, approves, or decides.",
+        "false": "The action is within granted authority and no governing rule requires an explicit human checkpoint before proceeding."
+      }
+    }
+  },
+  "review": {
+    "match": "any",
+    "rules": [
+      {
+        "id": "ambiguous_gate",
+        "source": "/answers/requires_human_gate/noul",
+        "operator": "between_exclusive",
+        "value": [
+          0.4,
+          0.7
+        ]
+      }
+    ]
+  },
+  "output_mapping": {
+    "requires_human_gate": {
+      "source": "/answers/requires_human_gate/noul"
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "requires_human_gate": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      }
+    },
+    "required": [
+      "requires_human_gate"
+    ],
+    "additionalProperties": false
+  }
+}
