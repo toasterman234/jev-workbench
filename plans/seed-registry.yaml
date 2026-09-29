@@ -83,6 +83,7 @@ entries:
   - {category: object_type, key: playbook, title: Playbook, status: draft, authority: local, source_ref: null}
   - {category: object_type, key: source, title: Source, status: active, authority: master-repo, source_ref: "master-repo:explore/Sources"}
   - {category: object_type, key: finding, title: Finding, status: active, authority: master-repo, source_ref: "master-repo:explore/Findings"}
+  - {category: object_type, key: incident, title: Incident, status: proposed, authority: local, source_ref: "master-repo:evals/datasets/incident-agent-v1.json", description: "Candidate first-class type for an observed operational/system incident requiring diagnosis, recurrence assessment, or RCA."}
 
   # Source/container types useful for intake classification
   - {category: data_type, key: note, title: Note, status: active, authority: local}
