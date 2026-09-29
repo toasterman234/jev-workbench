@@ -62,6 +62,8 @@
         "markdown_file": "A Markdown file whose domain role is not yet known.",
         "repository": "A repository as source/container.",
         "document": "A general document whose domain role is not yet known.",
+        "incident": "An operational failure or disruption requiring response - outage, data loss, security event, or similar. Distinct from quality_failure: the system or operation is broken, not merely its output.",
+        "quality_failure": "A delivered work product that is broken, incomplete, or falsely claimed as complete/verified - the deliverable itself is defective. Distinct from incident (operational failure): the system works, the output doesn't.",
         "other_needs_new": "Meaningful item, but no active type fits.",
         "unclear_needs_review": "Insufficient or materially ambiguous context."
       }
@@ -123,6 +125,8 @@
           "markdown_file",
           "repository",
           "document",
+          "incident",
+          "quality_failure",
           "other_needs_new",
           "unclear_needs_review"
         ]
@@ -132,5 +136,17 @@
       "primary_data_type"
     ],
     "additionalProperties": false
-  }
+  },
+  "changelog": [
+    {
+      "date": "2026-09-28",
+      "change": "added incident as active choice",
+      "reason": "Phase 1B finding: incident corpus demonstrated a real missing type (other_needs_new used as fallback); 4/4 scored correct with incident candidate in Phase 1B suite vocabulary; promoted to canonical config per Ben split decision 2026-09-28 (incident = operational only)"
+    },
+    {
+      "date": "2026-09-28",
+      "change": "added quality_failure as active choice",
+      "reason": "Phase 1B finding: botched-deliverable cases had no home (golds stayed request); Ben decision 2026-09-28: split incident (operational only) vs quality_failure (deliverable quality)"
+    }
+  ]
 }
