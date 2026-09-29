@@ -142,6 +142,8 @@ data — errored invocations are excluded from scoring, never imputed.
 
 - `eval-report-phase1c-2026-09-28.md` — this report
 - `suite-phase1c-v1.yaml` — the Phase 1C suite
+- `suite-phase1c-v2.yaml` — re-gold of wj-011 only (see addendum)
+- `tally-phase1c-v2.json` — re-tally against suite v2 (no new model calls)
 - `manifest-phase1c.json` — config SHAs, function ids/versions, preview record
 - `results-phase1c-2026-09-28.json` — full per-invocation results + scores
 - `mismatches-phase1c-2026-09-28.json` — all 74 mismatches with upstream flags
@@ -155,3 +157,26 @@ data — errored invocations are excluded from scoring, never imputed.
    (incident vs evidence).
 3. `request` category remains the weakest classify area — candidate for a
    criterion-sharpening pass, not a taxonomy change.
+
+## Addendum — wj-011 re-gold to `quality_failure` (2026-09-28, Ben's call)
+
+Per Ben's decision, wj-011's `classify_data_type` gold was re-golded
+`incident` → `quality_failure` in the new suite version
+`eval-run/suite-phase1c-v2.yaml`. `suite-phase1c-v1.yaml` and all earlier
+suites are untouched; predictions are unchanged (no new model calls) —
+this is a pure re-tally of `results-phase1c-2026-09-28.json` against the new
+gold, using the committed scoring logic verbatim (reproduction verified
+exact before applying the override). Re-tally record:
+`eval-run/tally-phase1c-v2.json`.
+
+- Component: 128/162 → **129/162 = 79.6%**
+- End-to-end: 119/159 → **120/159 = 75.5%**
+- Overall: 247/321 → **249/321 = 77.6%**
+
+The model had predicted `quality_failure` for wj-011 in both modes, so both
+previously-scored mismatches resolve. `classify_data_type` moves to 17/29 =
+58.6% component and 18/30 = 60.0% end-to-end. No other cell changes.
+
+Recommended follow-up #1 (wj-011 re-gold) is resolved by this addendum.
+The original Phase 1C numbers above remain the as-run record against
+`suite-phase1c-v1.yaml`.

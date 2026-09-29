@@ -1,0 +1,129 @@
+{
+ "suite": "suite-phase1c-v2.yaml",
+ "change": "wj-011 expected.classify_data_type incident -> quality_failure (Ben decision 2026-09-28)",
+ "method": "exact re-run of committed scoring logic on results-phase1c-2026-09-28.json with gold override; no new model calls",
+ "scores": {
+  "A/classify_data_type": {
+   "n": 29,
+   "correct": 17,
+   "accuracy": 0.5862,
+   "was": {
+    "correct": 16,
+    "n": 29
+   }
+  },
+  "A/evidence_satisfies_exit": {
+   "n": 19,
+   "correct": 18,
+   "accuracy": 0.9474,
+   "was": {
+    "correct": 18,
+    "n": 19
+   }
+  },
+  "A/next_intent": {
+   "n": 30,
+   "correct": 23,
+   "accuracy": 0.7667,
+   "was": {
+    "correct": 23,
+    "n": 30
+   }
+  },
+  "A/requires_human_gate": {
+   "n": 29,
+   "correct": 27,
+   "accuracy": 0.931,
+   "was": {
+    "correct": 27,
+    "n": 29
+   }
+  },
+  "A/select_artifact": {
+   "n": 28,
+   "correct": 23,
+   "accuracy": 0.8214,
+   "was": {
+    "correct": 23,
+    "n": 28
+   }
+  },
+  "A/select_playbook": {
+   "n": 27,
+   "correct": 21,
+   "accuracy": 0.7778,
+   "was": {
+    "correct": 21,
+    "n": 27
+   }
+  },
+  "B/classify_data_type": {
+   "n": 30,
+   "correct": 18,
+   "accuracy": 0.6,
+   "was": {
+    "correct": 17,
+    "n": 30
+   }
+  },
+  "B/evidence_satisfies_exit": {
+   "n": 19,
+   "correct": 18,
+   "accuracy": 0.9474,
+   "was": {
+    "correct": 18,
+    "n": 19
+   }
+  },
+  "B/next_intent": {
+   "n": 29,
+   "correct": 22,
+   "accuracy": 0.7586,
+   "was": {
+    "correct": 22,
+    "n": 29
+   }
+  },
+  "B/requires_human_gate": {
+   "n": 28,
+   "correct": 26,
+   "accuracy": 0.9286,
+   "was": {
+    "correct": 26,
+    "n": 28
+   }
+  },
+  "B/select_artifact": {
+   "n": 27,
+   "correct": 19,
+   "accuracy": 0.7037,
+   "was": {
+    "correct": 19,
+    "n": 27
+   }
+  },
+  "B/select_playbook": {
+   "n": 26,
+   "correct": 17,
+   "accuracy": 0.6538,
+   "was": {
+    "correct": 17,
+    "n": 26
+   }
+  }
+ },
+ "totals": {
+  "A": {
+   "correct": 129,
+   "n": 162
+  },
+  "B": {
+   "correct": 120,
+   "n": 159
+  },
+  "overall": {
+   "correct": 249,
+   "n": 321
+  }
+ }
+}
