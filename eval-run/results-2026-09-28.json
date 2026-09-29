@@ -1,0 +1,2025 @@
+[
+  {
+    "case": "wj-001",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "input": {
+      "content": "User already said 'fix gap' for a small reversible documentation change; agent asked for another approval.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-003"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "session",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "e61babae-c1d5-44e9-b97f-27998fb57e72"
+  },
+  {
+    "case": "wj-001",
+    "judgment": "next_intent",
+    "gold": "execute",
+    "input": {
+      "content": "User already said 'fix gap' for a small reversible documentation change; agent asked for another approval."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "clarify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "3bcc2c86-ec99-47e8-a256-851393706b35"
+  },
+  {
+    "case": "wj-001",
+    "judgment": "select_artifact",
+    "gold": "work_item_change",
+    "input": {
+      "content": "User already said 'fix gap' for a small reversible documentation change; agent asked for another approval.",
+      "next_intent": "execute"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "work_item_change",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "c4a1d64f-c1f8-410f-bd87-7e2858c819e0"
+  },
+  {
+    "case": "wj-001",
+    "judgment": "select_playbook",
+    "gold": "implementation",
+    "input": {
+      "content": "User already said 'fix gap' for a small reversible documentation change; agent asked for another approval.",
+      "next_intent": "execute",
+      "artifact_type": "work_item_change"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "implementation",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "bfefe743-de95-4ae2-b999-b3cecbb2dbc4"
+  },
+  {
+    "case": "wj-001",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "User already said 'fix gap' for a small reversible documentation change; agent asked for another approval.",
+      "next_intent": "execute"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.59,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "d9bab72c-314e-4e2e-9b95-9e75a372e4db"
+  },
+  {
+    "case": "wj-001",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "User already said 'fix gap' for a small reversible documentation change; agent asked for another approval."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.14,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "02ded3f7-3c8b-45f4-9467-f5472288821c"
+  },
+  {
+    "case": "wj-002",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "input": {
+      "content": "A visual app was delivered as 'verified end-to-end' using API/HTTP evidence, but no real browser render was observed and the user saw an error.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-004"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verification",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "09a74551-aabf-469d-a7fa-e54c7bd06abb"
+  },
+  {
+    "case": "wj-002",
+    "judgment": "next_intent",
+    "gold": "verify",
+    "input": {
+      "content": "A visual app was delivered as 'verified end-to-end' using API/HTTP evidence, but no real browser render was observed and the user saw an error."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "359aba2d-eb5c-4b3b-8d81-d63247094212"
+  },
+  {
+    "case": "wj-002",
+    "judgment": "select_artifact",
+    "gold": "verification_evidence",
+    "input": {
+      "content": "A visual app was delivered as 'verified end-to-end' using API/HTTP evidence, but no real browser render was observed and the user saw an error.",
+      "next_intent": "verify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verification_evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "e5d1a993-15b2-4be3-8b80-fdd5a40d6b81"
+  },
+  {
+    "case": "wj-002",
+    "judgment": "select_playbook",
+    "gold": "browser_ui_verification",
+    "input": {
+      "content": "A visual app was delivered as 'verified end-to-end' using API/HTTP evidence, but no real browser render was observed and the user saw an error.",
+      "next_intent": "verify",
+      "artifact_type": "verification_evidence"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "browser_ui_verification",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "acbba4a5-a737-4bf9-b44d-8e02bfcba224"
+  },
+  {
+    "case": "wj-002",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "A visual app was delivered as 'verified end-to-end' using API/HTTP evidence, but no real browser render was observed and the user saw an error.",
+      "next_intent": "verify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.6,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "c2ce0884-0f09-4880-9f7e-1bcffb7f592d"
+  },
+  {
+    "case": "wj-002",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "A visual app was delivered as 'verified end-to-end' using API/HTTP evidence, but no real browser render was observed and the user saw an error."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.03,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "950d1114-8ba8-4129-965a-fede4e0243ce"
+  },
+  {
+    "case": "wj-003",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "input": {
+      "content": "A screenshot offered as proof does not show the claimed nodes; DOM presence was mistaken for visible rendering.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-007"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "368e280d-7386-48e9-84a4-e550cf6c736d"
+  },
+  {
+    "case": "wj-003",
+    "judgment": "next_intent",
+    "gold": "verify",
+    "input": {
+      "content": "A screenshot offered as proof does not show the claimed nodes; DOM presence was mistaken for visible rendering."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "d6ed2a97-efde-4e30-ad94-c8a361321beb"
+  },
+  {
+    "case": "wj-003",
+    "judgment": "select_artifact",
+    "gold": "verification_evidence",
+    "input": {
+      "content": "A screenshot offered as proof does not show the claimed nodes; DOM presence was mistaken for visible rendering.",
+      "next_intent": "verify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verification_evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "f2778bbf-5f56-4c56-b466-e48cc430bbe0"
+  },
+  {
+    "case": "wj-003",
+    "judgment": "select_playbook",
+    "gold": "browser_ui_verification",
+    "input": {
+      "content": "A screenshot offered as proof does not show the claimed nodes; DOM presence was mistaken for visible rendering.",
+      "next_intent": "verify",
+      "artifact_type": "verification_evidence"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "browser_ui_verification",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "c233a727-9136-4054-abd1-6b1ec0da8975"
+  },
+  {
+    "case": "wj-003",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "A screenshot offered as proof does not show the claimed nodes; DOM presence was mistaken for visible rendering.",
+      "next_intent": "verify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.34,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "07a8bcb8-9a8f-4f7a-8583-e6d15b7b8aa5"
+  },
+  {
+    "case": "wj-003",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "A screenshot offered as proof does not show the claimed nodes; DOM presence was mistaken for visible rendering."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.06,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "8134f5d9-4c89-484f-8775-9fc6f330d090"
+  },
+  {
+    "case": "wj-004",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "input": {
+      "content": "User rejects the current visualization format and asks what other views/layouts/formats are available.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-008"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "open_question",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "65a75738-a129-465d-b5c7-b8deee703489"
+  },
+  {
+    "case": "wj-004",
+    "judgment": "next_intent",
+    "gold": "explore",
+    "input": {
+      "content": "User rejects the current visualization format and asks what other views/layouts/formats are available."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "explore",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "84bf1479-cd9e-4634-b1a8-225cddca5913"
+  },
+  {
+    "case": "wj-004",
+    "judgment": "select_artifact",
+    "gold": "explore",
+    "input": {
+      "content": "User rejects the current visualization format and asks what other views/layouts/formats are available.",
+      "next_intent": "explore"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "explore",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "fdc1829d-e364-41d8-9e47-fe656c223990"
+  },
+  {
+    "case": "wj-004",
+    "judgment": "select_playbook",
+    "gold": "technical_project_exploration",
+    "input": {
+      "content": "User rejects the current visualization format and asks what other views/layouts/formats are available.",
+      "next_intent": "explore",
+      "artifact_type": "explore"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "technical_project_exploration",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "354dc8c9-8c03-4c1b-ba67-bfd1f6ec43b3"
+  },
+  {
+    "case": "wj-004",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "User rejects the current visualization format and asks what other views/layouts/formats are available.",
+      "next_intent": "explore"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.07,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "ef7076a7-c1a6-4782-8014-bdda613ef74c"
+  },
+  {
+    "case": "wj-005",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "input": {
+      "content": "User says the diagram is bad and asks to 'see everything' without defining what everything means or the desired level of detail.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-011"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "request",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "859e97b8-3272-4847-9e62-1439bacf7240"
+  },
+  {
+    "case": "wj-005",
+    "judgment": "next_intent",
+    "gold": "clarify",
+    "input": {
+      "content": "User says the diagram is bad and asks to 'see everything' without defining what everything means or the desired level of detail."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "clarify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "6874734c-53a5-43d4-91b5-eeda3203362b"
+  },
+  {
+    "case": "wj-005",
+    "judgment": "select_artifact",
+    "gold": "none_required",
+    "input": {
+      "content": "User says the diagram is bad and asks to 'see everything' without defining what everything means or the desired level of detail.",
+      "next_intent": "clarify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "unclear_needs_review",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "4dce6c8c-0024-4c6f-9734-c9cc04ac1a88"
+  },
+  {
+    "case": "wj-005",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "input": {
+      "content": "User says the diagram is bad and asks to 'see everything' without defining what everything means or the desired level of detail.",
+      "next_intent": "clarify",
+      "artifact_type": "none_required"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "none_required",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "2f9dfa1d-0ffb-4fd0-9b6f-48e8bf69fd3e"
+  },
+  {
+    "case": "wj-005",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "User says the diagram is bad and asks to 'see everything' without defining what everything means or the desired level of detail.",
+      "next_intent": "clarify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.11,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "401964c9-6806-43c4-b56e-038bf7508276"
+  },
+  {
+    "case": "wj-006",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "input": {
+      "content": "A requested one-canvas drill-down would require silently changing the design into seven separate files/pages.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-013"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "b18f1c98-9ece-44a7-b688-3b739aaacfe4"
+  },
+  {
+    "case": "wj-006",
+    "judgment": "next_intent",
+    "gold": "clarify",
+    "input": {
+      "content": "A requested one-canvas drill-down would require silently changing the design into seven separate files/pages."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "clarify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "69e9258b-e417-4292-b025-8ee1738d927d"
+  },
+  {
+    "case": "wj-006",
+    "judgment": "select_artifact",
+    "gold": "none_required",
+    "input": {
+      "content": "A requested one-canvas drill-down would require silently changing the design into seven separate files/pages.",
+      "next_intent": "clarify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "unclear_needs_review",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "3626bd8f-f6b9-496b-8f17-d96cd1973e6c"
+  },
+  {
+    "case": "wj-006",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "input": {
+      "content": "A requested one-canvas drill-down would require silently changing the design into seven separate files/pages.",
+      "next_intent": "clarify",
+      "artifact_type": "none_required"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "none_required",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "620a45a5-323e-424e-a9e5-3fbd667bf2c5"
+  },
+  {
+    "case": "wj-006",
+    "judgment": "requires_human_gate",
+    "gold": true,
+    "input": {
+      "content": "A requested one-canvas drill-down would require silently changing the design into seven separate files/pages.",
+      "next_intent": "clarify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.31,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "39cf1636-58b0-4f0b-a16c-fe91d43643b0"
+  },
+  {
+    "case": "wj-007",
+    "judgment": "classify_data_type",
+    "gold": "plan",
+    "input": {
+      "content": "A merge plan has open decisions that require the user's tap, but it was delivered only as a repo file and chat text.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-014"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "plan",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "c9df6880-442a-48d5-ae2a-0596e6425c08"
+  },
+  {
+    "case": "wj-007",
+    "judgment": "next_intent",
+    "gold": "review",
+    "input": {
+      "content": "A merge plan has open decisions that require the user's tap, but it was delivered only as a repo file and chat text."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "clarify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "220897bc-6720-4e1a-ad30-ff3f2ca92b6a"
+  },
+  {
+    "case": "wj-007",
+    "judgment": "select_artifact",
+    "gold": "plan",
+    "input": {
+      "content": "A merge plan has open decisions that require the user's tap, but it was delivered only as a repo file and chat text.",
+      "next_intent": "review"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "unclear_needs_review",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "dbc0a1f2-9ab8-4177-bfec-7d21a60422bc"
+  },
+  {
+    "case": "wj-007",
+    "judgment": "select_playbook",
+    "gold": "decision_assessment",
+    "input": {
+      "content": "A merge plan has open decisions that require the user's tap, but it was delivered only as a repo file and chat text.",
+      "next_intent": "review",
+      "artifact_type": "plan"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "decision_assessment",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "c845b89d-054d-4361-b810-38de36a91325"
+  },
+  {
+    "case": "wj-007",
+    "judgment": "requires_human_gate",
+    "gold": true,
+    "input": {
+      "content": "A merge plan has open decisions that require the user's tap, but it was delivered only as a repo file and chat text.",
+      "next_intent": "review"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.93,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "2902fce2-0aa6-4cde-abe6-2a4fd4652356"
+  },
+  {
+    "case": "wj-007",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "A merge plan has open decisions that require the user's tap, but it was delivered only as a repo file and chat text."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.06,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "e5788ad8-866f-41c2-93ab-d188d439bc88"
+  },
+  {
+    "case": "wj-008",
+    "judgment": "classify_data_type",
+    "gold": "result",
+    "input": {
+      "content": "Agent repeatedly claims completion without nearby tests, read-back, health checks, or other verification proof.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-023"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "c55eebf0-6c21-4e81-a68e-9bf87f79caba"
+  },
+  {
+    "case": "wj-008",
+    "judgment": "next_intent",
+    "gold": "verify",
+    "input": {
+      "content": "Agent repeatedly claims completion without nearby tests, read-back, health checks, or other verification proof."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "d4960886-5e93-444f-84a2-ff821d73ad6b"
+  },
+  {
+    "case": "wj-008",
+    "judgment": "select_artifact",
+    "gold": "verification_evidence",
+    "input": {
+      "content": "Agent repeatedly claims completion without nearby tests, read-back, health checks, or other verification proof.",
+      "next_intent": "verify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verification_evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "7de33e1d-c1f7-468b-8876-c4c1a4f5d4dd"
+  },
+  {
+    "case": "wj-008",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "input": {
+      "content": "Agent repeatedly claims completion without nearby tests, read-back, health checks, or other verification proof.",
+      "next_intent": "verify",
+      "artifact_type": "verification_evidence"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "browser_ui_verification",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "0262cf69-c81d-4f14-8b51-34e35d05ac6d"
+  },
+  {
+    "case": "wj-008",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "Agent repeatedly claims completion without nearby tests, read-back, health checks, or other verification proof.",
+      "next_intent": "verify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.41,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "777463b0-7ecf-46c1-9889-9398483d5a68"
+  },
+  {
+    "case": "wj-008",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "Agent repeatedly claims completion without nearby tests, read-back, health checks, or other verification proof."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.06,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "96c51fcd-2196-4654-9d3d-b13d60d739c1"
+  },
+  {
+    "case": "wj-009",
+    "judgment": "classify_data_type",
+    "gold": "work_item",
+    "input": {
+      "content": "A static page was marked successful even though the recipient-facing render was broken and a stated tone-choice requirement was inverted.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-026"
+    },
+    "http": 502,
+    "status": "error",
+    "predicted": null,
+    "error": "HTTP 502: {\"error\":{\"code\":\"UPSTREAM_INVALID_RESPONSE\",\"message\":\"\u4f9b\u5e94\u5546\u54cd\u5e94\u4e0d\u7b26\u5408\u95ee\u9898\u5408\u540c\"},\"meta\":{\"request_id\":\"cfac0265-07fc-42df-8418-c3b251fad58d\"}}"
+  },
+  {
+    "case": "wj-009",
+    "judgment": "next_intent",
+    "gold": "verify",
+    "input": {
+      "content": "A static page was marked successful even though the recipient-facing render was broken and a stated tone-choice requirement was inverted."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "a699ed0b-7317-4e6e-a04c-0fe79758c191"
+  },
+  {
+    "case": "wj-009",
+    "judgment": "select_artifact",
+    "gold": "verification_evidence",
+    "input": {
+      "content": "A static page was marked successful even though the recipient-facing render was broken and a stated tone-choice requirement was inverted.",
+      "next_intent": "verify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verification_evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "86d42fd4-72ef-4fb6-9179-e68500652236"
+  },
+  {
+    "case": "wj-009",
+    "judgment": "select_playbook",
+    "gold": "browser_ui_verification",
+    "input": {
+      "content": "A static page was marked successful even though the recipient-facing render was broken and a stated tone-choice requirement was inverted.",
+      "next_intent": "verify",
+      "artifact_type": "verification_evidence"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "browser_ui_verification",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "1aedea85-d1ee-40f6-b906-669f1a7a6572"
+  },
+  {
+    "case": "wj-009",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "A static page was marked successful even though the recipient-facing render was broken and a stated tone-choice requirement was inverted.",
+      "next_intent": "verify"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.52,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "f45182b4-9498-4033-b9a1-e5388260a4b5"
+  },
+  {
+    "case": "wj-009",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "A static page was marked successful even though the recipient-facing render was broken and a stated tone-choice requirement was inverted."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.04,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "bef299f0-afbe-4383-be12-39e4b0e0dbde"
+  },
+  {
+    "case": "wj-010",
+    "judgment": "classify_data_type",
+    "gold": "work_item",
+    "input": {
+      "content": "A multi-phase plan has already been approved with 'Go'; the agent asks for approval again at each internal phase boundary.",
+      "source_ref": "master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-027"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "plan",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "5bb43c05-535f-4191-8933-961f8151c993"
+  },
+  {
+    "case": "wj-010",
+    "judgment": "next_intent",
+    "gold": "execute",
+    "input": {
+      "content": "A multi-phase plan has already been approved with 'Go'; the agent asks for approval again at each internal phase boundary."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "clarify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "a86f992e-0e7e-4e67-8a06-dfc69f96bb33"
+  },
+  {
+    "case": "wj-010",
+    "judgment": "select_artifact",
+    "gold": "work_item_change",
+    "input": {
+      "content": "A multi-phase plan has already been approved with 'Go'; the agent asks for approval again at each internal phase boundary.",
+      "next_intent": "execute"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "run_record",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "03284d5f-bfe3-4240-a44e-07f5812e119b"
+  },
+  {
+    "case": "wj-010",
+    "judgment": "select_playbook",
+    "gold": "implementation",
+    "input": {
+      "content": "A multi-phase plan has already been approved with 'Go'; the agent asks for approval again at each internal phase boundary.",
+      "next_intent": "execute",
+      "artifact_type": "work_item_change"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "implementation",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "34fb2ee4-cc6b-4dff-9112-c31938d33c15"
+  },
+  {
+    "case": "wj-010",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "A multi-phase plan has already been approved with 'Go'; the agent asks for approval again at each internal phase boundary.",
+      "next_intent": "execute"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.52,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "c7efa051-a79f-4d44-b46e-0e9f15a4567f"
+  },
+  {
+    "case": "wj-011",
+    "judgment": "classify_data_type",
+    "gold": "other_needs_new",
+    "input": {
+      "content": "An agent audit incorrectly reports existing vault folders as missing and doubles down after correction.",
+      "source_ref": "master-repo:evals/datasets/incident-agent-v1.json#incident-agent-001"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "run_record",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "9a69eaef-9056-4e1b-a7a9-1227eabe7958"
+  },
+  {
+    "case": "wj-011",
+    "judgment": "next_intent",
+    "gold": "research",
+    "input": {
+      "content": "An agent audit incorrectly reports existing vault folders as missing and doubles down after correction."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "0e81cc9a-fc72-4247-b0cc-472691a255ba"
+  },
+  {
+    "case": "wj-011",
+    "judgment": "select_artifact",
+    "gold": "research",
+    "input": {
+      "content": "An agent audit incorrectly reports existing vault folders as missing and doubles down after correction.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "acc46529-ebe8-4442-b57d-398c47910f23"
+  },
+  {
+    "case": "wj-011",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "input": {
+      "content": "An agent audit incorrectly reports existing vault folders as missing and doubles down after correction.",
+      "next_intent": "research",
+      "artifact_type": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "root_cause_analysis",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "e84df9c8-1712-4665-976a-d59a384f9ee3"
+  },
+  {
+    "case": "wj-011",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "An agent audit incorrectly reports existing vault folders as missing and doubles down after correction.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.27,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "b9dea01c-deab-4427-b15d-a8d30316a2b9"
+  },
+  {
+    "case": "wj-011",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "An agent audit incorrectly reports existing vault folders as missing and doubles down after correction."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.07,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "1aa43f6e-4b00-447a-bd6d-0478ca831de8"
+  },
+  {
+    "case": "wj-012",
+    "judgment": "classify_data_type",
+    "gold": "other_needs_new",
+    "input": {
+      "content": "Agent calls intermittently time out around 120 seconds; retry shortly afterward succeeds, suggesting a timing/race or infrastructure mechanism.",
+      "source_ref": "master-repo:evals/datasets/incident-agent-v1.json#incident-agent-004"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "472cbfa9-e8a6-4f80-ab32-cc6f2d96c173"
+  },
+  {
+    "case": "wj-012",
+    "judgment": "next_intent",
+    "gold": "research",
+    "input": {
+      "content": "Agent calls intermittently time out around 120 seconds; retry shortly afterward succeeds, suggesting a timing/race or infrastructure mechanism."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "255c1b19-6419-4b98-8d1e-6ae2fdd5663d"
+  },
+  {
+    "case": "wj-012",
+    "judgment": "select_artifact",
+    "gold": "research",
+    "input": {
+      "content": "Agent calls intermittently time out around 120 seconds; retry shortly afterward succeeds, suggesting a timing/race or infrastructure mechanism.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "0eb70139-0404-4585-b6a9-4c1a602a7cfa"
+  },
+  {
+    "case": "wj-012",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "input": {
+      "content": "Agent calls intermittently time out around 120 seconds; retry shortly afterward succeeds, suggesting a timing/race or infrastructure mechanism.",
+      "next_intent": "research",
+      "artifact_type": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research_and_synthesis",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "b62b3655-4d30-46e1-be58-0439b90b45ae"
+  },
+  {
+    "case": "wj-012",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "Agent calls intermittently time out around 120 seconds; retry shortly afterward succeeds, suggesting a timing/race or infrastructure mechanism.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.16,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "7c6e7dc2-2c63-4ece-af28-df2e9da302cc"
+  },
+  {
+    "case": "wj-012",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "Agent calls intermittently time out around 120 seconds; retry shortly afterward succeeds, suggesting a timing/race or infrastructure mechanism."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.11,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "73d564fc-d926-40f7-86f6-225c5af61950"
+  },
+  {
+    "case": "wj-013",
+    "judgment": "classify_data_type",
+    "gold": "other_needs_new",
+    "input": {
+      "content": "A 120-second timeout resembles a prior incident, but evidence says the mechanism may differ.",
+      "source_ref": "master-repo:evals/datasets/incident-agent-v1.json#incident-agent-007"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "cba008cd-8e1c-4fb0-aeb7-f30d446bb4fe"
+  },
+  {
+    "case": "wj-013",
+    "judgment": "next_intent",
+    "gold": "research",
+    "input": {
+      "content": "A 120-second timeout resembles a prior incident, but evidence says the mechanism may differ."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "4474ed24-0f2d-4fa8-bb00-3ca27450c32e"
+  },
+  {
+    "case": "wj-013",
+    "judgment": "select_artifact",
+    "gold": "research",
+    "input": {
+      "content": "A 120-second timeout resembles a prior incident, but evidence says the mechanism may differ.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "db7d3909-0013-4a5e-b15f-38f9dc4ff9b0"
+  },
+  {
+    "case": "wj-013",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "input": {
+      "content": "A 120-second timeout resembles a prior incident, but evidence says the mechanism may differ.",
+      "next_intent": "research",
+      "artifact_type": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research_and_synthesis",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "83465a46-076f-4f59-a413-da633a0407a2"
+  },
+  {
+    "case": "wj-013",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "A 120-second timeout resembles a prior incident, but evidence says the mechanism may differ.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.26,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "1cea4c8c-ee6b-429e-ab5c-14fc1264d355"
+  },
+  {
+    "case": "wj-014",
+    "judgment": "classify_data_type",
+    "gold": "other_needs_new",
+    "input": {
+      "content": "The exact sorter/onboarding failure recurs after prior prevention was supposedly implemented.",
+      "source_ref": "master-repo:evals/datasets/incident-agent-v1.json#incident-agent-010"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "state_note",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "78c92650-0e3c-4848-b5d7-729e376fb5bc"
+  },
+  {
+    "case": "wj-014",
+    "judgment": "next_intent",
+    "gold": "research",
+    "input": {
+      "content": "The exact sorter/onboarding failure recurs after prior prevention was supposedly implemented."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "ab151c22-be91-4d81-b3a2-53e3719e84e0"
+  },
+  {
+    "case": "wj-014",
+    "judgment": "select_artifact",
+    "gold": "research",
+    "input": {
+      "content": "The exact sorter/onboarding failure recurs after prior prevention was supposedly implemented.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "932bee96-d91b-430f-b4a6-3b6855486d62"
+  },
+  {
+    "case": "wj-014",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "input": {
+      "content": "The exact sorter/onboarding failure recurs after prior prevention was supposedly implemented.",
+      "next_intent": "research",
+      "artifact_type": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "root_cause_analysis",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "bff0c320-dd50-4c31-a791-f6cf4a83ae96"
+  },
+  {
+    "case": "wj-014",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "The exact sorter/onboarding failure recurs after prior prevention was supposedly implemented.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.3,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "cd1d4d39-0471-41b4-a2d3-c6c3a281b982"
+  },
+  {
+    "case": "wj-014",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "The exact sorter/onboarding failure recurs after prior prevention was supposedly implemented."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.06,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "960b2d2d-59f5-4bb8-ad8c-778b31e7344f"
+  },
+  {
+    "case": "wj-015",
+    "judgment": "classify_data_type",
+    "gold": "other_needs_new",
+    "input": {
+      "content": "The same timeout symptom returns, but the previously fixed retry race is absent; evidence points toward a wrong earlier root cause.",
+      "source_ref": "master-repo:evals/datasets/incident-agent-v1.json#incident-agent-013"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "7492ec42-a9c6-48f7-9a0f-7591d9ba002e"
+  },
+  {
+    "case": "wj-015",
+    "judgment": "next_intent",
+    "gold": "research",
+    "input": {
+      "content": "The same timeout symptom returns, but the previously fixed retry race is absent; evidence points toward a wrong earlier root cause."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "0a930d36-e314-4f48-9f4a-965a4948213f"
+  },
+  {
+    "case": "wj-015",
+    "judgment": "select_artifact",
+    "gold": "research",
+    "input": {
+      "content": "The same timeout symptom returns, but the previously fixed retry race is absent; evidence points toward a wrong earlier root cause.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "6c7da56f-c24f-4326-bb1e-f222c1a285fe"
+  },
+  {
+    "case": "wj-015",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "input": {
+      "content": "The same timeout symptom returns, but the previously fixed retry race is absent; evidence points toward a wrong earlier root cause.",
+      "next_intent": "research",
+      "artifact_type": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "root_cause_analysis",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "3a3144e2-8821-4ba9-b40a-a992e8858c43"
+  },
+  {
+    "case": "wj-015",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "The same timeout symptom returns, but the previously fixed retry race is absent; evidence points toward a wrong earlier root cause.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.2,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "b565138a-486d-489d-bfc7-1f6bef1ff52c"
+  },
+  {
+    "case": "wj-015",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "The same timeout symptom returns, but the previously fixed retry race is absent; evidence points toward a wrong earlier root cause."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.09,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "069f2a51-5720-4494-9c48-5f51fd48e1cc"
+  },
+  {
+    "case": "wj-016",
+    "judgment": "classify_data_type",
+    "gold": "github_issue",
+    "input": {
+      "content": "Small logging-only GitHub issue with a concrete requested code change and no unresolved design choice.",
+      "source_ref": "master-repo:evals/datasets/issue-triage-route-v1.json#central-repo-ops-352"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "github_issue",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "cd3ed29d-3817-4d6d-b284-b90e465cb0ee"
+  },
+  {
+    "case": "wj-016",
+    "judgment": "next_intent",
+    "gold": "execute",
+    "input": {
+      "content": "Small logging-only GitHub issue with a concrete requested code change and no unresolved design choice."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "execute",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "e84b1ac3-6558-4164-869a-5d93b925bb1d"
+  },
+  {
+    "case": "wj-016",
+    "judgment": "select_artifact",
+    "gold": "work_item_change",
+    "input": {
+      "content": "Small logging-only GitHub issue with a concrete requested code change and no unresolved design choice.",
+      "next_intent": "execute"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "work_item_change",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "28f4223e-e056-40f0-9c92-6acd40bf5a70"
+  },
+  {
+    "case": "wj-016",
+    "judgment": "select_playbook",
+    "gold": "implementation",
+    "input": {
+      "content": "Small logging-only GitHub issue with a concrete requested code change and no unresolved design choice.",
+      "next_intent": "execute",
+      "artifact_type": "work_item_change"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "implementation",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "be3dca9f-ea84-4134-8dfe-ada4e9604cce"
+  },
+  {
+    "case": "wj-016",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "Small logging-only GitHub issue with a concrete requested code change and no unresolved design choice.",
+      "next_intent": "execute"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.24,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "0a59b2b1-1ac1-4848-a30a-e8e043651f22"
+  },
+  {
+    "case": "wj-016",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "Small logging-only GitHub issue with a concrete requested code change and no unresolved design choice."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.26,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "0d6beef2-69d9-4294-a3b6-972739c487b3"
+  },
+  {
+    "case": "wj-017",
+    "judgment": "classify_data_type",
+    "gold": "github_issue",
+    "input": {
+      "content": "Issue asks where a kanban/operations board should fit, how it should interact with agents/workflows, and what options exist.",
+      "source_ref": "master-repo:evals/datasets/issue-triage-route-v1.json#ax-plane-13"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "github_issue",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "ac3ec0a5-f6db-441f-8eae-74df4e0c1e0e"
+  },
+  {
+    "case": "wj-017",
+    "judgment": "next_intent",
+    "gold": "explore",
+    "input": {
+      "content": "Issue asks where a kanban/operations board should fit, how it should interact with agents/workflows, and what options exist."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "explore",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "c1213785-3ebe-4796-9d6a-d11e097eab40"
+  },
+  {
+    "case": "wj-017",
+    "judgment": "select_artifact",
+    "gold": "explore",
+    "input": {
+      "content": "Issue asks where a kanban/operations board should fit, how it should interact with agents/workflows, and what options exist.",
+      "next_intent": "explore"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "explore",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "88f8f237-c27a-417b-a0f2-48ba469347b8"
+  },
+  {
+    "case": "wj-017",
+    "judgment": "select_playbook",
+    "gold": "technical_project_exploration",
+    "input": {
+      "content": "Issue asks where a kanban/operations board should fit, how it should interact with agents/workflows, and what options exist.",
+      "next_intent": "explore",
+      "artifact_type": "explore"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "technical_project_exploration",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "09543320-dc37-4dd8-8587-0326802f95d2"
+  },
+  {
+    "case": "wj-017",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "Issue asks where a kanban/operations board should fit, how it should interact with agents/workflows, and what options exist.",
+      "next_intent": "explore"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.21,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "a93930f4-6789-4f8c-9d73-8ccd42b768e7"
+  },
+  {
+    "case": "wj-018",
+    "judgment": "classify_data_type",
+    "gold": "github_issue",
+    "input": {
+      "content": "A live VRP scan is stale and does not refresh when the user presses refresh.",
+      "source_ref": "master-repo:evals/datasets/issue-triage-route-v1.json#electra-pwa-14"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "github_issue",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "f3750628-22c5-47dd-9bd3-2c2a6ea827d4"
+  },
+  {
+    "case": "wj-018",
+    "judgment": "next_intent",
+    "gold": "research",
+    "input": {
+      "content": "A live VRP scan is stale and does not refresh when the user presses refresh."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "clarify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "a15f058e-0b46-42a7-a8cf-f6d6a4dcd96c"
+  },
+  {
+    "case": "wj-018",
+    "judgment": "select_artifact",
+    "gold": "research",
+    "input": {
+      "content": "A live VRP scan is stale and does not refresh when the user presses refresh.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "research",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "573267c3-f040-4f25-995c-e1f1cbedc738"
+  },
+  {
+    "case": "wj-018",
+    "judgment": "select_playbook",
+    "gold": "root_cause_analysis",
+    "input": {
+      "content": "A live VRP scan is stale and does not refresh when the user presses refresh.",
+      "next_intent": "research",
+      "artifact_type": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "browser_ui_verification",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "96a6a4cd-ba60-4d7e-9c6c-1be267d2dbcb"
+  },
+  {
+    "case": "wj-018",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "A live VRP scan is stale and does not refresh when the user presses refresh.",
+      "next_intent": "research"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.15,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "d93d34c4-b488-4013-96c9-4a7bef5a1e88"
+  },
+  {
+    "case": "wj-018",
+    "judgment": "evidence_satisfies_exit",
+    "gold": false,
+    "input": {
+      "content": "A live VRP scan is stale and does not refresh when the user presses refresh."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.05,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "9e381336-09cc-4e2a-83bd-740e43500887"
+  },
+  {
+    "case": "wj-019",
+    "judgment": "classify_data_type",
+    "gold": "github_issue",
+    "input": {
+      "content": "Issue documents a systemic concurrent-agent coordination failure plus a proposal affecting shared work/branching behavior.",
+      "source_ref": "master-repo:evals/datasets/issue-triage-route-v1.json#personal-ops-35"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "github_issue",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "91941fe8-f229-4c28-8278-9b07275f42e8"
+  },
+  {
+    "case": "wj-019",
+    "judgment": "next_intent",
+    "gold": "decide",
+    "input": {
+      "content": "Issue documents a systemic concurrent-agent coordination failure plus a proposal affecting shared work/branching behavior."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "clarify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "bc0ffa9f-0c17-43b7-9617-796045ac61bc"
+  },
+  {
+    "case": "wj-019",
+    "judgment": "select_artifact",
+    "gold": "decision",
+    "input": {
+      "content": "Issue documents a systemic concurrent-agent coordination failure plus a proposal affecting shared work/branching behavior.",
+      "next_intent": "decide"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "decision",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "ff6af3a2-eccc-4ae2-9cf0-036cd1ec11b4"
+  },
+  {
+    "case": "wj-019",
+    "judgment": "select_playbook",
+    "gold": "decision_assessment",
+    "input": {
+      "content": "Issue documents a systemic concurrent-agent coordination failure plus a proposal affecting shared work/branching behavior.",
+      "next_intent": "decide",
+      "artifact_type": "decision"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "decision_assessment",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "aec4d47f-ae59-4743-9606-ae61c3b5988f"
+  },
+  {
+    "case": "wj-019",
+    "judgment": "requires_human_gate",
+    "gold": true,
+    "input": {
+      "content": "Issue documents a systemic concurrent-agent coordination failure plus a proposal affecting shared work/branching behavior.",
+      "next_intent": "decide"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.7,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "3e1f1ae5-5b09-41c8-9967-30285d67951f"
+  },
+  {
+    "case": "wj-020",
+    "judgment": "classify_data_type",
+    "gold": "github_issue",
+    "input": {
+      "content": "Issue states Dagu shadow pilot Levels 0-2 are complete, links evidence, and says production migration is deferred elsewhere.",
+      "source_ref": "master-repo:evals/datasets/issue-triage-route-v1.json#central-repo-ops-238"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "github_issue",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "f9065fcb-3c33-4ef3-914a-47241e9635c9"
+  },
+  {
+    "case": "wj-020",
+    "judgment": "next_intent",
+    "gold": "close",
+    "input": {
+      "content": "Issue states Dagu shadow pilot Levels 0-2 are complete, links evidence, and says production migration is deferred elsewhere."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "9b17c8b5-954a-4471-840f-d100606493e1"
+  },
+  {
+    "case": "wj-020",
+    "judgment": "select_artifact",
+    "gold": "result",
+    "input": {
+      "content": "Issue states Dagu shadow pilot Levels 0-2 are complete, links evidence, and says production migration is deferred elsewhere.",
+      "next_intent": "close"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "work_item_change",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "427f4cfa-70a2-49c6-a6c3-010804147ecc"
+  },
+  {
+    "case": "wj-020",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "input": {
+      "content": "Issue states Dagu shadow pilot Levels 0-2 are complete, links evidence, and says production migration is deferred elsewhere.",
+      "next_intent": "close",
+      "artifact_type": "result"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "none_required",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "2651c775-72b1-4b41-977e-4079f4be1aaa"
+  },
+  {
+    "case": "wj-020",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "Issue states Dagu shadow pilot Levels 0-2 are complete, links evidence, and says production migration is deferred elsewhere.",
+      "next_intent": "close"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.31,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "f6d94a67-a721-451f-8422-d009cb6fe1db"
+  },
+  {
+    "case": "wj-020",
+    "judgment": "evidence_satisfies_exit",
+    "gold": true,
+    "input": {
+      "content": "Issue states Dagu shadow pilot Levels 0-2 are complete, links evidence, and says production migration is deferred elsewhere."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.26,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "3bc7b556-6754-422a-8aa5-d8427d32bed4"
+  },
+  {
+    "case": "wj-021",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "input": {
+      "content": "User asks whether an unfamiliar GitHub project fits the agent runtime and wants viable alternatives compared before adopting anything.",
+      "source_ref": "synthetic:unfamiliar-tool-assessment"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "request",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "9f8a21ea-74a7-457b-87f4-a2d6d8d7b399"
+  },
+  {
+    "case": "wj-021",
+    "judgment": "next_intent",
+    "gold": "explore",
+    "input": {
+      "content": "User asks whether an unfamiliar GitHub project fits the agent runtime and wants viable alternatives compared before adopting anything."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "explore",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "7069a624-b9d4-446c-868d-517cd728cca6"
+  },
+  {
+    "case": "wj-021",
+    "judgment": "select_artifact",
+    "gold": "explore",
+    "input": {
+      "content": "User asks whether an unfamiliar GitHub project fits the agent runtime and wants viable alternatives compared before adopting anything.",
+      "next_intent": "explore"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "explore",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "a80202e6-1c74-4ee1-bfe6-9b1625f41069"
+  },
+  {
+    "case": "wj-021",
+    "judgment": "select_playbook",
+    "gold": "technical_project_exploration",
+    "input": {
+      "content": "User asks whether an unfamiliar GitHub project fits the agent runtime and wants viable alternatives compared before adopting anything.",
+      "next_intent": "explore",
+      "artifact_type": "explore"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "technical_project_exploration",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "1c3af81b-4e7a-4d31-b920-9cf9e255587c"
+  },
+  {
+    "case": "wj-021",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "User asks whether an unfamiliar GitHub project fits the agent runtime and wants viable alternatives compared before adopting anything.",
+      "next_intent": "explore"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.3,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "317ccb5a-0abd-4589-ba14-aa8c98e5d1ca"
+  },
+  {
+    "case": "wj-022",
+    "judgment": "classify_data_type",
+    "gold": "decision",
+    "input": {
+      "content": "Research and alternatives are complete; two architecture options remain with different migration and authority consequences, and the user's choice is required.",
+      "source_ref": "synthetic:consequential-choice-ready"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "open_question",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "d77e0eff-d6c2-4cc6-9bec-bf4c8d677604"
+  },
+  {
+    "case": "wj-022",
+    "judgment": "next_intent",
+    "gold": "decide",
+    "input": {
+      "content": "Research and alternatives are complete; two architecture options remain with different migration and authority consequences, and the user's choice is required."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "decide",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "02c80a90-f021-429a-97d0-88ad976ad7c3"
+  },
+  {
+    "case": "wj-022",
+    "judgment": "select_artifact",
+    "gold": "decision",
+    "input": {
+      "content": "Research and alternatives are complete; two architecture options remain with different migration and authority consequences, and the user's choice is required.",
+      "next_intent": "decide"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "decision",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "4a053ee4-5442-4240-805b-fec9110b55cc"
+  },
+  {
+    "case": "wj-022",
+    "judgment": "select_playbook",
+    "gold": "decision_assessment",
+    "input": {
+      "content": "Research and alternatives are complete; two architecture options remain with different migration and authority consequences, and the user's choice is required.",
+      "next_intent": "decide",
+      "artifact_type": "decision"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "decision_assessment",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "1040bfc5-b442-4162-96a5-38762efc8ee4"
+  },
+  {
+    "case": "wj-022",
+    "judgment": "requires_human_gate",
+    "gold": true,
+    "input": {
+      "content": "Research and alternatives are complete; two architecture options remain with different migration and authority consequences, and the user's choice is required.",
+      "next_intent": "decide"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.9,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "c6b3b4d9-7550-4fca-839f-115bea4f85f4"
+  },
+  {
+    "case": "wj-023",
+    "judgment": "classify_data_type",
+    "gold": "work_item",
+    "input": {
+      "content": "UI implementation is complete; real browser interaction passed, expected content is visibly painted, console is clean, and screenshots/read-back match the requirement.",
+      "source_ref": "synthetic:ui-verification-success"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verification",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "51c262a5-133f-4b42-9178-d8ea5c84bbe9"
+  },
+  {
+    "case": "wj-023",
+    "judgment": "next_intent",
+    "gold": "close",
+    "input": {
+      "content": "UI implementation is complete; real browser interaction passed, expected content is visibly painted, console is clean, and screenshots/read-back match the requirement."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "ccae3a68-1ee7-4b9a-a4c5-fda594d01b32"
+  },
+  {
+    "case": "wj-023",
+    "judgment": "select_artifact",
+    "gold": "result",
+    "input": {
+      "content": "UI implementation is complete; real browser interaction passed, expected content is visibly painted, console is clean, and screenshots/read-back match the requirement.",
+      "next_intent": "close"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "verification_evidence",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "bfab6656-baaf-4e0e-9cea-0b51d18ce736"
+  },
+  {
+    "case": "wj-023",
+    "judgment": "select_playbook",
+    "gold": "none_required",
+    "input": {
+      "content": "UI implementation is complete; real browser interaction passed, expected content is visibly painted, console is clean, and screenshots/read-back match the requirement.",
+      "next_intent": "close",
+      "artifact_type": "result"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "none_required",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "ea3af376-f74a-4113-8289-e3cbdb58a5ac"
+  },
+  {
+    "case": "wj-023",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "UI implementation is complete; real browser interaction passed, expected content is visibly painted, console is clean, and screenshots/read-back match the requirement.",
+      "next_intent": "close"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.18,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "a84b4e38-3f81-4af1-918f-b0efb359aadf"
+  },
+  {
+    "case": "wj-023",
+    "judgment": "evidence_satisfies_exit",
+    "gold": true,
+    "input": {
+      "content": "UI implementation is complete; real browser interaction passed, expected content is visibly painted, console is clean, and screenshots/read-back match the requirement."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.57,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "50c8fcc3-a83f-4bdd-83f8-9ccac87e80d0"
+  },
+  {
+    "case": "wj-024",
+    "judgment": "classify_data_type",
+    "gold": "request",
+    "input": {
+      "content": "A governed task needs a repeatable process for investigating regressions in agent behavior, but none of the active playbooks accurately covers behavior-regression diagnosis and prevention tracking.",
+      "source_ref": "synthetic:missing-playbook"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "state_note",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "3c2be775-5980-46ef-b0ab-9c12806a7f32"
+  },
+  {
+    "case": "wj-024",
+    "judgment": "next_intent",
+    "gold": "plan",
+    "input": {
+      "content": "A governed task needs a repeatable process for investigating regressions in agent behavior, but none of the active playbooks accurately covers behavior-regression diagnosis and prevention tracking."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "clarify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "261e1cbe-4ff5-428e-a785-2e5faf1a3f44"
+  },
+  {
+    "case": "wj-024",
+    "judgment": "select_artifact",
+    "gold": "plan",
+    "input": {
+      "content": "A governed task needs a repeatable process for investigating regressions in agent behavior, but none of the active playbooks accurately covers behavior-regression diagnosis and prevention tracking.",
+      "next_intent": "plan"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "plan",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "1026ab94-d38f-47c7-a8e7-50170db4b4c7"
+  },
+  {
+    "case": "wj-024",
+    "judgment": "select_playbook",
+    "gold": "other_needs_new",
+    "input": {
+      "content": "A governed task needs a repeatable process for investigating regressions in agent behavior, but none of the active playbooks accurately covers behavior-regression diagnosis and prevention tracking.",
+      "next_intent": "plan",
+      "artifact_type": "plan"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "other_needs_new",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "35eb2e97-3587-42ba-9f04-4ef6bb3a0288"
+  },
+  {
+    "case": "wj-024",
+    "judgment": "requires_human_gate",
+    "gold": false,
+    "input": {
+      "content": "A governed task needs a repeatable process for investigating regressions in agent behavior, but none of the active playbooks accurately covers behavior-regression diagnosis and prevention tracking.",
+      "next_intent": "plan"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": 0.33,
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "7a5c794a-edff-4c17-a005-d1430d4d49e8"
+  },
+  {
+    "case": "wj-025",
+    "judgment": "classify_data_type",
+    "gold": "unclear_needs_review",
+    "input": {
+      "content": "Incoming item says only 'do this one' with no resolvable referent, source link, current object, or surrounding context.",
+      "source_ref": "synthetic:insufficient-context"
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "unclear_needs_review",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "370c9f69-32b0-4945-a6ec-023638411fbe"
+  },
+  {
+    "case": "wj-025",
+    "judgment": "next_intent",
+    "gold": "unclear_needs_review",
+    "input": {
+      "content": "Incoming item says only 'do this one' with no resolvable referent, source link, current object, or surrounding context."
+    },
+    "http": 200,
+    "status": "ok",
+    "predicted": "clarify",
+    "review_reasons": [],
+    "model": "jev-1.13.0",
+    "request_id": "8fe32b32-45d4-440e-85d9-7abf04995a8c"
+  }
+]

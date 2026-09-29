@@ -1,0 +1,49 @@
+{
+  "port": 17421,
+  "functions": [
+    {
+      "key": "classify_data_type",
+      "id": "a9781587-a882-4020-a9fd-72e2913965e4",
+      "version": 1,
+      "qid": "primary_data_type",
+      "primitive": "choice"
+    },
+    {
+      "key": "next_intent",
+      "id": "06afcaf1-65eb-4640-a7a6-f161510b6f78",
+      "version": 1,
+      "qid": "next_intent",
+      "primitive": "choice"
+    },
+    {
+      "key": "select_artifact",
+      "id": "7995b187-8f04-40a5-8464-c1cbbec465e4",
+      "version": 1,
+      "qid": "artifact_type",
+      "primitive": "choice"
+    },
+    {
+      "key": "select_playbook",
+      "id": "8f5cae05-7eff-4d33-a8f9-7832844d0ce7",
+      "version": 1,
+      "qid": "playbook_key",
+      "primitive": "choice"
+    },
+    {
+      "key": "requires_human_gate",
+      "id": "21b541e6-13c9-45b4-ba2b-c13e7b598baa",
+      "version": 1,
+      "qid": "requires_human_gate",
+      "primitive": "noul"
+    },
+    {
+      "key": "evidence_satisfies_exit",
+      "id": "3d11e345-3b84-4b33-9b5e-85e6366f9472",
+      "version": 1,
+      "qid": "evidence_satisfies_exit",
+      "primitive": "noul"
+    }
+  ],
+  "client_token": "[redacted]",
+  "client_id": "2d7dbe0c-0600-46a3-9e8a-35ead30219ba"
+}
