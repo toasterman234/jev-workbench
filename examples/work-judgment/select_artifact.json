@@ -51,7 +51,7 @@
   "questions": {
     "artifact_type": {
       "type": "choice",
-      "instructions": "Choose the durable artifact appropriate to this governed intent. Prefer updating an existing applicable artifact over creating a duplicate. Execute may update a Work Item plus linked evidence instead of creating a standalone document. Choose none_required when durable state/evidence can be updated without a separate artifact. Choose other_needs_new when a necessary artifact type is absent. Choose unclear_needs_review when current context cannot determine the artifact.",
+      "instructions": "Choose the durable artifact appropriate to this governed intent. Prefer updating an existing applicable artifact over creating a duplicate. Execute records a result: the Work Item state update plus linked evidence. Choose none_required when durable state/evidence can be updated without a separate artifact. Choose other_needs_new when a necessary artifact type is absent. Choose unclear_needs_review when current context cannot determine the artifact.",
       "criteria": {
         "intake_record": "Durable intake/classification and routing record.",
         "explore": "Durable Explore artifact.",
@@ -59,9 +59,8 @@
         "decision": "Durable Decision record.",
         "proposal": "Durable Proposal awaiting evaluation/approval.",
         "plan": "Durable Plan.",
-        "work_item_change": "Durable Work Item change/state update plus linked evidence.",
         "verification_evidence": "Durable verification record/evidence package.",
-        "result": "Durable accepted/rejected outcome/result.",
+        "result": "Durable outcome of a governed lifecycle transition: the work item's state update plus linked evidence and the accepted/rejected outcome.",
         "run_record": "Durable execution/run record.",
         "promotion_candidate": "Durable candidate for broader/master promotion.",
         "evidence": "Evidence object when evidence itself is the durable output.",
@@ -110,7 +109,6 @@
           "decision",
           "proposal",
           "plan",
-          "work_item_change",
           "verification_evidence",
           "result",
           "run_record",
@@ -126,5 +124,12 @@
       "artifact_type"
     ],
     "additionalProperties": false
-  }
+  },
+  "changelog": [
+    {
+      "date": "2026-09-28",
+      "change": "retired work_item_change, superseded by result",
+      "reason": "Phase 1B finding: systematic result->work_item_change confusion on close intent (4/4); Ben decision 2026-09-28: merge, keep result"
+    }
+  ]
 }
