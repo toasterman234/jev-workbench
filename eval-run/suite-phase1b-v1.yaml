@@ -1,0 +1,935 @@
+# Work Judgment Phase 1B evaluation suite — version phase1b-v1
+# Derived from the Phase 1 baseline suite (PR #1 plans/evaluation-cases.yaml @ pr1,
+# 25 cases) WITHOUT modifying the baseline in place. All deltas vs the baseline
+# are documented per case under `delta_vs_baseline` with provenance.
+#
+# Phase 1B changes:
+# 1. Vocabulary: `incident` activated as a choice candidate for classify_data_type.
+#    Provenance: baseline cases wj-011..wj-015 already carried
+#    vocabulary_candidate {category: object_type, key: incident, title: Incident}
+#    ("a useful type not yet active in the seed registry"). The Phase 1 eval showed
+#    the model never predicted other_needs_new for these cases (it predicted
+#    run_record/evidence/state_note instead), confirming a vocabulary gap rather
+#    than a judgment failure. Their expected classify_data_type changes
+#    other_needs_new -> incident IN THIS SUITE VERSION ONLY (baseline untouched).
+# 2. Classification definition: classify_data_type judges the SEMANTIC OBJECT TYPE
+#    of the item (what the thing is in domain terms), NOT its source/container.
+#    The source/container type is recorded separately per case (`source_type`) and
+#    passed as the `source_type` input.
+# 3. next_intent inputs are enriched with the structured context the contract
+#    already supports, ONLY where the source case supports it (see `context`).
+#    Missing context stays missing; nothing is invented.
+# 4. Five new synthetic evidence_satisfies_exit=true cases (wj-026..wj-030), each
+#    clearly marked synthetic, so the boolean is not evaluated almost entirely
+#    on negatives.
+suite: work-judgment-phase1b
+suite_version: phase1b-v1
+baseline_suite: pr1:plans/evaluation-cases.yaml
+composition:
+  carried_over: 25
+  new_synthetic: 5
+  total: 30
+vocabulary_amendments:
+  - function: classify_data_type
+    amendment: added choice `incident`
+    definition: "An operational incident: an unplanned disruption, failure, outage, or urgent problem requiring diagnosis, response, and prevention."
+    provenance: "baseline wj-011..wj-015 vocabulary_candidate (object_type/incident); Phase 1 eval confirmed the gap"
+    review_rules: unchanged
+classification_definition: "classify_data_type judges the SEMANTIC OBJECT TYPE of the item (what the thing is in domain terms), not its source/container. source_type is recorded separately per case and passed as input."
+cases:
+- id: wj-001
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-003
+  observation:
+    summary: User already said 'fix gap' for a small reversible documentation change; agent asked for
+      another approval.
+  expected:
+    classify_data_type: request
+    next_intent: execute
+    select_artifact: work_item_change
+    select_playbook: implementation
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  rationale: 'The go-ahead already exists. The work is small/reversible and execution is the next intent.
+    No completion evidence exists yet.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: User already approved the small reversible documentation fix ('fix gap'); agent re-asked
+      for approval instead of executing.
+    known_decisions:
+    - user approval for the documentation fix ('fix gap')
+  gate_context:
+    proposed_action: execute the small reversible documentation fix
+    existing_approval: true
+- id: wj-002
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-004
+  observation:
+    summary: A visual app was delivered as 'verified end-to-end' using API/HTTP evidence, but no real
+      browser render was observed and the user saw an error.
+  expected:
+    classify_data_type: request
+    next_intent: verify
+    select_artifact: verification_evidence
+    select_playbook: browser_ui_verification
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  rationale: 'A browser/UI surface requires actual render and interaction evidence. HTTP health and shape
+    counts cannot satisfy the visual verification exit condition.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: Delivered as 'verified end-to-end' on API/HTTP evidence only; no real browser render
+      observed; user saw an error.
+    browser_or_ui_in_scope: true
+  evidence_context:
+    required_evidence:
+    - real browser render observed
+    available_evidence:
+    - API/HTTP health evidence
+    verification_summary: API/HTTP checks only; no browser render observed; user saw an error
+    browser_or_ui_in_scope: true
+    browser_verification_present: false
+- id: wj-003
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-007
+  observation:
+    summary: A screenshot offered as proof does not show the claimed nodes; DOM presence was mistaken
+      for visible rendering.
+  expected:
+    classify_data_type: request
+    next_intent: verify
+    select_artifact: verification_evidence
+    select_playbook: browser_ui_verification
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  rationale: 'The claim has been directly challenged by the proof artifact. Re-verify what is visibly
+    painted in the viewport before any completion claim.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: Offered screenshot does not show the claimed nodes; DOM presence was mistaken for visible
+      rendering.
+    browser_or_ui_in_scope: true
+  evidence_context:
+    required_evidence:
+    - screenshot showing claimed nodes visibly painted
+    available_evidence:
+    - screenshot (does not show claimed nodes)
+    - DOM presence
+    verification_summary: DOM presence mistaken for visible rendering
+    browser_or_ui_in_scope: true
+    browser_verification_present: false
+- id: wj-004
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-008
+  observation:
+    summary: User rejects the current visualization format and asks what other views/layouts/formats are
+      available.
+  expected:
+    classify_data_type: request
+    next_intent: explore
+    select_artifact: explore
+    select_playbook: technical_project_exploration
+    requires_human_gate: false
+  rationale: 'The solution space needs alternatives compared against the user''s comprehension goal. This
+    is exploration, not another implementation of the rejected medium.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: User rejected the current visualization format; asks what other views/layouts/formats
+      are available.
+- id: wj-005
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-011
+  observation:
+    summary: User says the diagram is bad and asks to 'see everything' without defining what everything
+      means or the desired level of detail.
+  expected:
+    classify_data_type: request
+    next_intent: clarify
+    select_artifact: none_required
+    select_playbook: none_required
+    requires_human_gate: false
+  rationale: 'The immediate missing state is a usable requirement, not an artifact or build. Ask a small
+    number of specific questions before choosing a new medium.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: User says the diagram is bad and asks to 'see everything' without defining scope or
+      detail level.
+    blockers_or_unknowns:
+    - what 'everything' means
+    - desired level of detail
+- id: wj-006
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-013
+  observation:
+    summary: A requested one-canvas drill-down would require silently changing the design into seven separate
+      files/pages.
+  expected:
+    classify_data_type: request
+    next_intent: clarify
+    select_artifact: none_required
+    select_playbook: none_required
+    requires_human_gate: true
+  rationale: 'The implementation would materially change an explicit UX constraint. Execution must stop
+    for the user''s choice rather than silently changing the product shape.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: Explicit one-canvas UX constraint; the requested drill-down would silently change it
+      into seven separate pages.
+    blockers_or_unknowns:
+    - 'user''s choice: keep one canvas or accept seven pages'
+  gate_context:
+    proposed_action: change the design from one canvas to seven pages
+    risk_or_consequence: materially changes an explicit UX constraint without user consent
+    existing_approval: false
+- id: wj-007
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-014
+  observation:
+    summary: A merge plan has open decisions that require the user's tap, but it was delivered only as
+      a repo file and chat text.
+  expected:
+    classify_data_type: plan
+    next_intent: review
+    select_artifact: plan
+    select_playbook: decision_assessment
+    requires_human_gate: true
+    evidence_satisfies_exit: false
+  rationale: 'The plan exists but is not approved because unresolved decisions remain. The next intent
+    is a human-facing review/decision checkpoint.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: Merge plan delivered as repo file + chat text; open decisions unresolved; plan not
+      approved.
+    known_artifacts:
+    - merge plan (repo file)
+    - merge plan (chat text)
+    blockers_or_unknowns:
+    - open decisions requiring the user's tap
+  gate_context:
+    proposed_action: proceed on the merge plan while decisions are still open
+    existing_approval: false
+  evidence_context:
+    required_evidence:
+    - approval of the merge plan
+    available_evidence:
+    - merge plan (repo file + chat text)
+    verification_summary: plan exists but open decisions unresolved; not approved
+- id: wj-008
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-023
+  observation:
+    summary: Agent repeatedly claims completion without nearby tests, read-back, health checks, or other
+      verification proof.
+  expected:
+    classify_data_type: result
+    next_intent: verify
+    select_artifact: verification_evidence
+    select_playbook: none_required
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  rationale: 'A completion claim is not evidence. Verification must occur before the result can be accepted
+    or closed.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: Agent repeatedly claims completion without tests, read-back, health checks, or other
+      verification proof.
+    implementation_complete: true
+  evidence_context:
+    required_evidence:
+    - tests
+    - read-back
+    - health checks
+    available_evidence:
+    - agent's completion claim
+    verification_summary: no verification proof offered
+- id: wj-009
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-026
+  observation:
+    summary: A static page was marked successful even though the recipient-facing render was broken and
+      a stated tone-choice requirement was inverted.
+  expected:
+    classify_data_type: work_item
+    next_intent: verify
+    select_artifact: verification_evidence
+    select_playbook: browser_ui_verification
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  rationale: 'The user-facing page has not satisfied render or requirement coverage. Browser verification
+    is required before delivery can be accepted.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: Static page marked successful; recipient-facing render broken; tone-choice requirement
+      inverted.
+    implementation_complete: true
+    browser_or_ui_in_scope: true
+  evidence_context:
+    required_evidence:
+    - recipient-facing render verified
+    - tone-choice requirement met
+    available_evidence:
+    - agent's success mark
+    verification_summary: render broken; tone requirement inverted
+    browser_or_ui_in_scope: true
+    browser_verification_present: false
+- id: wj-010
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/agent-behavior-v1.json#agent-behavior-027
+  observation:
+    summary: A multi-phase plan has already been approved with 'Go'; the agent asks for approval again
+      at each internal phase boundary.
+  expected:
+    classify_data_type: work_item
+    next_intent: execute
+    select_artifact: work_item_change
+    select_playbook: implementation
+    requires_human_gate: false
+  rationale: 'Internal phase boundaries are not new user decisions. Continue the approved plan until a
+    real blocker or human-only decision appears.
+
+    '
+  source_type: agent-behavior eval case
+  context:
+    current_state: Multi-phase plan approved with 'Go'; agent re-asks for approval at each internal phase
+      boundary.
+    known_decisions:
+    - multi-phase plan approved ('Go')
+  gate_context:
+    proposed_action: continue executing the approved multi-phase plan
+    existing_approval: true
+- id: wj-011
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/incident-agent-v1.json#incident-agent-001
+  observation:
+    summary: An agent audit incorrectly reports existing vault folders as missing and doubles down after
+      correction.
+  expected:
+    classify_data_type: incident
+    next_intent: research
+    select_artifact: research
+    select_playbook: root_cause_analysis
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  vocabulary_candidate:
+    category: object_type
+    key: incident
+    title: Incident
+  rationale: 'The source is an operational incident, a useful type not yet active in the seed registry.
+    Diagnosis should use RCA rather than another blind fix.
+
+    '
+  source_type: incident-agent eval case
+  context:
+    current_state: Agent audit incorrectly reported existing vault folders as missing; doubled down after
+      correction.
+  evidence_context:
+    required_evidence:
+    - root cause diagnosis
+    available_evidence:
+    - incorrect audit
+    - correction
+    verification_summary: no diagnosis performed
+  delta_vs_baseline: 'expected.classify_data_type: other_needs_new -> incident. Provenance: baseline carried
+    vocabulary_candidate {category: object_type, key: incident, title: Incident} (''a useful type not
+    yet active in the seed registry''); Phase 1 eval showed the model never predicted other_needs_new
+    for these cases (predicted run_record/evidence/state_note), confirming a vocabulary gap. Incident
+    activated as a choice candidate in this suite version only; baseline suite untouched.'
+- id: wj-012
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/incident-agent-v1.json#incident-agent-004
+  observation:
+    summary: Agent calls intermittently time out around 120 seconds; retry shortly afterward succeeds,
+      suggesting a timing/race or infrastructure mechanism.
+  expected:
+    classify_data_type: incident
+    next_intent: research
+    select_artifact: research
+    select_playbook: root_cause_analysis
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  vocabulary_candidate:
+    category: object_type
+    key: incident
+    title: Incident
+  rationale: 'The symptom needs evidence-backed diagnosis before a corrective change. Existing evidence
+    does not yet establish an exit condition.
+
+    '
+  source_type: incident-agent eval case
+  context:
+    current_state: Agent calls intermittently time out around 120s; retry shortly afterward succeeds.
+  evidence_context:
+    required_evidence:
+    - established mechanism for the timeouts
+    available_evidence:
+    - timeout observations
+    - successful retry
+    verification_summary: mechanism unknown
+  delta_vs_baseline: 'expected.classify_data_type: other_needs_new -> incident. Provenance: baseline carried
+    vocabulary_candidate {category: object_type, key: incident, title: Incident} (''a useful type not
+    yet active in the seed registry''); Phase 1 eval showed the model never predicted other_needs_new
+    for these cases (predicted run_record/evidence/state_note), confirming a vocabulary gap. Incident
+    activated as a choice candidate in this suite version only; baseline suite untouched.'
+- id: wj-013
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/incident-agent-v1.json#incident-agent-007
+  observation:
+    summary: A 120-second timeout resembles a prior incident, but evidence says the mechanism may differ.
+  expected:
+    classify_data_type: incident
+    next_intent: research
+    select_artifact: research
+    select_playbook: root_cause_analysis
+    requires_human_gate: false
+  vocabulary_candidate:
+    category: object_type
+    key: incident
+    title: Incident
+  rationale: 'Similar symptoms must not be treated as the same root cause. RCA should compare mechanisms
+    and prior evidence before classifying recurrence.
+
+    '
+  source_type: incident-agent eval case
+  context:
+    current_state: 120s timeout resembles a prior incident, but evidence says the mechanism may differ.
+    known_artifacts:
+    - prior incident record
+  delta_vs_baseline: 'expected.classify_data_type: other_needs_new -> incident. Provenance: baseline carried
+    vocabulary_candidate {category: object_type, key: incident, title: Incident} (''a useful type not
+    yet active in the seed registry''); Phase 1 eval showed the model never predicted other_needs_new
+    for these cases (predicted run_record/evidence/state_note), confirming a vocabulary gap. Incident
+    activated as a choice candidate in this suite version only; baseline suite untouched.'
+- id: wj-014
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/incident-agent-v1.json#incident-agent-010
+  observation:
+    summary: The exact sorter/onboarding failure recurs after prior prevention was supposedly implemented.
+  expected:
+    classify_data_type: incident
+    next_intent: research
+    select_artifact: research
+    select_playbook: root_cause_analysis
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  vocabulary_candidate:
+    category: object_type
+    key: incident
+    title: Incident
+  rationale: 'Recurrence after a supposed fix requires diagnosis of why prevention failed, not another
+    symptom-level patch.
+
+    '
+  source_type: incident-agent eval case
+  context:
+    current_state: Sorter/onboarding failure recurred after prevention was supposedly implemented.
+    known_artifacts:
+    - prior prevention implementation
+  evidence_context:
+    required_evidence:
+    - diagnosis of why prevention failed
+    available_evidence:
+    - recurrence observed
+    verification_summary: no new diagnosis performed
+  recurring_or_foundational_issue: true
+  delta_vs_baseline: 'expected.classify_data_type: other_needs_new -> incident. Provenance: baseline carried
+    vocabulary_candidate {category: object_type, key: incident, title: Incident} (''a useful type not
+    yet active in the seed registry''); Phase 1 eval showed the model never predicted other_needs_new
+    for these cases (predicted run_record/evidence/state_note), confirming a vocabulary gap. Incident
+    activated as a choice candidate in this suite version only; baseline suite untouched.'
+- id: wj-015
+  source:
+    kind: approved_eval
+    ref: master-repo:evals/datasets/incident-agent-v1.json#incident-agent-013
+  observation:
+    summary: The same timeout symptom returns, but the previously fixed retry race is absent; evidence
+      points toward a wrong earlier root cause.
+  expected:
+    classify_data_type: incident
+    next_intent: research
+    select_artifact: research
+    select_playbook: root_cause_analysis
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  vocabulary_candidate:
+    category: object_type
+    key: incident
+    title: Incident
+  rationale: 'This is a classic RCA-reassessment case: verify the foundational mechanism and update the
+    diagnosis rather than assuming the earlier explanation remains true.
+
+    '
+  source_type: incident-agent eval case
+  context:
+    current_state: Timeout symptom returned; previously fixed retry race absent; earlier root cause likely
+      wrong.
+  delta_vs_baseline: 'expected.classify_data_type: other_needs_new -> incident. Provenance: baseline carried
+    vocabulary_candidate {category: object_type, key: incident, title: Incident} (''a useful type not
+    yet active in the seed registry''); Phase 1 eval showed the model never predicted other_needs_new
+    for these cases (predicted run_record/evidence/state_note), confirming a vocabulary gap. Incident
+    activated as a choice candidate in this suite version only; baseline suite untouched.'
+- id: wj-016
+  source:
+    kind: labeled_github_issue
+    ref: master-repo:evals/datasets/issue-triage-route-v1.json#central-repo-ops-352
+  observation:
+    summary: Small logging-only GitHub issue with a concrete requested code change and no unresolved design
+      choice.
+  expected:
+    classify_data_type: github_issue
+    next_intent: execute
+    select_artifact: work_item_change
+    select_playbook: implementation
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  rationale: 'The desired change is explicit and reversible. Implement and verify it; no new exploratory
+    or human decision gate is required.
+
+    '
+  source_type: github issue
+  context:
+    current_state: Small logging-only GitHub issue with a concrete requested code change; no unresolved
+      design choice.
+  evidence_context:
+    required_evidence:
+    - implemented change verified
+    available_evidence:
+    - none yet
+    verification_summary: change not yet implemented
+- id: wj-017
+  source:
+    kind: labeled_github_issue
+    ref: master-repo:evals/datasets/issue-triage-route-v1.json#ax-plane-13
+  observation:
+    summary: Issue asks where a kanban/operations board should fit, how it should interact with agents/workflows,
+      and what options exist.
+  expected:
+    classify_data_type: github_issue
+    next_intent: explore
+    select_artifact: explore
+    select_playbook: technical_project_exploration
+    requires_human_gate: false
+  rationale: 'This is explicitly an option/fit assessment. Explore the design space before deciding or
+    planning implementation.
+
+    '
+  source_type: github issue
+  context:
+    current_state: 'Open question: where a kanban/operations board fits, how it interacts with agents/workflows,
+      what options exist.'
+- id: wj-018
+  source:
+    kind: labeled_github_issue
+    ref: master-repo:evals/datasets/issue-triage-route-v1.json#electra-pwa-14
+  observation:
+    summary: A live VRP scan is stale and does not refresh when the user presses refresh.
+  expected:
+    classify_data_type: github_issue
+    next_intent: research
+    select_artifact: research
+    select_playbook: root_cause_analysis
+    requires_human_gate: false
+    evidence_satisfies_exit: false
+  rationale: 'The defect mechanism is unknown. Diagnose the refresh path and establish root cause before
+    implementing a fix.
+
+    '
+  source_type: github issue
+  context:
+    current_state: Live VRP scan is stale; does not refresh when the user presses refresh.
+    browser_or_ui_in_scope: true
+  evidence_context:
+    required_evidence:
+    - refresh path diagnosed
+    available_evidence:
+    - stale scan observation
+    verification_summary: mechanism unknown
+- id: wj-019
+  source:
+    kind: labeled_github_issue
+    ref: master-repo:evals/datasets/issue-triage-route-v1.json#personal-ops-35
+  observation:
+    summary: Issue documents a systemic concurrent-agent coordination failure plus a proposal affecting
+      shared work/branching behavior.
+  expected:
+    classify_data_type: github_issue
+    next_intent: decide
+    select_artifact: decision
+    select_playbook: decision_assessment
+    requires_human_gate: true
+  rationale: 'The problem is already investigated enough to present a consequential operating model choice.
+    Adoption changes shared agent behavior and needs human authority.
+
+    '
+  source_type: github issue
+  context:
+    current_state: Issue documents a systemic concurrent-agent coordination failure plus a proposal affecting
+      shared work/branching behavior.
+    known_decisions:
+    - proposal affecting shared work/branching behavior (documented in issue)
+  gate_context:
+    proposed_action: adopt the proposal changing shared work/branching behavior
+    risk_or_consequence: changes shared agent behavior across concurrent agents
+    existing_approval: false
+  recurring_or_foundational_issue: true
+- id: wj-020
+  source:
+    kind: labeled_github_issue
+    ref: master-repo:evals/datasets/issue-triage-route-v1.json#central-repo-ops-238
+  observation:
+    summary: Issue states Dagu shadow pilot Levels 0-2 are complete, links evidence, and says production
+      migration is deferred elsewhere.
+  expected:
+    classify_data_type: github_issue
+    next_intent: close
+    select_artifact: result
+    select_playbook: none_required
+    requires_human_gate: false
+    evidence_satisfies_exit: true
+  rationale: 'The tracked pilot outcome is complete and evidence is recorded; remaining future work moved
+    to another item. This issue can close rather than restart execution.
+
+    '
+  source_type: github issue
+  context:
+    current_state: Dagu shadow pilot Levels 0-2 complete; evidence linked; production migration deferred
+      elsewhere.
+    known_artifacts:
+    - pilot evidence (linked)
+    implementation_complete: true
+  evidence_context:
+    required_evidence:
+    - pilot completion evidence
+    available_evidence:
+    - linked pilot evidence (Levels 0-2 complete)
+    verification_summary: Levels 0-2 complete per linked evidence
+- id: wj-021
+  source:
+    kind: synthetic
+    ref: synthetic:unfamiliar-tool-assessment
+  observation:
+    summary: User asks whether an unfamiliar GitHub project fits the agent runtime and wants viable alternatives
+      compared before adopting anything.
+  expected:
+    classify_data_type: request
+    next_intent: explore
+    select_artifact: explore
+    select_playbook: technical_project_exploration
+    requires_human_gate: false
+  rationale: 'The solution space and fit are not yet understood; exploration precedes decision.
+
+    '
+  source_type: synthetic case
+  context:
+    current_state: Unfamiliar GitHub project; fit with agent runtime unknown; alternatives not yet compared.
+- id: wj-022
+  source:
+    kind: synthetic
+    ref: synthetic:consequential-choice-ready
+  observation:
+    summary: Research and alternatives are complete; two architecture options remain with different migration
+      and authority consequences, and the user's choice is required.
+  expected:
+    classify_data_type: decision
+    next_intent: decide
+    select_artifact: decision
+    select_playbook: decision_assessment
+    requires_human_gate: true
+  rationale: 'Sufficient evidence exists to choose, but the consequential choice belongs to the human
+    authority rather than autonomous execution.
+
+    '
+  source_type: synthetic case
+  context:
+    current_state: Research and alternatives complete; two architecture options remain; user's choice
+      required.
+    known_artifacts:
+    - completed research and alternatives
+    blockers_or_unknowns:
+    - user's architecture choice
+  gate_context:
+    proposed_action: choose between the two architecture options
+    existing_approval: false
+- id: wj-023
+  source:
+    kind: synthetic
+    ref: synthetic:ui-verification-success
+  observation:
+    summary: UI implementation is complete; real browser interaction passed, expected content is visibly
+      painted, console is clean, and screenshots/read-back match the requirement.
+  expected:
+    classify_data_type: work_item
+    next_intent: close
+    select_artifact: result
+    select_playbook: none_required
+    requires_human_gate: false
+    evidence_satisfies_exit: true
+  rationale: 'Required browser verification exists and satisfies the exit conditions, so the work can
+    advance from verification to closure.
+
+    '
+  source_type: synthetic case
+  context:
+    current_state: UI implementation complete; real browser interaction passed; content visibly painted;
+      console clean; screenshots/read-back match requirement.
+    implementation_complete: true
+    browser_or_ui_in_scope: true
+  evidence_context:
+    required_evidence:
+    - browser interaction passed
+    - content visibly painted
+    - console clean
+    - screenshots/read-back match
+    available_evidence:
+    - browser interaction results
+    - screenshots/read-back
+    verification_summary: real browser interaction passed; content painted; console clean
+    browser_or_ui_in_scope: true
+    browser_verification_present: true
+- id: wj-024
+  source:
+    kind: synthetic
+    ref: synthetic:missing-playbook
+  observation:
+    summary: A governed task needs a repeatable process for investigating regressions in agent behavior,
+      but none of the active playbooks accurately covers behavior-regression diagnosis and prevention
+      tracking.
+  expected:
+    classify_data_type: request
+    next_intent: plan
+    select_artifact: plan
+    select_playbook: other_needs_new
+    requires_human_gate: false
+  proposed_registry_entry:
+    category: playbook
+    key: investigate_agent_behavior_regression
+    title: Investigate Agent Behavior Regression
+    status: proposed
+  rationale: 'Do not force-fit RCA or implementation if the desired governed process is materially different.
+    Capture the missing playbook as a proposal.
+
+    '
+  source_type: synthetic case
+  context:
+    current_state: Governed task needs a repeatable process for behavior-regression investigation; no
+      active playbook covers it.
+    blockers_or_unknowns:
+    - which governed process covers behavior-regression diagnosis and prevention tracking
+- id: wj-025
+  source:
+    kind: synthetic
+    ref: synthetic:insufficient-context
+  observation:
+    summary: Incoming item says only 'do this one' with no resolvable referent, source link, current object,
+      or surrounding context.
+  expected:
+    classify_data_type: unclear_needs_review
+    next_intent: unclear_needs_review
+  rationale: 'There is not enough information to identify what the item is or which lifecycle intent should
+    follow. The model must not invent a referent.
+
+    '
+  source_type: synthetic case
+- id: wj-026
+  synthetic: true
+  source:
+    kind: synthetic
+    ref: synthetic:backup-migration-closeout
+  observation:
+    summary: 'Work item ''migrate nightly backup to new bucket'' is done: the run log shows three consecutive
+      successful nightly runs on the new bucket, the verification checklist is signed off, and the old
+      bucket shows zero reads for seven days.'
+  context:
+    current_state: migration done; 3 successful nightly runs on new bucket; old bucket idle 7 days
+    known_artifacts:
+    - run log (3 successful nightly runs)
+    - signed verification checklist
+    implementation_complete: true
+  evidence_context:
+    required_evidence:
+    - successful runs on new bucket
+    - verification sign-off
+    - old bucket idle
+    available_evidence:
+    - run log (3 successful nightly runs)
+    - signed checklist
+    - old bucket zero reads for 7 days
+    verification_summary: all exit evidence present and consistent
+  expected:
+    classify_data_type: work_item
+    next_intent: close
+    select_artifact: result
+    select_playbook: none_required
+    requires_human_gate: false
+    evidence_satisfies_exit: true
+  rationale: Required evidence (successful runs, sign-off, idle old bucket) directly satisfies the migration
+    exit conditions.
+  provenance: Phase 1B synthetic positive case for evidence_satisfies_exit (the baseline evaluated it
+    almost entirely on negatives).
+  source_type: synthetic case
+- id: wj-027
+  synthetic: true
+  source:
+    kind: synthetic
+    ref: synthetic:research-question-answered
+  observation:
+    summary: The open question was which Postgres version the fleet runs. The research note cites the
+      inventory export showing 15.4 on all 12 hosts, confirmed by the DBA in the thread.
+  context:
+    current_state: research question answered with inventory export plus DBA confirmation
+    known_artifacts:
+    - inventory export (12 hosts on 15.4)
+    - DBA confirmation
+  evidence_context:
+    required_evidence:
+    - fleet Postgres version from an authoritative source
+    available_evidence:
+    - inventory export (15.4 on 12 hosts)
+    - DBA confirmation
+    verification_summary: two independent sources agree
+  expected:
+    classify_data_type: evidence
+    next_intent: close
+    requires_human_gate: false
+    evidence_satisfies_exit: true
+  rationale: The evidence directly answers the research question with two independent sources; no further
+    work is required.
+  provenance: Phase 1B synthetic positive case for evidence_satisfies_exit.
+  source_type: synthetic case
+- id: wj-028
+  synthetic: true
+  source:
+    kind: synthetic
+    ref: synthetic:plan-approved-decisions-resolved
+  observation:
+    summary: The migration plan's three open decisions were resolved in yesterday's review; the decision
+      record is linked and the owner approved the plan this morning.
+  context:
+    current_state: three open decisions resolved; owner approved the plan
+    known_artifacts:
+    - decision record (linked)
+    - approved plan
+    known_decisions:
+    - three open decisions resolved in review
+    - owner approved the plan
+  gate_context:
+    proposed_action: execute the approved migration plan
+    existing_approval: true
+  evidence_context:
+    required_evidence:
+    - decisions resolved
+    - owner approval
+    available_evidence:
+    - linked decision record
+    - owner approval
+    verification_summary: all three decisions resolved; owner approved
+  expected:
+    classify_data_type: plan
+    next_intent: execute
+    select_artifact: plan
+    select_playbook: implementation
+    requires_human_gate: false
+    evidence_satisfies_exit: true
+  rationale: Plan-approval exit conditions (decisions resolved + owner approval) are satisfied by linked
+    evidence; execution is authorized.
+  provenance: Phase 1B synthetic positive case for evidence_satisfies_exit.
+  source_type: synthetic case
+- id: wj-029
+  synthetic: true
+  source:
+    kind: synthetic
+    ref: synthetic:release-qa-signoff
+  observation:
+    summary: The release checklist requires independent QA sign-off. QA signed off this morning and the
+      staging smoke tests all pass; the release notes are published.
+  context:
+    current_state: QA signed off; staging smoke tests pass; release notes published
+    known_artifacts:
+    - QA sign-off
+    - staging smoke test results
+    - release notes
+    implementation_complete: true
+  evidence_context:
+    required_evidence:
+    - independent QA sign-off
+    - staging smoke tests pass
+    available_evidence:
+    - QA sign-off
+    - staging smoke test results
+    verification_summary: QA signed off; smoke tests pass
+    independent_verification_required: true
+    independent_verification_present: true
+  expected:
+    classify_data_type: verification
+    next_intent: close
+    select_artifact: result
+    requires_human_gate: false
+    evidence_satisfies_exit: true
+  rationale: Independent verification required by the checklist is present and passing; the release can
+    close.
+  provenance: Phase 1B synthetic positive case for evidence_satisfies_exit (also exercises independent-verification
+    inputs).
+  source_type: synthetic case
+- id: wj-030
+  synthetic: true
+  source:
+    kind: synthetic
+    ref: synthetic:dba-approved-migration
+  observation:
+    summary: The consequential database migration required DBA approval before proceeding. The DBA approved
+      it in the change ticket with a maintenance window of 02:00-03:00.
+  context:
+    current_state: DBA approval recorded in change ticket; maintenance window 02:00-03:00
+    known_decisions:
+    - DBA approved the migration (change ticket)
+  gate_context:
+    proposed_action: run the database migration in the 02:00-03:00 window
+    existing_approval: true
+  evidence_context:
+    required_evidence:
+    - DBA approval
+    available_evidence:
+    - DBA approval in change ticket
+    verification_summary: approval recorded with maintenance window
+  expected:
+    classify_data_type: decision
+    next_intent: execute
+    select_artifact: work_item_change
+    select_playbook: implementation
+    requires_human_gate: false
+    evidence_satisfies_exit: true
+  rationale: The human-gate exit condition (DBA approval) is satisfied by ticket evidence; the approval
+    is already present so no further gate is required.
+  provenance: Phase 1B synthetic positive case for evidence_satisfies_exit (gate already satisfied).
+  source_type: synthetic case

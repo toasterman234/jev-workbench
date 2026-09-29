@@ -1,0 +1,583 @@
+[
+  {
+    "id": "A-wj-001-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "approval interaction sits on the request/review_request criteria boundary; model chose review_request with low confidence",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-002-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "incident amendment fires on a failure description; whether a botched delivery counts as an 'incident' is a criteria-scope question",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-002-requires_human_gate",
+    "kind": "mismatch",
+    "attribution": "insufficient context",
+    "rationale": "gate input carried only next_intent=verify; no proposed_action/risk context, model hedged at p=0.57",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-003-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "bad expected label",
+    "rationale": "observation is about a screenshot offered as proof (evidence); gold 'request' does not match the semantic object",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-003-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "verify vs research boundary for a bad screenshot; gold verify is reasonable, model chose research",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-004-select_playbook",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "user exploring alternative views; model said none_required despite exploration intent",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-005-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "vague 'see everything' request; model used unclear_needs_review, gold kept request",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-006-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "blocker is literally the user's choice; clarify/decide boundary is thin",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-006-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "for clarify intent the model proposed work_item_change instead of none_required",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-007-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "plan with open decisions needing tap; review vs decide boundary",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-008-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "source-object-type ambiguity",
+    "rationale": "observation blends the claimed result and the absent evidence; classifier could not separate object from source",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-008-select_playbook",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "missing-verification case; model picked browser_ui_verification, gold none_required",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-009-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "incident amendment fires on broken-render failure description; criteria-scope question like wj-002",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-009-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "for verify intent the natural artifact is verification_evidence; model chose work_item_change",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-009-requires_human_gate",
+    "kind": "mismatch",
+    "attribution": "insufficient context",
+    "rationale": "gate input carried only next_intent=verify; model hedged at p=0.55",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-010-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "bad expected label",
+    "rationale": "observation is about a multi-phase plan; gold 'work_item' does not match the semantic object",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-012-select_playbook",
+    "kind": "mismatch",
+    "attribution": "bad expected label",
+    "rationale": "gold intent=research + gold artifact=research, but gold playbook=root_cause_analysis: internally inconsistent gold set; model matched the gold intent",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-013-select_playbook",
+    "kind": "mismatch",
+    "attribution": "bad expected label",
+    "rationale": "same internal inconsistency as wj-012 (gold intent=research vs gold playbook=root_cause_analysis)",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-018-select_playbook",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "browser_or_ui_in_scope flag pulled model to browser_ui_verification over gold root_cause_analysis; playbook precedence unclear",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-019-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "issue with a proposal; decide vs clarify boundary",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-019-select_playbook",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "model keyed on the failure-diagnosis angle (root_cause_analysis) despite gold intent=decide",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-020-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "for close intent on a complete pilot, model chose work_item_change over result",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-021-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "'asks whether X fits' phrased as question; request vs open_question boundary",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-022-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "pending choice between options; decision vs open_question boundary",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-023-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "source-object-type ambiguity",
+    "rationale": "synthetic closeout blends work-item state with verification evidence; classifier keyed on verification language",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-023-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "all checks pass with implementation_complete=true; model said review instead of close",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-023-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "systematic result->work_item_change pattern for close intent (4/4 result golds missed this way in Mode A)",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-024-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "gap-in-coverage observation; request vs risk boundary",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-024-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "no playbook covers the need; plan vs clarify boundary",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-026-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same systematic result->work_item_change pattern for close intent",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-027-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "research note containing evidence; note vs evidence boundary",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-028-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "for execute intent on approved plan, model chose run_record over plan",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-029-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "QA sign-off content; verification vs state_note boundary",
+    "gold_review_needed": true
+  },
+  {
+    "id": "A-wj-029-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "everything signed off; model said execute instead of close",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-029-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same systematic result->work_item_change pattern",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-030-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "approval recorded with window; model said plan instead of execute",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-001-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A: request/review_request boundary",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-002-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A: incident-amendment scope",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-002-requires_human_gate",
+    "kind": "mismatch",
+    "attribution": "insufficient context",
+    "rationale": "same as Mode A: minimal gate context, p=0.57",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-003-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "bad expected label",
+    "rationale": "same as Mode A: observation is evidence, gold says request",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-003-next_intent",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed object_type=evidence (predicted) vs gold request; wrong upstream type pulled intent to research",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-003-select_artifact",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed next_intent=research + object_type=evidence (both mispredicted upstream)",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-004-select_playbook",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-005-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-005-select_artifact",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed object_type=unclear_needs_review (mispredicted) vs gold request",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-005-select_playbook",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed artifact/object types mispredicted upstream (unclear_needs_review chain)",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-006-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A: clarify/decide boundary (upstream object_type matched gold here)",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-006-select_artifact",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed next_intent=decide vs gold clarify",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-006-select_playbook",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed next_intent=decide + artifact=decision vs gold clarify/none_required",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-007-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-008-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "source-object-type ambiguity",
+    "rationale": "same as Mode A",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-008-select_playbook",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed object_type=evidence vs gold result",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-009-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A: incident-amendment scope",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-009-requires_human_gate",
+    "kind": "mismatch",
+    "attribution": "insufficient context",
+    "rationale": "same as Mode A: p=0.56",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-010-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "bad expected label",
+    "rationale": "same as Mode A: observation is a plan",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-010-select_artifact",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed object_type=plan vs gold work_item",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-012-select_playbook",
+    "kind": "mismatch",
+    "attribution": "bad expected label",
+    "rationale": "same as Mode A: internally inconsistent gold set",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-013-select_playbook",
+    "kind": "mismatch",
+    "attribution": "bad expected label",
+    "rationale": "same as Mode A",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-018-select_playbook",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-019-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-019-select_artifact",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed next_intent=clarify vs gold decide",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-019-select_playbook",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed next_intent=clarify + artifact=work_item_change vs gold decide/decision",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-020-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A (upstream matched gold here)",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-022-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-023-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "source-object-type ambiguity",
+    "rationale": "same as Mode A",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-023-next_intent",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed object_type=verification vs gold work_item",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-023-select_artifact",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed next_intent=review + object_type=verification vs gold close/work_item",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-023-select_playbook",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "full upstream chain mispredicted (verification/review/verification_evidence)",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-023-requires_human_gate",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed next_intent=review vs gold close",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-024-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-024-next_intent",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed object_type=risk vs gold request",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-024-select_artifact",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed intent=clarify + object_type=risk vs gold plan/request; model also raised new_vocab_needed (correct signal: the case is about a missing playbook)",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-026-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A (upstream matched gold here)",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-027-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-028-select_artifact",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A (upstream matched gold here)",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-029-classify_data_type",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A",
+    "gold_review_needed": true
+  },
+  {
+    "id": "B-wj-029-next_intent",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed object_type=state_note vs gold verification",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-029-select_artifact",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed next_intent=execute + object_type=state_note vs gold close/verification",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-030-next_intent",
+    "kind": "mismatch",
+    "attribution": "judgment instructions",
+    "rationale": "same as Mode A (upstream matched gold here)",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-030-select_artifact",
+    "kind": "mismatch",
+    "attribution": "upstream error",
+    "rationale": "fed next_intent=plan vs gold execute",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-014-classify_data_type",
+    "kind": "error",
+    "attribution": "actual Workbench limitation",
+    "rationale": "HTTP 502 UPSTREAM_INVALID_RESPONSE: provider response violated the question contract; workbench surfaced the failure, no judgment produced",
+    "gold_review_needed": false
+  },
+  {
+    "id": "A-wj-016-select_artifact",
+    "kind": "error",
+    "attribution": "actual Workbench limitation",
+    "rationale": "HTTP 502 UPSTREAM_INVALID_RESPONSE: provider response violated the question contract",
+    "gold_review_needed": false
+  },
+  {
+    "id": "B-wj-014-classify_data_type",
+    "kind": "error",
+    "attribution": "actual Workbench limitation",
+    "rationale": "HTTP 502 UPSTREAM_INVALID_RESPONSE: provider response violated the question contract (same case as Mode A)",
+    "gold_review_needed": false
+  }
+]

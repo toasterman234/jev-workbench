@@ -1,0 +1,85 @@
+{
+  "date": "2026-09-28",
+  "port": 17422,
+  "suite": "phase1b-v1",
+  "config_branch": "origin/work/work-judgment-phase1",
+  "config_branch_sha": "2fcac3effc610060383722f0967023a54a364b36",
+  "canonical_sha256": {
+    "classify_data_type": "08f49b5443b5d36effff4c01ed941da7a4de7ffc4b8096575fb298a2dbcd4e83",
+    "next_intent": "36179a85bf8ad96ab0c29d8d060c6174fd8da8986aa939ff49f6e222a5d6c90d",
+    "select_artifact": "d8a320f8841429184892cad334870c74e728a8d73383342f0df71e0c145a1d05",
+    "select_playbook": "ec4fb5306ff502b86e3cdd44089af6ead6b11f47906267a7fc8d3b28604c4165",
+    "requires_human_gate": "eb49d3d8ec6f9f6fd2a6c625830d4b29778ad379c428a30ef38447ef77efe0e6",
+    "evidence_satisfies_exit": "7f9b844195fee52220200837fc2e741e24a322d0ec5df366877288b5ff29e364"
+  },
+  "classify_data_type_amended_sha256": "66891919c1c80ff477d4df45fa35282d34ef073f6a7dc21851ad51310a8fdf46",
+  "incident_definition": "An operational incident: an unplanned disruption, failure, outage, or urgent problem requiring diagnosis, response, and prevention.",
+  "functions_reused": true,
+  "functions": [
+    {
+      "key": "classify_data_type",
+      "id": "adaf52e2-6c51-4a55-85ed-45af27a9ec0a",
+      "version": 1,
+      "qid": "primary_data_type",
+      "primitive": "choice",
+      "config_sha256": "66891919c1c80ff477d4df45fa35282d34ef073f6a7dc21851ad51310a8fdf46",
+      "canonical_sha256": "08f49b5443b5d36effff4c01ed941da7a4de7ffc4b8096575fb298a2dbcd4e83",
+      "verified_draft_sha256": "66891919c1c80ff477d4df45fa35282d34ef073f6a7dc21851ad51310a8fdf46"
+    },
+    {
+      "key": "next_intent",
+      "id": "47129129-e835-454d-ae00-c1a0a2c892a8",
+      "version": 1,
+      "qid": "next_intent",
+      "primitive": "choice",
+      "config_sha256": "36179a85bf8ad96ab0c29d8d060c6174fd8da8986aa939ff49f6e222a5d6c90d",
+      "canonical_sha256": "36179a85bf8ad96ab0c29d8d060c6174fd8da8986aa939ff49f6e222a5d6c90d",
+      "verified_draft_sha256": "f2caf72bff4d9278dedec5c59650007b0488e5212498ebe9e3423bf9a85489a4"
+    },
+    {
+      "key": "select_artifact",
+      "id": "138e663c-9770-463e-b624-a77cc5864f69",
+      "version": 1,
+      "qid": "artifact_type",
+      "primitive": "choice",
+      "config_sha256": "d8a320f8841429184892cad334870c74e728a8d73383342f0df71e0c145a1d05",
+      "canonical_sha256": "d8a320f8841429184892cad334870c74e728a8d73383342f0df71e0c145a1d05",
+      "verified_draft_sha256": "bdb74abfc551f2328aa70510bdd6bf4e0219dd2dbfe66d0543847e0fc27a8bb6"
+    },
+    {
+      "key": "select_playbook",
+      "id": "3ac75787-5a1a-485a-8de5-06d5de4b3d14",
+      "version": 1,
+      "qid": "playbook_key",
+      "primitive": "choice",
+      "config_sha256": "ec4fb5306ff502b86e3cdd44089af6ead6b11f47906267a7fc8d3b28604c4165",
+      "canonical_sha256": "ec4fb5306ff502b86e3cdd44089af6ead6b11f47906267a7fc8d3b28604c4165",
+      "verified_draft_sha256": "32c932aaef13668b00cfbea7f2061e4769e0422c1318e94ba1d6b1403c1baa84"
+    },
+    {
+      "key": "requires_human_gate",
+      "id": "5a49ef32-e06d-4f66-81fc-f3010151895f",
+      "version": 1,
+      "qid": "requires_human_gate",
+      "primitive": "noul",
+      "config_sha256": "eb49d3d8ec6f9f6fd2a6c625830d4b29778ad379c428a30ef38447ef77efe0e6",
+      "canonical_sha256": "eb49d3d8ec6f9f6fd2a6c625830d4b29778ad379c428a30ef38447ef77efe0e6",
+      "verified_draft_sha256": "a985a78e41dec02328749d79baf18173a39d94af988cde3dad86a8d593b4f049"
+    },
+    {
+      "key": "evidence_satisfies_exit",
+      "id": "03a8dd82-7ea5-4e1f-92e4-f7b57b3ab98b",
+      "version": 1,
+      "qid": "evidence_satisfies_exit",
+      "primitive": "noul",
+      "config_sha256": "7f9b844195fee52220200837fc2e741e24a322d0ec5df366877288b5ff29e364",
+      "canonical_sha256": "7f9b844195fee52220200837fc2e741e24a322d0ec5df366877288b5ff29e364",
+      "verified_draft_sha256": "df127c0cfea12fa4687faa2eefc4189d6778e85c0214fa6b51ec998d685798d2"
+    }
+  ],
+  "previews": {
+    "attempted": 6,
+    "ok": 6,
+    "note": "smoke previews passed in the initial setup run before the workbench host was killed; functions reused here after draft-checksum verification"
+  }
+}
