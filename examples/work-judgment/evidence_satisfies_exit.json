@@ -1,0 +1,116 @@
+{
+  "format_version": 1,
+  "key": "evidence_satisfies_exit",
+  "name": "Evidence satisfies exit",
+  "description": "Estimate whether available evidence actually satisfies the defined exit or lifecycle-transition conditions.",
+  "when_to_use": "Use before accepting, closing, promoting, or claiming a governed item complete.",
+  "provider": "typesafe",
+  "model": "jev-1.13.0",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "content": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12000,
+        "description": "Exit condition, definition of done, or requirement summary"
+      },
+      "current_state": {
+        "type": "string",
+        "description": "Current authoritative state"
+      },
+      "required_evidence": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Required evidence classes"
+      },
+      "available_evidence": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Available evidence"
+      },
+      "verification_summary": {
+        "type": "string",
+        "description": "What was actually verified and how"
+      },
+      "browser_or_ui_in_scope": {
+        "type": "boolean",
+        "description": "Whether browser/UI behavior is in scope"
+      },
+      "browser_verification_present": {
+        "type": "boolean",
+        "description": "Whether actual browser/UI verification is present"
+      },
+      "independent_verification_required": {
+        "type": "boolean",
+        "description": "Whether independent verification is required"
+      },
+      "independent_verification_present": {
+        "type": "boolean",
+        "description": "Whether independent verification is present"
+      }
+    },
+    "required": [
+      "content"
+    ],
+    "additionalProperties": false
+  },
+  "state_mapping": {
+    "content": "/content",
+    "current_state": "/current_state",
+    "required_evidence": "/required_evidence",
+    "available_evidence": "/available_evidence",
+    "verification_summary": "/verification_summary",
+    "browser_or_ui_in_scope": "/browser_or_ui_in_scope",
+    "browser_verification_present": "/browser_verification_present",
+    "independent_verification_required": "/independent_verification_required",
+    "independent_verification_present": "/independent_verification_present"
+  },
+  "questions": {
+    "evidence_satisfies_exit": {
+      "type": "noul",
+      "instructions": "Estimate whether the available evidence satisfies the supplied exit/transition requirements. Check required evidence classes, not merely whether some evidence exists. For browser/UI work, actual browser verification must be present when required. Independent verification must be present when required. Unit tests alone do not satisfy browser/UI verification. A claimed result without observable/read-back evidence should lean false.",
+      "criteria": {
+        "true": "Required evidence exists, is relevant to the exit conditions, required verification was actually exercised, and no stated unresolved blocker prevents the transition.",
+        "false": "Required evidence is missing, irrelevant, only asserted rather than observed, required browser/independent verification is absent, or exit conditions remain unresolved."
+      }
+    }
+  },
+  "review": {
+    "match": "any",
+    "rules": [
+      {
+        "id": "ambiguous_exit",
+        "source": "/answers/evidence_satisfies_exit/noul",
+        "operator": "between_exclusive",
+        "value": [
+          0.5,
+          0.8
+        ]
+      }
+    ]
+  },
+  "output_mapping": {
+    "evidence_satisfies_exit": {
+      "source": "/answers/evidence_satisfies_exit/noul"
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "evidence_satisfies_exit": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      }
+    },
+    "required": [
+      "evidence_satisfies_exit"
+    ],
+    "additionalProperties": false
+  }
+}
