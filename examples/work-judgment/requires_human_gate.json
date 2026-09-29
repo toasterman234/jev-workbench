@@ -57,7 +57,7 @@
   "questions": {
     "requires_human_gate": {
       "type": "noul",
-      "instructions": "Estimate whether an explicit human gate is required before the proposed transition/action may proceed. A gate is warranted for consequential choices reserved to humans, missing required approval, promotion/merge authority, or policy-defined checkpoints. Do not require a human merely because work is complex. If authority clearly grants the action and no rule requires a checkpoint, lean false.",
+      "instructions": "Estimate whether an explicit human gate is required before the proposed transition/action may proceed. A gate is warranted only for a specific reason: a consequential choice reserved to humans, a missing required approval, promotion/merge authority, or a policy-defined checkpoint. Do not require a human merely because work is complex, uncertain, or touches a failure. Borderline cases lean false: if no specific rule demands a checkpoint and authority grants the action, the answer is false.",
       "criteria": {
         "true": "A policy/authority boundary, consequential decision, promotion/merge action, or required checkpoint means execution must stop until a human explicitly reviews, approves, or decides.",
         "false": "The action is within granted authority and no governing rule requires an explicit human checkpoint before proceeding."
@@ -96,5 +96,12 @@
       "requires_human_gate"
     ],
     "additionalProperties": false
-  }
+  },
+  "changelog": [
+    {
+      "date": "2026-09-28",
+      "change": "instruction rewrite (questions.requires_human_gate.instructions)",
+      "reason": "Ben-approved Phase 1D 2026-09-28: instruction rewrite targeting borderline gate calls (lean false absent a specific rule)"
+    }
+  ]
 }

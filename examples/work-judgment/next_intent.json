@@ -76,7 +76,7 @@
   "questions": {
     "next_intent": {
       "type": "choice",
-      "instructions": "Choose only the next lifecycle intent. Respect current state, existing artifacts, approvals, and blockers. Clarify when missing requirements prevent a governed path. Explore when the solution/problem space is not sufficiently understood. Research when targeted evidence or diagnosis is needed. Decide when sufficient evidence exists but a consequential choice remains. Plan when direction exists and execution needs an explicit plan. Execute only when authorized prerequisites exist. Verify when a result exists and must be validated. Review when another actor/checkpoint must assess work. Close only after exit evidence and follow-up routing are satisfied. Promote only for proven reusable patterns. Do not invent a new intent.",
+      "instructions": "Choose only the next lifecycle intent. Respect current state, existing artifacts, approvals, and blockers. Clarify when the path forward depends on information or answers not yet available. Explore when the solution/problem space is not sufficiently understood. Research when new evidence must be gathered or something not yet understood must be diagnosed. Verify when a result or claim already exists and must be validated \u2014 verification checks an existing claim, research builds understanding. Decide when the facts are in hand and only a consequential choice remains. Plan when direction exists and execution needs an explicit plan, even if no playbook covers the need. Execute when authorized prerequisites exist; a recorded approval is authorization, not a reason to plan again. Review when another actor or checkpoint must assess completed work. Close when exit evidence and follow-up routing are satisfied \u2014 do not loop back to execute or review once the work is complete. Promote only for proven reusable patterns. Do not invent a new intent.",
       "criteria": {
         "intake": "Normalize/classify and establish governed context.",
         "clarify": "Obtain missing scope, target, authority, requirement, or context.",
@@ -147,5 +147,12 @@
       "next_intent"
     ],
     "additionalProperties": false
-  }
+  },
+  "changelog": [
+    {
+      "date": "2026-09-28",
+      "change": "instruction rewrite (questions.next_intent.instructions)",
+      "reason": "Ben-approved Phase 1D 2026-09-28: instruction rewrite targeting clarify/decide, verify/research, review/decide, close-loop, plan/execute discriminators"
+    }
+  ]
 }

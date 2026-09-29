@@ -73,7 +73,7 @@
   "questions": {
     "evidence_satisfies_exit": {
       "type": "noul",
-      "instructions": "Estimate whether the available evidence satisfies the supplied exit/transition requirements. Check required evidence classes, not merely whether some evidence exists. For browser/UI work, actual browser verification must be present when required. Independent verification must be present when required. Unit tests alone do not satisfy browser/UI verification. A claimed result without observable/read-back evidence should lean false.",
+      "instructions": "Estimate whether the available evidence satisfies the supplied exit/transition requirements, applied as written: do not add unstated requirements, and do not waive stated ones. Check required evidence classes, not merely whether some evidence exists. For browser/UI work, actual browser verification must be present when required. Independent verification must be present when required. Unit tests alone do not satisfy browser/UI verification. A claimed result without observable/read-back evidence should lean false.",
       "criteria": {
         "true": "Required evidence exists, is relevant to the exit conditions, required verification was actually exercised, and no stated unresolved blocker prevents the transition.",
         "false": "Required evidence is missing, irrelevant, only asserted rather than observed, required browser/independent verification is absent, or exit conditions remain unresolved."
@@ -112,5 +112,12 @@
       "evidence_satisfies_exit"
     ],
     "additionalProperties": false
-  }
+  },
+  "changelog": [
+    {
+      "date": "2026-09-28",
+      "change": "instruction rewrite (questions.evidence_satisfies_exit.instructions)",
+      "reason": "Ben-approved Phase 1D 2026-09-28: instruction rewrite targeting requirements-as-written discipline"
+    }
+  ]
 }

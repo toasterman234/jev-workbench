@@ -37,7 +37,7 @@
   "questions": {
     "primary_data_type": {
       "type": "choice",
-      "instructions": "Choose what the item itself primarily is, not what action should happen next. Prefer a durable domain object when the context clearly establishes one; otherwise use a source/container type. Do not classify by topic. Choose unclear_needs_review when ambiguity would change routing. Choose other_needs_new when the item is meaningful but no active type fits.",
+      "instructions": "Choose what the item itself primarily IS \u2014 its role \u2014 not the workflow step it implies or the action it asks for. An ask for work, attention, approval, or evaluation is a request, even when phrased as a question and even when vague. A checkpoint asking for assessment is a review_request; an approval interaction that is itself an ask is a request. Prefer a durable domain object when the context clearly establishes one; otherwise use a source/container type. Do not classify by topic. A container that holds evidence is still a note unless its role is to support a claim; a sign-off or validation record is verification, not a state note. Choose unclear_needs_review only when you cannot determine which type fits and the ambiguity would change routing \u2014 vagueness alone is not unclear. Choose other_needs_new when the item is meaningful but no active type fits. When two types are close, decide by the item's primary role, not secondary aspects.",
       "criteria": {
         "request": "A request for work or attention not already represented by a more specific governed object.",
         "intake_record": "A durable intake/classification record.",
@@ -147,6 +147,11 @@
       "date": "2026-09-28",
       "change": "added quality_failure as active choice",
       "reason": "Phase 1B finding: botched-deliverable cases had no home (golds stayed request); Ben decision 2026-09-28: split incident (operational only) vs quality_failure (deliverable quality)"
+    },
+    {
+      "date": "2026-09-28",
+      "change": "instruction rewrite (questions.primary_data_type.instructions)",
+      "reason": "Ben-approved Phase 1D 2026-09-28: instruction rewrite targeting boundary confusion (request vs review_request/open_question/risk/unclear, note vs evidence, verification vs state_note) and low-confidence calls"
     }
   ]
 }

@@ -66,7 +66,7 @@
   "questions": {
     "playbook_key": {
       "type": "choice",
-      "instructions": "Choose a playbook only when it fits the purpose and state. Browser/UI verification should use browser_ui_verification. Recurring, foundational, or repeatedly patched defects should use root_cause_analysis rather than another symptom patch. Do not treat a proposed/draft title as executable authority. Choose none_required when no playbook is needed. Choose other_needs_new when a governed process is needed but no active playbook fits. Choose unclear_needs_review when the playbook cannot be chosen reliably.",
+      "instructions": "Choose a playbook only when it fits the purpose, state, and current intent \u2014 fit the playbook to the intent, not just the topic. Choose by purpose-and-state fit, not by keyword or flag matching: a context flag alone does not select a playbook. Browser/UI verification should use browser_ui_verification. Diagnosing why something failed or keeps failing should use root_cause_analysis; gathering and synthesizing evidence on a topic should use research_and_synthesis. Recurring, foundational, or repeatedly patched defects should use root_cause_analysis rather than another symptom patch. Do not treat a proposed/draft title as executable authority. Choose none_required only when no playbook is needed for this work \u2014 not when you simply cannot see a match. Choose other_needs_new when a governed process is needed but no active playbook fits. Choose unclear_needs_review when the playbook cannot be chosen reliably.",
       "criteria": {
         "technical_project_exploration": "Explore an unfamiliar technical project/tool and compare viable options.",
         "research_and_synthesis": "Gather targeted sources/evidence and synthesize findings.",
@@ -129,5 +129,12 @@
       "playbook_key"
     ],
     "additionalProperties": false
-  }
+  },
+  "changelog": [
+    {
+      "date": "2026-09-28",
+      "change": "instruction rewrite (questions.playbook_key.instructions)",
+      "reason": "Ben-approved Phase 1D 2026-09-28: instruction rewrite targeting intent-fit over topic/flag matching and none_required overuse"
+    }
+  ]
 }
