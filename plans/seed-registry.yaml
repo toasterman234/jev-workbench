@@ -1,0 +1,297 @@
+version: "0.1"
+status: planning
+description: >
+  Seed vocabulary for the Work Judgment System. Reuse Master Repo concepts first,
+  selected Cruxible operational primitives second, and local proposals only where
+  an authoritative concept does not yet exist. This file is not runtime authority.
+
+authority_order:
+  - master-repo
+  - cruxible-agent-operation
+  - cruxible-project-domain
+  - local
+
+registry_entry_contract:
+  required:
+    - category
+    - key
+    - title
+    - status
+    - authority
+  statuses:
+    - proposed
+    - draft
+    - active
+    - retired
+    - superseded
+  fields:
+    category: Registry category.
+    key: Stable machine identifier. Immutable after use by a published judgment or durable record.
+    title: Human-readable editable title.
+    description: Meaning and intended use.
+    status: Registry lifecycle state.
+    authority: Source that governs the term's meaning.
+    source_ref: Optional authoritative source reference.
+    source_version: Optional source revision/version.
+    aliases: Alternate names useful for classification.
+    lifecycle: Optional lifecycle namespace for state entries.
+    supersedes: Optional prior registry key.
+    superseded_by: Optional replacing registry key.
+
+fallbacks:
+  other_needs_new:
+    title: Other / new vocabulary needed
+    description: None of the currently active vocabulary fits; propose a new registry entry.
+  unclear_needs_review:
+    title: Unclear / human review needed
+    description: Available context is insufficient or ambiguous; do not invent a label.
+
+entries:
+  # ---------------------------------------------------------------------------
+  # Intents — Master Repo process vocabulary
+  # ---------------------------------------------------------------------------
+  - {category: intent, key: intake, title: Intake, status: active, authority: master-repo, source_ref: "master-repo:skills/intake"}
+  - {category: intent, key: clarify, title: Clarify, status: active, authority: master-repo, source_ref: "master-repo:process/clarify"}
+  - {category: intent, key: explore, title: Explore, status: active, authority: master-repo, source_ref: "master-repo:skills/explore"}
+  - {category: intent, key: research, title: Research, status: active, authority: master-repo, source_ref: "master-repo:profile/research"}
+  - {category: intent, key: decide, title: Decide, status: active, authority: master-repo, source_ref: "master-repo:skills/decide"}
+  - {category: intent, key: plan, title: Plan, status: active, authority: master-repo, source_ref: "master-repo:skills/plan"}
+  - {category: intent, key: execute, title: Execute, status: active, authority: master-repo, source_ref: "master-repo:skills/execute"}
+  - {category: intent, key: verify, title: Verify, status: active, authority: master-repo, source_ref: "master-repo:skills/verify"}
+  - {category: intent, key: review, title: Review, status: active, authority: master-repo, source_ref: "master-repo:process/review"}
+  - {category: intent, key: close, title: Close, status: active, authority: master-repo, source_ref: "master-repo:skills/close"}
+  - {category: intent, key: promote, title: Promote, status: active, authority: master-repo, source_ref: "master-repo:skills/promote"}
+
+  # ---------------------------------------------------------------------------
+  # Core object / data types — Master Repo
+  # ---------------------------------------------------------------------------
+  - {category: object_type, key: request, title: Request, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/Request"}
+  - {category: object_type, key: intake_record, title: Intake Record, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/IntakeRecord"}
+  - {category: object_type, key: project, title: Project, status: active, authority: master-repo, source_ref: "master-repo:lifecycle/project"}
+  - {category: object_type, key: explore, title: Explore, status: active, authority: master-repo, source_ref: "master-repo:lifecycle/explore"}
+  - {category: object_type, key: work_item, title: Work Item, status: active, authority: master-repo, source_ref: "master-repo:lifecycle/work-item"}
+  - {category: object_type, key: decision, title: Decision, status: active, authority: master-repo, source_ref: "master-repo:lifecycle/decision"}
+  - {category: object_type, key: proposal, title: Proposal, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/Proposal"}
+  - {category: object_type, key: plan, title: Plan, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/ApprovedPlan"}
+  - {category: object_type, key: evidence, title: Evidence, status: active, authority: master-repo, source_ref: "master-repo:schemas/evidence"}
+  - {category: object_type, key: result, title: Result, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/Result"}
+  - {category: object_type, key: run_record, title: Run Record, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/RunRecord"}
+  - {category: object_type, key: verification, title: Verification, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/Verification"}
+  - {category: object_type, key: promotion_candidate, title: Promotion Candidate, status: active, authority: master-repo, source_ref: "master-repo:lifecycle/promotion"}
+  - {category: object_type, key: artifact, title: Artifact, status: active, authority: master-repo, source_ref: "master-repo:schemas/artifact"}
+  - {category: object_type, key: template, title: Template, status: draft, authority: local, source_ref: null}
+  - {category: object_type, key: playbook, title: Playbook, status: draft, authority: local, source_ref: null}
+  - {category: object_type, key: source, title: Source, status: active, authority: master-repo, source_ref: "master-repo:explore/Sources"}
+  - {category: object_type, key: finding, title: Finding, status: active, authority: master-repo, source_ref: "master-repo:explore/Findings"}
+  - {category: object_type, key: incident, title: Incident, status: proposed, authority: local, source_ref: "master-repo:evals/datasets/incident-agent-v1.json", description: "Candidate first-class type for an observed operational/system incident requiring diagnosis, recurrence assessment, or RCA."}
+
+  # Source/container types useful for intake classification
+  - {category: data_type, key: note, title: Note, status: active, authority: local}
+  - {category: data_type, key: markdown_file, title: Markdown File, status: active, authority: local}
+  - {category: data_type, key: github_issue, title: GitHub Issue, status: active, authority: local}
+  - {category: data_type, key: repository, title: Repository, status: active, authority: local}
+  - {category: data_type, key: session, title: Agent Session, status: active, authority: local}
+  - {category: data_type, key: document, title: Document, status: active, authority: local}
+
+  # ---------------------------------------------------------------------------
+  # Operational object types — Cruxible
+  # ---------------------------------------------------------------------------
+  - {category: object_type, key: actor, title: Actor, status: active, authority: cruxible-agent-operation, source_ref: "cruxible:agent-operation/Actor"}
+  - {category: object_type, key: review_request, title: Review Request, status: active, authority: cruxible-agent-operation, source_ref: "cruxible:agent-operation/ReviewRequest"}
+  - {category: object_type, key: risk, title: Risk, status: active, authority: cruxible-agent-operation, source_ref: "cruxible:agent-operation/Risk"}
+  - {category: object_type, key: open_question, title: Open Question, status: active, authority: cruxible-agent-operation, source_ref: "cruxible:agent-operation/OpenQuestion"}
+  - {category: object_type, key: state_note, title: State Note, status: active, authority: cruxible-agent-operation, source_ref: "cruxible:agent-operation/StateNote"}
+  - {category: object_type, key: subject_ref, title: Subject Reference, status: active, authority: cruxible-agent-operation, source_ref: "cruxible:agent-operation/SubjectRef"}
+  - {category: object_type, key: capability, title: Capability, status: active, authority: cruxible-project-domain, source_ref: "cruxible:project-domain/Capability"}
+  - {category: object_type, key: product_area, title: Product Area, status: active, authority: cruxible-project-domain, source_ref: "cruxible:project-domain/ProductArea"}
+  - {category: object_type, key: roadmap_item, title: Roadmap Item, status: active, authority: cruxible-project-domain, source_ref: "cruxible:project-domain/RoadmapItem"}
+  - {category: object_type, key: milestone, title: Milestone, status: active, authority: cruxible-project-domain, source_ref: "cruxible:project-domain/Milestone"}
+  - {category: object_type, key: release_line, title: Release Line, status: active, authority: cruxible-project-domain, source_ref: "cruxible:project-domain/ReleaseLine"}
+
+  # ---------------------------------------------------------------------------
+  # Artifact types
+  # ---------------------------------------------------------------------------
+  - {category: artifact_type, key: intake_record, title: Intake Record, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/IntakeRecord"}
+  - {category: artifact_type, key: explore, title: Explore, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/Explore"}
+  - {category: artifact_type, key: research, title: Research, status: active, authority: master-repo, source_ref: "master-repo:profile/research"}
+  - {category: artifact_type, key: decision, title: Decision, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/Decision"}
+  - {category: artifact_type, key: proposal, title: Proposal, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/Proposal"}
+  - {category: artifact_type, key: plan, title: Plan, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/ApprovedPlan"}
+  - {category: artifact_type, key: work_item_change, title: Work Item Change, status: active, authority: master-repo, source_ref: "master-repo:lifecycle/work-item"}
+  - {category: artifact_type, key: verification_evidence, title: Verification Evidence, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/Verification"}
+  - {category: artifact_type, key: result, title: Result, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/Result"}
+  - {category: artifact_type, key: run_record, title: Run Record, status: active, authority: master-repo, source_ref: "master-repo:artifact-trail/RunRecord"}
+  - {category: artifact_type, key: promotion_candidate, title: Promotion Candidate, status: active, authority: master-repo, source_ref: "master-repo:lifecycle/promotion"}
+
+  # ---------------------------------------------------------------------------
+  # Initial templates — titles/contracts only until authoritative source exists
+  # ---------------------------------------------------------------------------
+  - category: template
+    key: explore_v1
+    title: Explore
+    status: draft
+    authority: local
+    description: Structure for question, current understanding, unknowns, options, evidence, findings, open questions, exit condition, and promotion recommendation.
+  - category: template
+    key: research_v1
+    title: Research
+    status: draft
+    authority: local
+    description: Structure for question, sources, findings, confidence, synthesis, and unanswered questions.
+  - category: template
+    key: decision_v1
+    title: Decision
+    status: draft
+    authority: local
+    description: Structure for decision context, options, requirements, evidence, rationale, choice, consequences, and supersession.
+  - category: template
+    key: plan_v1
+    title: Plan
+    status: draft
+    authority: local
+    description: Structure for objective, scope, constraints, work, gates, dependencies, definition of done, and verification.
+  - category: template
+    key: verification_evidence_v1
+    title: Verification Evidence
+    status: draft
+    authority: local
+    description: Structure for requirement, method, observed result, evidence refs, verifier, and pass/fail/needs-review conclusion.
+
+  # ---------------------------------------------------------------------------
+  # Initial playbooks — proposed until authoritative files are linked
+  # ---------------------------------------------------------------------------
+  - {category: playbook, key: technical_project_exploration, title: Technical Project Exploration, status: proposed, authority: local}
+  - {category: playbook, key: research_and_synthesis, title: Research and Synthesis, status: proposed, authority: local}
+  - {category: playbook, key: decision_assessment, title: Decision Assessment, status: proposed, authority: local}
+  - {category: playbook, key: implementation, title: Implementation, status: proposed, authority: local}
+  - {category: playbook, key: root_cause_analysis, title: Root Cause Analysis, status: proposed, authority: local}
+  - {category: playbook, key: browser_ui_verification, title: Browser UI Verification, status: proposed, authority: local}
+
+  # ---------------------------------------------------------------------------
+  # Actions
+  # ---------------------------------------------------------------------------
+  - {category: action, key: classify, title: Classify, status: active, authority: local}
+  - {category: action, key: route, title: Route, status: active, authority: local}
+  - {category: action, key: clarify, title: Clarify, status: active, authority: master-repo}
+  - {category: action, key: investigate, title: Investigate, status: active, authority: local}
+  - {category: action, key: compare, title: Compare, status: active, authority: local}
+  - {category: action, key: propose, title: Propose, status: active, authority: master-repo}
+  - {category: action, key: create, title: Create, status: active, authority: local}
+  - {category: action, key: update, title: Update, status: active, authority: local}
+  - {category: action, key: decompose, title: Decompose, status: active, authority: master-repo}
+  - {category: action, key: execute, title: Execute, status: active, authority: master-repo}
+  - {category: action, key: test, title: Test, status: active, authority: local}
+  - {category: action, key: verify, title: Verify, status: active, authority: master-repo}
+  - {category: action, key: review, title: Review, status: active, authority: local}
+  - {category: action, key: approve, title: Approve, status: active, authority: local}
+  - {category: action, key: reject, title: Reject, status: active, authority: master-repo}
+  - {category: action, key: defer, title: Defer, status: active, authority: cruxible-agent-operation}
+  - {category: action, key: close, title: Close, status: active, authority: master-repo}
+  - {category: action, key: promote, title: Promote, status: active, authority: master-repo}
+  - {category: action, key: supersede, title: Supersede, status: active, authority: master-repo}
+
+  # ---------------------------------------------------------------------------
+  # Relationship types
+  # ---------------------------------------------------------------------------
+  - {category: relationship_type, key: owned_by, title: Owned By, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: depends_on, title: Depends On, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: part_of, title: Part Of, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: spawned_from, title: Spawned From, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: supersedes, title: Supersedes, status: active, authority: master-repo}
+  - {category: relationship_type, key: blocks, title: Blocks, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: mitigates, title: Mitigates, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: answers, title: Answers, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: constrains, title: Constrains, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: targets, title: Targets, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: produces, title: Produces, status: active, authority: master-repo}
+  - {category: relationship_type, key: derived_from, title: Derived From, status: active, authority: master-repo}
+  - {category: relationship_type, key: evidence_for, title: Evidence For, status: active, authority: master-repo}
+  - {category: relationship_type, key: uses, title: Uses, status: active, authority: local}
+  - {category: relationship_type, key: governed_by, title: Governed By, status: active, authority: local}
+  - {category: relationship_type, key: runs_on, title: Runs On, status: active, authority: local}
+  - {category: relationship_type, key: resolves, title: Resolves, status: active, authority: cruxible-agent-operation}
+  - {category: relationship_type, key: affects, title: Affects, status: active, authority: cruxible-project-domain}
+
+  # ---------------------------------------------------------------------------
+  # Evidence types
+  # ---------------------------------------------------------------------------
+  - {category: evidence_type, key: source, title: Source, status: active, authority: master-repo}
+  - {category: evidence_type, key: finding, title: Finding, status: active, authority: master-repo}
+  - {category: evidence_type, key: observation, title: Observation, status: active, authority: master-repo}
+  - {category: evidence_type, key: test_result, title: Test Result, status: active, authority: local}
+  - {category: evidence_type, key: browser_verification, title: Browser Verification, status: active, authority: local}
+  - {category: evidence_type, key: screenshot, title: Screenshot, status: active, authority: local}
+  - {category: evidence_type, key: diff, title: Diff, status: active, authority: local}
+  - {category: evidence_type, key: commit, title: Commit, status: active, authority: local}
+  - {category: evidence_type, key: run_record, title: Run Record, status: active, authority: master-repo}
+  - {category: evidence_type, key: review, title: Review, status: active, authority: cruxible-agent-operation}
+  - {category: evidence_type, key: approval, title: Approval, status: active, authority: master-repo}
+  - {category: evidence_type, key: outcome, title: Outcome, status: active, authority: master-repo}
+
+  # ---------------------------------------------------------------------------
+  # Guards and gates
+  # ---------------------------------------------------------------------------
+  - {category: guard_type, key: evidence_required, title: Evidence Required, status: active, authority: master-repo}
+  - {category: guard_type, key: approved_review, title: Approved Review Required, status: active, authority: cruxible-agent-operation}
+  - {category: guard_type, key: no_unresolved_blocker, title: No Unresolved Blocker, status: active, authority: master-repo}
+  - {category: guard_type, key: decision_required, title: Decision Required, status: active, authority: master-repo}
+  - {category: guard_type, key: definition_of_done_satisfied, title: Definition of Done Satisfied, status: active, authority: master-repo}
+  - {category: guard_type, key: independent_verification_required, title: Independent Verification Required, status: active, authority: master-repo}
+  - {category: guard_type, key: browser_verification_required, title: Browser Verification Required, status: active, authority: local}
+
+  - {category: gate_type, key: human_approval, title: Human Approval, status: active, authority: master-repo}
+  - {category: gate_type, key: approve_experiment, title: Approve Experiment, status: active, authority: master-repo}
+  - {category: gate_type, key: promote_result, title: Promote Result, status: active, authority: master-repo}
+  - {category: gate_type, key: promotion_approval, title: Promotion Approval, status: active, authority: master-repo}
+  - {category: gate_type, key: merge_approval, title: Merge Approval, status: active, authority: local}
+
+  # ---------------------------------------------------------------------------
+  # Namespaced lifecycle states — Master Repo
+  # ---------------------------------------------------------------------------
+  - {category: lifecycle_type, key: project, title: Project Lifecycle, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: project, key: state.project.proposed, title: Proposed, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: project, key: state.project.active, title: Active, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: project, key: state.project.paused, title: Paused, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: project, key: state.project.completed, title: Completed, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: project, key: state.project.archived, title: Archived, status: active, authority: master-repo}
+
+  - {category: lifecycle_type, key: explore, title: Explore Lifecycle, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: explore, key: state.explore.proposed, title: Proposed, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: explore, key: state.explore.exploring, title: Exploring, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: explore, key: state.explore.synthesized, title: Synthesized, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: explore, key: state.explore.decision_pending, title: Decision Pending, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: explore, key: state.explore.promoted, title: Promoted, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: explore, key: state.explore.parked, title: Parked, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: explore, key: state.explore.rejected, title: Rejected, status: active, authority: master-repo}
+
+  - {category: lifecycle_type, key: work_item, title: Work Item Lifecycle, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: work_item, key: state.work_item.proposed, title: Proposed, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: work_item, key: state.work_item.ready, title: Ready, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: work_item, key: state.work_item.in_progress, title: In Progress, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: work_item, key: state.work_item.verification, title: Verification, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: work_item, key: state.work_item.accepted, title: Accepted, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: work_item, key: state.work_item.changes_required, title: Changes Required, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: work_item, key: state.work_item.blocked, title: Blocked, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: work_item, key: state.work_item.closed, title: Closed, status: active, authority: master-repo}
+
+  - {category: lifecycle_type, key: decision, title: Decision Lifecycle, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: decision, key: state.decision.proposed, title: Proposed, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: decision, key: state.decision.accepted, title: Accepted, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: decision, key: state.decision.rejected, title: Rejected, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: decision, key: state.decision.superseded, title: Superseded, status: active, authority: master-repo}
+
+  - {category: lifecycle_type, key: promotion, title: Promotion Lifecycle, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: promotion, key: state.promotion.candidate, title: Candidate, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: promotion, key: state.promotion.evaluated, title: Evaluated, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: promotion, key: state.promotion.approved, title: Approved, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: promotion, key: state.promotion.incorporated, title: Incorporated, status: active, authority: master-repo}
+  - {category: lifecycle_state, lifecycle: promotion, key: state.promotion.propagated, title: Propagated, status: active, authority: master-repo}
+
+  # Cruxible's generic operational lifecycle is kept namespaced to Cruxible-native entities.
+  - {category: lifecycle_type, key: cruxible_operational, title: Cruxible Operational Lifecycle, status: active, authority: cruxible-agent-operation}
+  - {category: lifecycle_state, lifecycle: cruxible_operational, key: state.cruxible.planned, title: Planned, status: active, authority: cruxible-agent-operation}
+  - {category: lifecycle_state, lifecycle: cruxible_operational, key: state.cruxible.active, title: Active, status: active, authority: cruxible-agent-operation}
+  - {category: lifecycle_state, lifecycle: cruxible_operational, key: state.cruxible.blocked, title: Blocked, status: active, authority: cruxible-agent-operation}
+  - {category: lifecycle_state, lifecycle: cruxible_operational, key: state.cruxible.watching, title: Watching, status: active, authority: cruxible-agent-operation}
+  - {category: lifecycle_state, lifecycle: cruxible_operational, key: state.cruxible.deferred, title: Deferred, status: active, authority: cruxible-agent-operation}
+  - {category: lifecycle_state, lifecycle: cruxible_operational, key: state.cruxible.closed, title: Closed, status: active, authority: cruxible-agent-operation}
